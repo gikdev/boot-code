@@ -1,0 +1,13 @@
+{
+  "name": "boot-code",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "node ./scripts/dev.js",
+    "build": "powershell ./scripts/build.ps1"
+  }
+}
