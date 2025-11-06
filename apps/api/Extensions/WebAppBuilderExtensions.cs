@@ -7,7 +7,7 @@ public static class WebAppBuilderExtensions {
     services
       .AddOpenApi(o => o
         .AddDocumentTransformer((doc, ctx, _) => {
-            doc.Info.Version = version.ToString();
+            // doc.Info.Version = version.ToString();
             doc.Info.Title = "Boot Code API";
 
             return Task.CompletedTask;
