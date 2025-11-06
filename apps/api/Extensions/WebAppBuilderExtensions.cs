@@ -1,3 +1,6 @@
+using Api.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace Api.Extensions;
 
 public static class WebAppBuilderExtensions {
@@ -31,6 +34,17 @@ public static class WebAppBuilderExtensions {
           .AllowCredentials();
       });
     });
+
+    return services;
+  }
+
+  public static IServiceCollection AddDatabases(this IServiceCollection services, IConfiguration config) {
+    var defaultDbConnStr = config.GetConnectionString("DefaultDb")
+                        ?? throw new ArgumentException("Missing connection string: 'DefaultDb'.");
+
+    var serverVersion = ServerVersion.AutoDetect(defaultDbConnStr);
+
+    services.AddDbContext<DbCtx>(o => o.UseMySql(defaultDbConnStr, serverVersion));
 
     return services;
   }

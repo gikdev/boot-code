@@ -8,6 +8,7 @@ builder.Services.AddApiDocs(config);
 builder.Services.AddCorsForDev();
 // builder.Services.AddAppServices();
 builder.Services.AddProblemDetails();
+builder.Services.AddDatabases(config);
 
 var app = builder.Build();
 
