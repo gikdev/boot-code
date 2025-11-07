@@ -6,7 +6,7 @@ var config = builder.Configuration;
 builder.Services.AddControllers();
 builder.Services.AddApiDocs(config);
 builder.Services.AddCorsForDev();
-// builder.Services.AddAppServices();
+builder.Services.AddAppServices();
 builder.Services.AddProblemDetails();
 builder.Services.AddDatabases(config);
 

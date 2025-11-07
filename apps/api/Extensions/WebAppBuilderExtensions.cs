@@ -1,4 +1,5 @@
 using Api.Data;
+using Api.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Extensions;
@@ -49,12 +50,9 @@ public static class WebAppBuilderExtensions {
     return services;
   }
 
-  // public static IServiceCollection AddAppServices(this IServiceCollection services) {
-  //   services.AddScoped<IAppInfoService, AppInfoService>();
-  //   services.AddScoped<IJwtService, JwtService>();
-  //   services.AddScoped<IAuthService, AuthService>();
-  //   services.AddScoped<IHashingService, HashingService>();
-  //
-  //   return services;
-  // }
+  public static IServiceCollection AddAppServices(this IServiceCollection services) {
+    services.AddScoped<IAssetsService, AssetsService>();
+
+    return services;
+  }
 }

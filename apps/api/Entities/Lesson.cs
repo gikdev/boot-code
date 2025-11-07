@@ -21,6 +21,9 @@ public class Lesson {
   public int? AudioId { get; set; }
   public Asset? Audio { get; set; }
 
+  public int? FileId { get; set; }
+  public Asset? File { get; set; }
+
   public int ModuleId { get; set; }
   public required Module Module { get; set; }
 
