@@ -9,7 +9,7 @@ namespace Api.Controllers.V1;
 
 [ApiController]
 public class AssetsController(IAssetsService assetsService) : ControllerBase {
-  [HttpPost(ApiEndpoints.V1.Assets.Upload)]
+  [HttpPost(ApiEndpoints.V1.Assets.Create)]
   [EndpointSummary("Upload an asset.")]
   public async Task<NoContentResult> UploadAsset([FromForm] IFormFile file) {
     await assetsService.UploadAsync(file);
@@ -45,5 +45,17 @@ public class AssetsController(IAssetsService assetsService) : ControllerBase {
         title: Constants.ProblemDetailsTitle.NotFound
       );
     }
+  }
+
+  [HttpPut(ApiEndpoints.V1.Assets.Update)]
+  [EndpointSummary("Update an asset. (NOT IMPLEMENTED)")]
+  public IActionResult Update() {
+    throw new NotImplementedException();
+  }
+
+  [HttpDelete(ApiEndpoints.V1.Assets.Delete)]
+  [EndpointSummary("Delete an asset. (NOT IMPLEMENTED)")]
+  public IActionResult Delete() {
+    throw new NotImplementedException();
   }
 }
