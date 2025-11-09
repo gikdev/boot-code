@@ -9,6 +9,7 @@ public interface IAssetsService {
   Task UploadAsync(IFormFile file);
   Task<IEnumerable<Asset>> GetAllAsync();
   Task<(FileStream fileStream, string fileName, string fileMimeType)> GetOneAsync(string idOrName);
+  Task DeleteAsync(string idOrName);
 }
 
 public class AssetsService(DbCtx db) : IAssetsService {
@@ -69,4 +70,20 @@ public class AssetsService(DbCtx db) : IAssetsService {
       "application/pdf" => ".pdf",
       _ => ".txt"
     };
+
+  public async Task DeleteAsync(string idOrName) {
+    var asset = (int.TryParse(idOrName, out var id)
+        ? await db.Assets.FirstOrDefaultAsync(a => a.Id == id)
+        : await db.Assets.FirstOrDefaultAsync(a => a.Name == idOrName))
+        ?? throw new NotFoundException();
+
+    var fileName = asset.Name + GetExtensionFromMimeType(asset.MimeType);
+    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", fileName);
+    if (File.Exists(filePath))
+      File.Delete(filePath);
+
+    db.Assets.Remove(asset);
+
+    await db.SaveChangesAsync();
+  }
 }

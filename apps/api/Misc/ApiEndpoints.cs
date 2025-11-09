@@ -12,7 +12,7 @@ public static class ApiEndpoints {
       public const string Create = Base;
       public const string Get = Base;
       public const string GetOne = $"{Base}/{{idOrName}}";
-      public const string Update = $"{Base}/{{idOrName}}";
+      // public const string Update = $"{Base}/{{idOrName}}";
       public const string Delete = $"{Base}/{{idOrName}}";
     }
 

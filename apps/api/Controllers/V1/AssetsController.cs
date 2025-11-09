@@ -27,7 +27,7 @@ public class AssetsController(IAssetsService assetsService) : ControllerBase {
   [HttpGet(ApiEndpoints.V1.Assets.GetOne)]
   [EndpointSummary("Get an asset (view or download).")]
   public async Task<IActionResult> GetOne(
-    string idOrName,
+    [FromRoute] string idOrName,
     [FromQuery] bool download = false
   ) {
     try {
@@ -47,15 +47,19 @@ public class AssetsController(IAssetsService assetsService) : ControllerBase {
     }
   }
 
-  [HttpPut(ApiEndpoints.V1.Assets.Update)]
-  [EndpointSummary("Update an asset. (NOT IMPLEMENTED)")]
-  public IActionResult Update() {
-    throw new NotImplementedException();
-  }
-
   [HttpDelete(ApiEndpoints.V1.Assets.Delete)]
-  [EndpointSummary("Delete an asset. (NOT IMPLEMENTED)")]
-  public IActionResult Delete() {
-    throw new NotImplementedException();
+  [EndpointSummary("Delete an asset.")]
+  public async Task<IActionResult> Delete([FromRoute] string idOrName) {
+    try {
+      await assetsService.DeleteAsync(idOrName);
+
+      return NoContent();
+    } catch (NotFoundException ex) {
+      return Problem(
+        detail: ex.Message,
+        statusCode: StatusCodes.Status404NotFound,
+        title: Constants.ProblemDetailsTitle.NotFound
+      );
+    }
   }
 }
