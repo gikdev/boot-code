@@ -11,7 +11,7 @@ namespace Api.Controllers.V1;
 public class AssetsController(IAssetsService assetsService) : ControllerBase {
   [HttpPost(ApiEndpoints.V1.Assets.Create)]
   [EndpointSummary("Upload an asset.")]
-  public async Task<NoContentResult> UploadAsset([FromForm] IFormFile file) {
+  public async Task<IActionResult> UploadAsset(IFormFile file) {
     await assetsService.UploadAsync(file);
     return NoContent();
   }
