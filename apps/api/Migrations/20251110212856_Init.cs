@@ -63,8 +63,8 @@ namespace Api.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ThumbnailId = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ThumbnailId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,8 +88,9 @@ namespace Api.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CourseId = table.Column<int>(type: "int", nullable: false),
-                    Position = table.Column<int>(type: "int", nullable: false)
+                    Position = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -113,42 +114,15 @@ namespace Api.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    ContentJson = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Position = table.Column<int>(type: "int", nullable: false),
-                    ImageId = table.Column<int>(type: "int", nullable: true),
-                    VideoId = table.Column<int>(type: "int", nullable: true),
-                    TextId = table.Column<int>(type: "int", nullable: true),
-                    AudioId = table.Column<int>(type: "int", nullable: true),
-                    FileId = table.Column<int>(type: "int", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ModuleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Lessons", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Lessons_Assets_AudioId",
-                        column: x => x.AudioId,
-                        principalTable: "Assets",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Lessons_Assets_FileId",
-                        column: x => x.FileId,
-                        principalTable: "Assets",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Lessons_Assets_ImageId",
-                        column: x => x.ImageId,
-                        principalTable: "Assets",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Lessons_Assets_TextId",
-                        column: x => x.TextId,
-                        principalTable: "Assets",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Lessons_Assets_VideoId",
-                        column: x => x.VideoId,
-                        principalTable: "Assets",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Lessons_Modules_ModuleId",
                         column: x => x.ModuleId,
@@ -164,9 +138,10 @@ namespace Api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Position = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     LessonId = table.Column<int>(type: "int", nullable: false),
-                    CurriculumId = table.Column<int>(type: "int", nullable: false),
-                    Position = table.Column<int>(type: "int", nullable: false)
+                    CurriculumId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -192,34 +167,9 @@ namespace Api.Migrations
                 column: "ThumbnailId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lessons_AudioId",
-                table: "Lessons",
-                column: "AudioId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Lessons_FileId",
-                table: "Lessons",
-                column: "FileId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Lessons_ImageId",
-                table: "Lessons",
-                column: "ImageId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Lessons_ModuleId",
                 table: "Lessons",
                 column: "ModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Lessons_TextId",
-                table: "Lessons",
-                column: "TextId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Lessons_VideoId",
-                table: "Lessons",
-                column: "VideoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Modules_CourseId",

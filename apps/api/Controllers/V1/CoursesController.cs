@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Api.Contracts.Requests.V1;
 using Api.Contracts.Responses.V1;
 using Api.Mappings;
@@ -8,14 +9,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers.V1;
 
 [ApiController]
-public class CoursesController(ICoursesService coursesService) : ControllerBase {
+public class CoursesController(
+  ICoursesService coursesService,
+  IModulesService modulesService
+) : ControllerBase {
   [HttpPost(ApiEndpoints.V1.Courses.Create)]
   [EndpointSummary("Create a course.")]
   [ProducesResponseType(typeof(NewCourseRes), StatusCodes.Status200OK)]
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<ActionResult<NewCourseRes>> Create([FromBody] CourseReq req) {
-    var newCourse = await coursesService.CreateAsync(req);
+    var newCourse = req.MapToEntity();
+    await coursesService.CreateAsync(newCourse);
     var res = newCourse.MapToNewCourseRes();
     return Ok(res);
   }
@@ -45,7 +50,8 @@ public class CoursesController(ICoursesService coursesService) : ControllerBase 
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CourseReq req) {
-    await coursesService.UpdateAsync(id, req);
+    var course = req.MapToEntity();
+    await coursesService.UpdateAsync(id, course);
     return NoContent();
   }
 
@@ -56,5 +62,27 @@ public class CoursesController(ICoursesService coursesService) : ControllerBase 
   public async Task<IActionResult> Delete([FromRoute] int id) {
     await coursesService.DeleteAsync(id);
     return NoContent();
+  }
+
+  [HttpPost(ApiEndpoints.V1.Courses.CreateModule)]
+  [EndpointSummary("Create a module.")]
+  [ProducesResponseType(typeof(ModuleRes), StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(StatusCodes.Status404NotFound)]
+  public async Task<ActionResult<ModuleRes>> CreateModule([FromRoute] int id, [FromBody] ModuleReq req) {
+    var newModule = req.MapToEntity();
+    await modulesService.CreateAsync(id, newModule);
+    var res = newModule.MapToRes();
+    return Ok(res);
+  }
+
+  [HttpGet(ApiEndpoints.V1.Courses.GetModules)]
+  [EndpointSummary("Get the modules.")]
+  [ProducesResponseType(typeof(ModulesRes), StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status404NotFound)]
+  public async Task<ActionResult<ModulesRes>> GetModules([FromRoute] int id) {
+    var modules = await modulesService.GetAllAsync(id);
+    var res = modules.MapToRes();
+    return Ok(res);
   }
 }

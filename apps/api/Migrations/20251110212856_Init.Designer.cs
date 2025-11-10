@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(DbCtx))]
-    [Migration("20251110085034_Init")]
+    [Migration("20251110212856_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -111,17 +111,14 @@ namespace Api.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AudioId")
-                        .HasColumnType("int");
+                    b.Property<string>("ContentJson")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
-
-                    b.Property<int?>("FileId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ImageId")
-                        .HasColumnType("int");
 
                     b.Property<int>("ModuleId")
                         .HasColumnType("int");
@@ -129,29 +126,13 @@ namespace Api.Migrations
                     b.Property<int>("Position")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TextId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("VideoId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("AudioId");
-
-                    b.HasIndex("FileId");
-
-                    b.HasIndex("ImageId");
-
                     b.HasIndex("ModuleId");
-
-                    b.HasIndex("TextId");
-
-                    b.HasIndex("VideoId");
 
                     b.ToTable("Lessons");
                 });
@@ -166,6 +147,9 @@ namespace Api.Migrations
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -191,6 +175,9 @@ namespace Api.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CurriculumId")
                         .HasColumnType("int");
@@ -223,43 +210,13 @@ namespace Api.Migrations
 
             modelBuilder.Entity("Api.Entities.Lesson", b =>
                 {
-                    b.HasOne("Api.Entities.Asset", "Audio")
-                        .WithMany()
-                        .HasForeignKey("AudioId");
-
-                    b.HasOne("Api.Entities.Asset", "File")
-                        .WithMany()
-                        .HasForeignKey("FileId");
-
-                    b.HasOne("Api.Entities.Asset", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId");
-
                     b.HasOne("Api.Entities.Module", "Module")
                         .WithMany("Lessons")
                         .HasForeignKey("ModuleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Api.Entities.Asset", "Text")
-                        .WithMany()
-                        .HasForeignKey("TextId");
-
-                    b.HasOne("Api.Entities.Asset", "Video")
-                        .WithMany()
-                        .HasForeignKey("VideoId");
-
-                    b.Navigation("Audio");
-
-                    b.Navigation("File");
-
-                    b.Navigation("Image");
-
                     b.Navigation("Module");
-
-                    b.Navigation("Text");
-
-                    b.Navigation("Video");
                 });
 
             modelBuilder.Entity("Api.Entities.Module", b =>

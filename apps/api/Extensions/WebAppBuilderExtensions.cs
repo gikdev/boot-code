@@ -55,6 +55,8 @@ public static class WebAppBuilderExtensions {
     services.AddScoped<IAssetsService, AssetsService>();
     services.AddScoped<ICoursesService, CoursesService>();
     services.AddScoped<ICurriculaService, CurriculaService>();
+    services.AddScoped<IModulesService, ModulesService>();
+    services.AddScoped<ILessonsService, LessonsService>();
 
     return services;
   }

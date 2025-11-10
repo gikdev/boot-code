@@ -14,7 +14,8 @@ public class CurriculaController(ICurriculaService curriculaService) : Controlle
   [ProducesResponseType(typeof(CurriculumRes), StatusCodes.Status200OK)]
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
   public async Task<ActionResult<CurriculumRes>> Create([FromBody] CurriculumReq req) {
-    var newCurriculum = await curriculaService.CreateAsync(req);
+    var newCurriculum = req.MapToEntity();
+    await curriculaService.CreateAsync(newCurriculum);
     var res = newCurriculum.MapToRes();
     return Ok(res);
   }
@@ -44,7 +45,8 @@ public class CurriculaController(ICurriculaService curriculaService) : Controlle
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CurriculumReq req) {
-    await curriculaService.UpdateAsync(id, req);
+    var curriculum = req.MapToEntity();
+    await curriculaService.UpdateAsync(id, curriculum);
     return NoContent();
   }
 
