@@ -1,6 +1,5 @@
 using Api.Contracts.Requests.V1;
 using Api.Contracts.Responses.V1;
-using Api.Exceptions;
 using Api.Mappings;
 using Api.Misc;
 using Api.Services;
@@ -16,18 +15,9 @@ public class CoursesController(ICoursesService coursesService) : ControllerBase 
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<ActionResult<NewCourseRes>> Create([FromBody] CourseReq req) {
-    try {
-      var newCourse = await coursesService.CreateAsync(req);
-      var res = newCourse.MapToNewCourseRes();
-      return Ok(res);
-    }
-    catch (NotFoundException ex) {
-      return Problem(
-        detail: ex.Message,
-        statusCode: StatusCodes.Status404NotFound,
-        title: Constants.ProblemDetailsTitle.NotFound
-      );
-    }
+    var newCourse = await coursesService.CreateAsync(req);
+    var res = newCourse.MapToNewCourseRes();
+    return Ok(res);
   }
 
   [HttpGet(ApiEndpoints.V1.Courses.Get)]
@@ -44,18 +34,9 @@ public class CoursesController(ICoursesService coursesService) : ControllerBase 
   [ProducesResponseType(typeof(CourseRes), StatusCodes.Status200OK)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<ActionResult<CourseRes>> GetOne([FromRoute] int id) {
-    try {
-      var course = await coursesService.GetOneAsync(id);
-      var res = course.MapToRes();
-      return Ok(res);
-    }
-    catch (NotFoundException ex) {
-      return Problem(
-        detail: ex.Message,
-        statusCode: StatusCodes.Status404NotFound,
-        title: Constants.ProblemDetailsTitle.NotFound
-      );
-    }
+    var course = await coursesService.GetOneAsync(id);
+    var res = course.MapToRes();
+    return Ok(res);
   }
 
   [HttpPut(ApiEndpoints.V1.Courses.Update)]
@@ -64,17 +45,8 @@ public class CoursesController(ICoursesService coursesService) : ControllerBase 
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CourseReq req) {
-    try {
-      await coursesService.UpdateAsync(id, req);
-      return NoContent();
-    }
-    catch (NotFoundException ex) {
-      return Problem(
-        detail: ex.Message,
-        statusCode: StatusCodes.Status404NotFound,
-        title: Constants.ProblemDetailsTitle.NotFound
-      );
-    }
+    await coursesService.UpdateAsync(id, req);
+    return NoContent();
   }
 
   [HttpDelete(ApiEndpoints.V1.Courses.Delete)]
@@ -82,16 +54,7 @@ public class CoursesController(ICoursesService coursesService) : ControllerBase 
   [ProducesResponseType(StatusCodes.Status204NoContent)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<IActionResult> Delete([FromRoute] int id) {
-    try {
-      await coursesService.DeleteAsync(id);
-      return NoContent();
-    }
-    catch (NotFoundException ex) {
-      return Problem(
-        detail: ex.Message,
-        statusCode: StatusCodes.Status404NotFound,
-        title: Constants.ProblemDetailsTitle.NotFound
-      );
-    }
+    await coursesService.DeleteAsync(id);
+    return NoContent();
   }
 }

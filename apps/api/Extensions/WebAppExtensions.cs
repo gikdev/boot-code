@@ -29,4 +29,10 @@ public static class WebAppExtensions {
 
     return app;
   }
+
+  public static WebApplication UseGlobalExceptionHandler(this WebApplication app) {
+    app.UseExceptionHandler();
+
+    return app;
+  }
 }

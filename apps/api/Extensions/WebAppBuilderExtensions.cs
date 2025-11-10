@@ -1,4 +1,5 @@
 using Api.Data;
+using Api.Exceptions;
 using Api.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,11 +12,11 @@ public static class WebAppBuilderExtensions {
     services
       .AddOpenApi(o => o
         .AddDocumentTransformer((doc, ctx, _) => {
-            // doc.Info.Version = version.ToString();
-            doc.Info.Title = "Boot Code API";
+          // doc.Info.Version = version.ToString();
+          doc.Info.Title = "Boot Code API";
 
-            return Task.CompletedTask;
-          }
+          return Task.CompletedTask;
+        }
         )
       );
 
@@ -54,6 +55,13 @@ public static class WebAppBuilderExtensions {
     services.AddScoped<IAssetsService, AssetsService>();
     services.AddScoped<ICoursesService, CoursesService>();
     services.AddScoped<ICurriculaService, CurriculaService>();
+
+    return services;
+  }
+
+  public static IServiceCollection AddGlobalExceptionHandler(this IServiceCollection services) {
+    services.AddExceptionHandler<GlobalExceptionHandler>();
+    services.AddProblemDetails();
 
     return services;
   }

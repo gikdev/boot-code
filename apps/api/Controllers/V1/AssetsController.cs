@@ -1,5 +1,4 @@
 using Api.Contracts.Responses.V1;
-using Api.Exceptions;
 using Api.Mappings;
 using Api.Misc;
 using Api.Services;
@@ -30,36 +29,18 @@ public class AssetsController(IAssetsService assetsService) : ControllerBase {
     [FromRoute] string idOrName,
     [FromQuery] bool download = false
   ) {
-    try {
-      var (fileStream, fileName, fileMimeType) = await assetsService.GetOneAsync(idOrName);
+    var (fileStream, fileName, fileMimeType) = await assetsService.GetOneAsync(idOrName);
 
-      var contentDisposition = download ? "attachment" : "inline";
-      Response.Headers.Append("Content-Disposition", $"{contentDisposition}; filename=\"{fileName}\"");
+    var contentDisposition = download ? "attachment" : "inline";
+    Response.Headers.Append("Content-Disposition", $"{contentDisposition}; filename=\"{fileName}\"");
 
-      return File(fileStream, fileMimeType);
-    }
-    catch (NotFoundException ex) {
-      return Problem(
-        detail: ex.Message,
-        statusCode: StatusCodes.Status404NotFound,
-        title: Constants.ProblemDetailsTitle.NotFound
-      );
-    }
+    return File(fileStream, fileMimeType);
   }
 
   [HttpDelete(ApiEndpoints.V1.Assets.Delete)]
   [EndpointSummary("Delete an asset.")]
   public async Task<IActionResult> Delete([FromRoute] string idOrName) {
-    try {
-      await assetsService.DeleteAsync(idOrName);
-
-      return NoContent();
-    } catch (NotFoundException ex) {
-      return Problem(
-        detail: ex.Message,
-        statusCode: StatusCodes.Status404NotFound,
-        title: Constants.ProblemDetailsTitle.NotFound
-      );
-    }
+    await assetsService.DeleteAsync(idOrName);
+    return NoContent();
   }
 }

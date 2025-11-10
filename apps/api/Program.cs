@@ -7,14 +7,14 @@ builder.Services.AddControllers();
 builder.Services.AddApiDocs(config);
 builder.Services.AddCorsForDev();
 builder.Services.AddAppServices();
-builder.Services.AddProblemDetails();
+builder.Services.AddGlobalExceptionHandler();
 builder.Services.AddDatabases(config);
 
 var app = builder.Build();
 
 app.UseStatusCodePages();
 
-// app.UseExceptionHandler();
+app.UseGlobalExceptionHandler();
 
 app.UseHttpsRedirection();
 app.UseDevCorsInDevEnv();
