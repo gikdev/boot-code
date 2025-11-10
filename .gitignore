@@ -121,3 +121,6 @@ coverage/
 generated/
 build/
 build*.zip
+Uploads/
+!Uploads/.gitkeep
+
