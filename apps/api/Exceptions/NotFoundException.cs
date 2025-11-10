@@ -4,6 +4,6 @@ namespace Api.Exceptions;
 
 public class NotFoundException(string entity = "") : DomainException(
   $"{(string.IsNullOrEmpty(entity) ? "" : entity + " ")}پیدا نشد!",
-  Constants.ProblemDetailsTitle.NotFound,
+  Constants.ProblemDetailsTitle.Status404NotFound,
   StatusCodes.Status404NotFound
 );
