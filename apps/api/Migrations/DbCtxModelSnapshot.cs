@@ -114,6 +114,9 @@ namespace Api.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("FileId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ImageId")
                         .HasColumnType("int");
 
@@ -136,6 +139,8 @@ namespace Api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AudioId");
+
+                    b.HasIndex("FileId");
 
                     b.HasIndex("ImageId");
 
@@ -219,6 +224,10 @@ namespace Api.Migrations
                         .WithMany()
                         .HasForeignKey("AudioId");
 
+                    b.HasOne("Api.Entities.Asset", "File")
+                        .WithMany()
+                        .HasForeignKey("FileId");
+
                     b.HasOne("Api.Entities.Asset", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId");
@@ -238,6 +247,8 @@ namespace Api.Migrations
                         .HasForeignKey("VideoId");
 
                     b.Navigation("Audio");
+
+                    b.Navigation("File");
 
                     b.Navigation("Image");
 

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Api.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -118,6 +118,7 @@ namespace Api.Migrations
                     VideoId = table.Column<int>(type: "int", nullable: true),
                     TextId = table.Column<int>(type: "int", nullable: true),
                     AudioId = table.Column<int>(type: "int", nullable: true),
+                    FileId = table.Column<int>(type: "int", nullable: true),
                     ModuleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -126,6 +127,11 @@ namespace Api.Migrations
                     table.ForeignKey(
                         name: "FK_Lessons_Assets_AudioId",
                         column: x => x.AudioId,
+                        principalTable: "Assets",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Lessons_Assets_FileId",
+                        column: x => x.FileId,
                         principalTable: "Assets",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -189,6 +195,11 @@ namespace Api.Migrations
                 name: "IX_Lessons_AudioId",
                 table: "Lessons",
                 column: "AudioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Lessons_FileId",
+                table: "Lessons",
+                column: "FileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lessons_ImageId",

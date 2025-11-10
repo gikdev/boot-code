@@ -10,6 +10,7 @@ public interface IAssetsService {
   Task<IEnumerable<Asset>> GetAllAsync();
   Task<(FileStream fileStream, string fileName, string fileMimeType)> GetOneAsync(string idOrName);
   Task DeleteAsync(string idOrName);
+  Task<bool> ExistsAsync(string idOrName, bool alsoCheckForFile = true);
 }
 
 public class AssetsService(DbCtx db) : IAssetsService {
@@ -85,5 +86,22 @@ public class AssetsService(DbCtx db) : IAssetsService {
     db.Assets.Remove(asset);
 
     await db.SaveChangesAsync();
+  }
+
+  public async Task<bool> ExistsAsync(string idOrName, bool alsoCheckForFile = true) {
+    var asset = int.TryParse(idOrName, out var id)
+        ? await db.Assets.FirstOrDefaultAsync(a => a.Id == id)
+        : await db.Assets.FirstOrDefaultAsync(a => a.Name == idOrName);
+
+    if (asset == null) return false;
+
+    if (alsoCheckForFile) {
+      var fileName = asset.Name + GetExtensionFromMimeType(asset.MimeType);
+      var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", fileName);
+      var fileExists = File.Exists(filePath);
+      if (!fileExists) return false;
+    }
+
+    return true;
   }
 }

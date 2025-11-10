@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(DbCtx))]
-    [Migration("20251106162444_Initial")]
-    partial class Initial
+    [Migration("20251110085034_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,6 +117,9 @@ namespace Api.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("FileId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ImageId")
                         .HasColumnType("int");
 
@@ -139,6 +142,8 @@ namespace Api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AudioId");
+
+                    b.HasIndex("FileId");
 
                     b.HasIndex("ImageId");
 
@@ -222,6 +227,10 @@ namespace Api.Migrations
                         .WithMany()
                         .HasForeignKey("AudioId");
 
+                    b.HasOne("Api.Entities.Asset", "File")
+                        .WithMany()
+                        .HasForeignKey("FileId");
+
                     b.HasOne("Api.Entities.Asset", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId");
@@ -241,6 +250,8 @@ namespace Api.Migrations
                         .HasForeignKey("VideoId");
 
                     b.Navigation("Audio");
+
+                    b.Navigation("File");
 
                     b.Navigation("Image");
 

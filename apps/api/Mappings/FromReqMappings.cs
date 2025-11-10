@@ -8,4 +8,10 @@ public static class FromReqMappings {
     Title = req.Title,
     Description = req.Description,
   };
+
+  public static Course ToEntity(this CourseReq req) => new() {
+    Title = req.Title,
+    Description = req.Description,
+    ThumbnailId = req.ThumbnailId,
+  };
 }

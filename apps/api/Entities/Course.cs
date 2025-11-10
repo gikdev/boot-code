@@ -8,7 +8,7 @@ public class Course {
   public string? Description { get; set; }
 
   public int ThumbnailId { get; set; }
-  public required Asset Thumbnail { get; set; }
+  public Asset? Thumbnail { get; set; }
 
   public ICollection<Module> Modules { get; set; } = new HashSet<Module>();
   public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
