@@ -32,6 +32,7 @@ public static class ResMappings {
     Title = course.Title,
     Description = course.Description,
     ThumbnailId = course.ThumbnailId,
+    CreatedAt = course.CreatedAt,
   };
 
   public static CourseRes MapToRes(this Course course) => new() {
@@ -40,6 +41,7 @@ public static class ResMappings {
     Title = course.Title,
     Thumbnail = course.Thumbnail?.MapToRes()
                 ?? throw new InvalidOperationException("Course thumbnail can't be NULL!"),
+    CreatedAt = course.CreatedAt,
   };
 
   public static CoursesRes MapToRes(this IEnumerable<Course> courses) => new() {
