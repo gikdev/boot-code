@@ -14,7 +14,6 @@ Copy-Item .\publish\* ..\..\build -Recurse -Force
 Write-Host "=== Building Web Client ==="
 Set-Location ..\web
 Remove-Item -Recurse -Force .\dist -ErrorAction SilentlyContinue
-npm install
 npm run build
 New-Item -ItemType Directory ..\..\build\wwwroot -Force | Out-Null
 Copy-Item .\dist\* ..\..\build\wwwroot -Recurse -Force
