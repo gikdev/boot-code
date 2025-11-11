@@ -103,4 +103,26 @@ public static class ResMappings {
   public static LessonsRes MapToRes(this IEnumerable<Lesson> lessons) => new() {
     Items = lessons.Select(l => l.MapToRes()),
   };
+
+  // public static StepRes MapToRes(this Step step) => new() {
+  //   Id = step.Id,
+  //   Position = step.Position,
+  //   CurriculumId = step.CurriculumId,
+  //   LessonId = step.LessonId,
+  //   CreatedAtLocal = step.CreatedAt.ToLocalTimeFromUtc(),
+  // };
+
+  public static StepFullRes MapToFullRes(this Step step) => new() {
+    Id = step.Id,
+    Position = step.Position,
+    CurriculumId = step.CurriculumId,
+    LessonId = step.LessonId,
+    CreatedAtLocal = step.CreatedAt.ToLocalTimeFromUtc(),
+    Lesson = step.Lesson?.MapToRes()
+             ?? throw new InvalidOperationException("Step's lesson can't be NULL!"),
+  };
+
+  public static StepsFullRes MapToFullRes(this IEnumerable<Step> steps) => new() {
+    Items = steps.Select(s => s.MapToFullRes()),
+  };
 }

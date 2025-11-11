@@ -8,7 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers.V1;
 
 [ApiController]
-public class CurriculaController(ICurriculaService curriculaService) : ControllerBase {
+public class CurriculaController(
+  ICurriculaService curriculaService,
+  IStepsService stepsService
+) : ControllerBase {
   [HttpPost(ApiEndpoints.V1.Curricula.Create)]
   [EndpointSummary("Create a curriculum.")]
   [ProducesResponseType(typeof(CurriculumRes), StatusCodes.Status201Created)]
@@ -60,16 +63,22 @@ public class CurriculaController(ICurriculaService curriculaService) : Controlle
   }
 
   [HttpPost(ApiEndpoints.V1.Curricula.CreateStep)]
-  [EndpointSummary("⛔ Create a step.")]
-  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status501NotImplemented)]
-  public IActionResult CreateStep() {
-    throw new NotImplementedException();
+  [EndpointSummary("Create a step.")]
+  [ProducesResponseType(typeof(StepFullRes), StatusCodes.Status201Created)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  public async Task<ActionResult<StepFullRes>> CreateStep([FromBody] StepReq req) {
+    var step = req.MapToEntity();
+    var newStep = await stepsService.CreateAsync(step);
+    var res = newStep.MapToFullRes();
+    return Ok(res);
   }
 
   [HttpGet(ApiEndpoints.V1.Curricula.GetSteps)]
-  [EndpointSummary("⛔ Get all steps.")]
-  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status501NotImplemented)]
-  public IActionResult GetSteps() {
-    throw new NotImplementedException();
+  [EndpointSummary("Get all steps.")]
+  [ProducesResponseType(typeof(StepsFullRes), StatusCodes.Status200OK)]
+  public async Task<ActionResult<StepsFullRes>> GetSteps([FromRoute] int id) {
+    var steps = await stepsService.GetAllAsync(id);
+    var res = steps.MapToFullRes();
+    return Ok(res);
   }
 }
