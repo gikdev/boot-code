@@ -33,4 +33,10 @@ public static class FromReqMappings {
   public static LessonContentDto MapToDto(this LessonContentReq req) => new() {
     ContentJson = req.ContentJson,
   };
+
+  public static Step MapToEntity(this StepReq req) => new() {
+    Position = req.Position,
+    LessonId = req.LessonId,
+    CurriculumId = req.CurriculumId,
+  };
 }

@@ -25,12 +25,11 @@ public class CurriculaService(DbCtx db) : ICurriculaService {
   public async Task<IEnumerable<Curriculum>> GetAllAsync()
     => await db.Curricula.ToListAsync();
 
-  public async Task<Curriculum> GetOneAsync(int id) {
-    var curriculum = await db.Curricula.SingleOrDefaultAsync(c => c.Id == id)
-                     ?? throw new NotFoundException("کوریکولوم");
-
-    return curriculum;
-  }
+  public async Task<Curriculum> GetOneAsync(int id)
+    => await db.Curricula
+      .Include(c => c.Steps)
+      .SingleOrDefaultAsync(c => c.Id == id)
+      ?? throw new NotFoundException("کوریکولوم");
 
   public async Task UpdateAsync(int id, Curriculum curriculum) {
     var existingCurriculum = await db.Curricula.SingleOrDefaultAsync(c => c.Id == id)

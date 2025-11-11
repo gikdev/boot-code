@@ -6,8 +6,5 @@ public class LessonRes {
   public required string? Description { get; init; }
   public required int Position { get; init; }
   public required int ModuleId { get; init; }
-  public required DateTime CreatedAt { get; init; }
-
-  public DateTime CreatedAtLocal
-    => DateTime.SpecifyKind(CreatedAt, DateTimeKind.Utc).ToLocalTime();
+  public required DateTime CreatedAtLocal { get; init; }
 }
