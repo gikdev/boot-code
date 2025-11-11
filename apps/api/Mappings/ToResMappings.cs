@@ -1,11 +1,12 @@
 using Api.Contracts.Responses.V1;
 using Api.Entities;
+using Api.Extensions;
 
 namespace Api.Mappings;
 
 public static class ResMappings {
   public static AssetRes MapToRes(this Asset asset) => new() {
-    CreatedAt = asset.CreatedAt,
+    CreatedAtLocal = asset.CreatedAt.ToLocalTimeFromUtc(),
     Description = asset.Description,
     Id = asset.Id,
     MimeType = asset.MimeType,
@@ -20,28 +21,37 @@ public static class ResMappings {
     Id = curriculum.Id,
     Title = curriculum.Title,
     Description = curriculum.Description,
-    CreatedAt = curriculum.CreatedAt,
+    CreatedAtLocal = curriculum.CreatedAt.ToLocalTimeFromUtc(),
+  };
+
+  public static CurriculumFullRes MapToFullRes(this Curriculum curriculum) => new() {
+    Id = curriculum.Id,
+    Title = curriculum.Title,
+    Description = curriculum.Description,
+    CreatedAtLocal = curriculum.CreatedAt.ToLocalTimeFromUtc(),
+    Steps = curriculum.Steps,
   };
 
   public static CurriculaRes MapToRes(this IEnumerable<Curriculum> curricula) => new() {
     Items = curricula.Select(c => c.MapToRes()),
   };
 
-  public static NewCourseRes MapToNewCourseRes(this Course course) => new() {
+  public static CourseRes MapToRes(this Course course) => new() {
     Id = course.Id,
     Title = course.Title,
     Description = course.Description,
     ThumbnailId = course.ThumbnailId,
-    CreatedAt = course.CreatedAt,
+    CreatedAtLocal = course.CreatedAt.ToLocalTimeFromUtc(),
   };
 
-  public static CourseRes MapToRes(this Course course) => new() {
+  public static CourseFullRes MapToFullRes(this Course course) => new() {
     Id = course.Id,
     Description = course.Description,
     Title = course.Title,
+    ThumbnailId = course.ThumbnailId,
     Thumbnail = course.Thumbnail?.MapToRes()
                 ?? throw new InvalidOperationException("Course thumbnail can't be NULL!"),
-    CreatedAt = course.CreatedAt,
+    CreatedAtLocal = course.CreatedAt.ToLocalTimeFromUtc(),
   };
 
   public static CoursesRes MapToRes(this IEnumerable<Course> courses) => new() {
@@ -53,7 +63,7 @@ public static class ResMappings {
     Title = module.Title,
     Description = module.Description,
     Position = module.Position,
-    CreatedAt = module.CreatedAt,
+    CreatedAtLocal = module.CreatedAt.ToLocalTimeFromUtc(),
     CourseId = module.CourseId,
   };
 
@@ -62,10 +72,9 @@ public static class ResMappings {
     Title = module.Title,
     Description = module.Description,
     Position = module.Position,
-    CreatedAt = module.CreatedAt,
+    CreatedAtLocal = module.CreatedAt.ToLocalTimeFromUtc(),
     CourseId = module.CourseId,
-    // TODO: Map these to their response...
-    Lessons = module.Lessons
+    Lessons = module.Lessons.Select(l => l.MapToRes()),
   };
 
   public static ModulesRes MapToRes(this IEnumerable<Module> modules) => new() {
@@ -74,7 +83,7 @@ public static class ResMappings {
 
   public static LessonRes MapToRes(this Lesson lesson) => new() {
     Id = lesson.Id,
-    CreatedAt = lesson.CreatedAt,
+    CreatedAtLocal = lesson.CreatedAt.ToLocalTimeFromUtc(),
     Description = lesson.Description,
     ModuleId = lesson.ModuleId,
     Position = lesson.Position,
@@ -83,7 +92,7 @@ public static class ResMappings {
 
   public static LessonFullRes MapToFullRes(this Lesson lesson) => new() {
     Id = lesson.Id,
-    CreatedAt = lesson.CreatedAt,
+    CreatedAtLocal = lesson.CreatedAt.ToLocalTimeFromUtc(),
     Description = lesson.Description,
     ModuleId = lesson.ModuleId,
     Position = lesson.Position,

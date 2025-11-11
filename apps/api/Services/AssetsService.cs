@@ -6,15 +6,16 @@ using Microsoft.EntityFrameworkCore;
 namespace Api.Services;
 
 public interface IAssetsService {
-  Task UploadAsync(IFormFile file);
+  Task<Asset> UploadAsync(IFormFile file);
   Task<IEnumerable<Asset>> GetAllAsync();
-  Task<(FileStream fileStream, string fileName, string fileMimeType)> GetOneAsync(string idOrName);
+  Task<Asset> GetOneAsync(string idOrName);
+  Task<(FileStream fileStream, string fileName, string fileMimeType)> GetOneFileAsync(string idOrName);
   Task DeleteAsync(string idOrName);
   Task<bool> ExistsAsync(string idOrName, bool alsoCheckForFile = true);
 }
 
 public class AssetsService(DbCtx db) : IAssetsService {
-  public async Task UploadAsync(IFormFile file) {
+  public async Task<Asset> UploadAsync(IFormFile file) {
     // Setup
     var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
 
@@ -34,15 +35,23 @@ public class AssetsService(DbCtx db) : IAssetsService {
       Name = fileGuid,
     };
 
-    await db.Assets.AddAsync(newAsset);
+    db.Assets.Add(newAsset);
 
     await db.SaveChangesAsync();
+
+    return newAsset;
   }
 
   public async Task<IEnumerable<Asset>> GetAllAsync()
     => await db.Assets.ToListAsync();
 
-  public async Task<(FileStream fileStream, string fileName, string fileMimeType)> GetOneAsync(string idOrName) {
+  public async Task<Asset> GetOneAsync(string idOrName)
+    => (int.TryParse(idOrName, out var id)
+      ? await db.Assets.FirstOrDefaultAsync(a => a.Id == id)
+      : await db.Assets.FirstOrDefaultAsync(a => a.Name == idOrName))
+      ?? throw new NotFoundException();
+
+  public async Task<(FileStream fileStream, string fileName, string fileMimeType)> GetOneFileAsync(string idOrName) {
     var asset = (int.TryParse(idOrName, out var id)
         ? await db.Assets.FirstOrDefaultAsync(a => a.Id == id)
         : await db.Assets.FirstOrDefaultAsync(a => a.Name == idOrName))

@@ -15,7 +15,7 @@ public class ModulesController(
   [HttpGet(ApiEndpoints.V1.Modules.GetOne)]
   [EndpointSummary("Get a module.")]
   [ProducesResponseType(typeof(ModuleFullRes), StatusCodes.Status200OK)]
-  [ProducesResponseType(StatusCodes.Status404NotFound)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   public async Task<ActionResult<ModuleFullRes>> GetOne([FromRoute] int id) {
     var fullModule = await modulesService.GetOneAsync(id);
     var res = fullModule.MapToFullRes();
@@ -25,8 +25,8 @@ public class ModulesController(
   [HttpPut(ApiEndpoints.V1.Modules.Update)]
   [EndpointSummary("Update a module.")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]
-  [ProducesResponseType(StatusCodes.Status400BadRequest)]
-  [ProducesResponseType(StatusCodes.Status404NotFound)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ModuleReq req) {
     var module = req.MapToEntity();
     await modulesService.UpdateAsync(id, module);
@@ -35,8 +35,8 @@ public class ModulesController(
 
   [HttpDelete(ApiEndpoints.V1.Modules.Delete)]
   [EndpointSummary("Delete a module.")]
-  [ProducesResponseType(StatusCodes.Status204NoContent)]
-  [ProducesResponseType(StatusCodes.Status404NotFound)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status204NoContent)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   public async Task<IActionResult> Delete([FromRoute] int id) {
     await modulesService.DeleteAsync(id);
     return NoContent();
@@ -44,10 +44,10 @@ public class ModulesController(
 
   [HttpPost(ApiEndpoints.V1.Modules.CreateLesson)]
   [EndpointSummary("Create a lesson.")]
-  [ProducesResponseType(typeof(LessonRes), StatusCodes.Status200OK)]
-  [ProducesResponseType(StatusCodes.Status400BadRequest)]
-  [ProducesResponseType(StatusCodes.Status404NotFound)]
-  public async Task<ActionResult<LessonRes>> CreateLesson([FromRoute] int id, [FromBody] LessonReq req) {
+  [ProducesResponseType(typeof(LessonRes), StatusCodes.Status201Created)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+  public async Task<ActionResult<LessonRes>> CreateLesson([FromBody] LessonReq req) {
     var newLesson = req.MapToEntity();
     await lessonsService.CreateAsync(newLesson);
     var res = newLesson.MapToRes();
@@ -55,9 +55,9 @@ public class ModulesController(
   }
 
   [HttpGet(ApiEndpoints.V1.Modules.GetLessons)]
-  [EndpointSummary("Get the lessons.")]
+  [EndpointSummary("Get all lessons.")]
   [ProducesResponseType(typeof(LessonsRes), StatusCodes.Status200OK)]
-  [ProducesResponseType(StatusCodes.Status404NotFound)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   public async Task<ActionResult<LessonsRes>> GetLessons([FromRoute] int id) {
     var lessons = await lessonsService.GetAllAsync(id);
     var res = lessons.MapToRes();

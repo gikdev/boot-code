@@ -11,8 +11,8 @@ namespace Api.Controllers.V1;
 public class CurriculaController(ICurriculaService curriculaService) : ControllerBase {
   [HttpPost(ApiEndpoints.V1.Curricula.Create)]
   [EndpointSummary("Create a curriculum.")]
-  [ProducesResponseType(typeof(CurriculumRes), StatusCodes.Status200OK)]
-  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(CurriculumRes), StatusCodes.Status201Created)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
   public async Task<ActionResult<CurriculumRes>> Create([FromBody] CurriculumReq req) {
     var newCurriculum = req.MapToEntity();
     await curriculaService.CreateAsync(newCurriculum);
@@ -21,7 +21,7 @@ public class CurriculaController(ICurriculaService curriculaService) : Controlle
   }
 
   [HttpGet(ApiEndpoints.V1.Curricula.Get)]
-  [EndpointSummary("Get the curricula.")]
+  [EndpointSummary("Get all curricula.")]
   [ProducesResponseType(typeof(CurriculaRes), StatusCodes.Status200OK)]
   public async Task<ActionResult<CurriculaRes>> Get() {
     var curricula = await curriculaService.GetAllAsync();
@@ -31,19 +31,19 @@ public class CurriculaController(ICurriculaService curriculaService) : Controlle
 
   [HttpGet(ApiEndpoints.V1.Curricula.GetOne)]
   [EndpointSummary("Get a curriculum.")]
-  [ProducesResponseType(typeof(CurriculumRes), StatusCodes.Status200OK)]
-  [ProducesResponseType(StatusCodes.Status404NotFound)]
-  public async Task<ActionResult<CurriculumRes>> GetOne([FromRoute] int id) {
-    var curriculum = await curriculaService.GetOneAsync(id);
-    var res = curriculum.MapToRes();
+  [ProducesResponseType(typeof(CurriculumFullRes), StatusCodes.Status200OK)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+  public async Task<ActionResult<CurriculumFullRes>> GetOne([FromRoute] int id) {
+    var fullCurriculum = await curriculaService.GetOneAsync(id);
+    var res = fullCurriculum.MapToFullRes();
     return Ok(res);
   }
 
   [HttpPut(ApiEndpoints.V1.Curricula.Update)]
   [EndpointSummary("Update a curriculum.")]
-  [ProducesResponseType(StatusCodes.Status204NoContent)]
-  [ProducesResponseType(StatusCodes.Status400BadRequest)]
-  [ProducesResponseType(StatusCodes.Status404NotFound)]
+  [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CurriculumReq req) {
     var curriculum = req.MapToEntity();
     await curriculaService.UpdateAsync(id, curriculum);
@@ -52,8 +52,8 @@ public class CurriculaController(ICurriculaService curriculaService) : Controlle
 
   [HttpDelete(ApiEndpoints.V1.Curricula.Delete)]
   [EndpointSummary("Delete a curriculum.")]
-  [ProducesResponseType(StatusCodes.Status204NoContent)]
-  [ProducesResponseType(StatusCodes.Status404NotFound)]
+  [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   public async Task<IActionResult> Delete([FromRoute] int id) {
     await curriculaService.DeleteAsync(id);
     return NoContent();
@@ -61,14 +61,14 @@ public class CurriculaController(ICurriculaService curriculaService) : Controlle
 
   [HttpPost(ApiEndpoints.V1.Curricula.CreateStep)]
   [EndpointSummary("⛔ Create a step.")]
-  [ProducesResponseType(StatusCodes.Status501NotImplemented)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status501NotImplemented)]
   public IActionResult CreateStep() {
     throw new NotImplementedException();
   }
 
   [HttpGet(ApiEndpoints.V1.Curricula.GetSteps)]
-  [EndpointSummary("⛔ Get the steps.")]
-  [ProducesResponseType(StatusCodes.Status501NotImplemented)]
+  [EndpointSummary("⛔ Get all steps.")]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status501NotImplemented)]
   public IActionResult GetSteps() {
     throw new NotImplementedException();
   }

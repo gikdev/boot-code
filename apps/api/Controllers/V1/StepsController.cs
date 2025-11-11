@@ -7,14 +7,14 @@ namespace Api.Controllers.V1;
 public class StepsController : ControllerBase {
   [HttpPatch(ApiEndpoints.V1.Steps.UpdatePosition)]
   [EndpointSummary("⛔ Update a step's position.")]
-  [ProducesResponseType(StatusCodes.Status501NotImplemented)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status501NotImplemented)]
   public IActionResult UpdatePosition([FromRoute] int id) {
     throw new NotImplementedException();
   }
 
   [HttpDelete(ApiEndpoints.V1.Steps.Delete)]
   [EndpointSummary("⛔ Delete a step.")]
-  [ProducesResponseType(StatusCodes.Status501NotImplemented)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status501NotImplemented)]
   public IActionResult Delete([FromRoute] int id) {
     throw new NotImplementedException();
   }
