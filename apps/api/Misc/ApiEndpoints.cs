@@ -24,6 +24,9 @@ public static class ApiEndpoints {
       public const string GetOne = $"{Base}/{{id:int}}";
       public const string Update = $"{Base}/{{id:int}}";
       public const string Delete = $"{Base}/{{id:int}}";
+
+      public const string CreateStep = $"{Base}/{{id:int}}/steps";
+      public const string GetSteps = $"{Base}/{{id:int}}/steps";
     }
 
     public static class Courses {
@@ -56,6 +59,13 @@ public static class ApiEndpoints {
       public const string GetOne = $"{Base}/{{id:int}}";
       public const string UpdateContent = $"{Base}/{{id:int}}";
       public const string Update = $"{Base}/{{id:int}}";
+      public const string Delete = $"{Base}/{{id:int}}";
+    }
+
+    public static class Steps {
+      private const string Base = $"{VersionBase}/steps";
+
+      public const string UpdatePosition = $"{Base}/{{id:int}}/position";
       public const string Delete = $"{Base}/{{id:int}}";
     }
   }

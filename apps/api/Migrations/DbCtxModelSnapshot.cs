@@ -46,7 +46,7 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Assets");
+                    b.ToTable("Assets", (string)null);
                 });
 
             modelBuilder.Entity("Api.Entities.Course", b =>
@@ -74,7 +74,7 @@ namespace Api.Migrations
 
                     b.HasIndex("ThumbnailId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("Api.Entities.Curriculum", b =>
@@ -97,7 +97,7 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Curricula");
+                    b.ToTable("Curricula", (string)null);
                 });
 
             modelBuilder.Entity("Api.Entities.Lesson", b =>
@@ -131,7 +131,7 @@ namespace Api.Migrations
 
                     b.HasIndex("ModuleId");
 
-                    b.ToTable("Lessons");
+                    b.ToTable("Lessons", (string)null);
                 });
 
             modelBuilder.Entity("Api.Entities.Module", b =>
@@ -162,7 +162,7 @@ namespace Api.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Modules");
+                    b.ToTable("Modules", (string)null);
                 });
 
             modelBuilder.Entity("Api.Entities.Step", b =>
@@ -191,7 +191,7 @@ namespace Api.Migrations
 
                     b.HasIndex("LessonId");
 
-                    b.ToTable("Steps");
+                    b.ToTable("Steps", (string)null);
                 });
 
             modelBuilder.Entity("Api.Entities.Course", b =>

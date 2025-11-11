@@ -58,4 +58,18 @@ public class CurriculaController(ICurriculaService curriculaService) : Controlle
     await curriculaService.DeleteAsync(id);
     return NoContent();
   }
+
+  [HttpPost(ApiEndpoints.V1.Curricula.CreateStep)]
+  [EndpointSummary("⛔ Create a step.")]
+  [ProducesResponseType(StatusCodes.Status501NotImplemented)]
+  public IActionResult CreateStep() {
+    throw new NotImplementedException();
+  }
+
+  [HttpGet(ApiEndpoints.V1.Curricula.GetSteps)]
+  [EndpointSummary("⛔ Get the steps.")]
+  [ProducesResponseType(StatusCodes.Status501NotImplemented)]
+  public IActionResult GetSteps() {
+    throw new NotImplementedException();
+  }
 }

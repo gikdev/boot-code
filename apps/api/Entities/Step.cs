@@ -8,8 +8,8 @@ public class Step {
   public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
   public int LessonId { get; set; }
-  public required Lesson Lesson { get; set; }
+  public Lesson? Lesson { get; set; }
 
   public int CurriculumId { get; set; }
-  public required Curriculum Curriculum { get; set; }
+  public Curriculum? Curriculum { get; set; }
 }
