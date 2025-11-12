@@ -7,7 +7,7 @@ public static class WebAppExtensions {
     app.MapOpenApi();
     app.MapScalarApiReference("/docs/scalar", o => {
       o.WithTitle("Boot Code API");
-      o.Layout = ScalarLayout.Classic;
+      o.Layout = ScalarLayout.Modern;
       o.Theme = ScalarTheme.DeepSpace;
     });
 
