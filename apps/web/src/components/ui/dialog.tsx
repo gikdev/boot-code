@@ -1,6 +1,6 @@
 import { XIcon } from "@phosphor-icons/react"
 import type { ReactNode } from "react"
-import { tv } from "tailwind-variants"
+import { tv } from "tailwind-variants/lite"
 import { iconBtn } from "#/lib/skins"
 
 const dialog = tv({

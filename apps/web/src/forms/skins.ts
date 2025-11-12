@@ -1,4 +1,4 @@
-import { tv } from "tailwind-variants"
+import { tv } from "tailwind-variants/lite"
 
 export const input = tv({
   base: `
