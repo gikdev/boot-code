@@ -1,4 +1,5 @@
 using Api.Contracts.Responses.V1;
+using Api.Exceptions;
 using Api.Mappings;
 using Api.Misc;
 using Api.Services;
@@ -15,33 +16,36 @@ public class AssetsController(IAssetsService assetsService) : ControllerBase {
     ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest),
   ]
   public async Task<ActionResult<AssetRes>> UploadAsset(IFormFile file) {
+    if (file == null || file.Length == 0)
+      throw new ArgumentException("فایل اجباری هست.", nameof(file));
+
     var asset = await assetsService.UploadAsync(file);
     var res = asset.MapToRes();
     return Ok(res);
   }
 
-  [HttpGet(ApiEndpoints.V1.Assets.Get)]
-  [
-    EndpointSummary("Get all assets."),
-    ProducesResponseType(typeof(AssetsRes), StatusCodes.Status200OK),
-  ]
-  public async Task<ActionResult<AssetsRes>> Get() {
-    var assets = await assetsService.GetAllAsync();
-    var res = assets.MapToRes();
-    return Ok(res);
-  }
+  // [HttpGet(ApiEndpoints.V1.Assets.Get)]
+  // [
+  //   EndpointSummary("Get all assets."),
+  //   ProducesResponseType(typeof(AssetsRes), StatusCodes.Status200OK),
+  // ]
+  // public async Task<ActionResult<AssetsRes>> Get() {
+  //   var assets = await assetsService.GetAllAsync();
+  //   var res = assets.MapToRes();
+  //   return Ok(res);
+  // }
 
-  [HttpGet(ApiEndpoints.V1.Assets.GetOne)]
-  [
-    EndpointSummary("Get an asset."),
-    ProducesResponseType(typeof(AssetRes), StatusCodes.Status200OK),
-    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
-  ]
-  public async Task<ActionResult<AssetRes>> GetOne([FromRoute] string idOrName) {
-    var asset = await assetsService.GetOneAsync(idOrName);
-    var res = asset.MapToRes();
-    return Ok(res);
-  }
+  // [HttpGet(ApiEndpoints.V1.Assets.GetOne)]
+  // [
+  //   EndpointSummary("Get an asset."),
+  //   ProducesResponseType(typeof(AssetRes), StatusCodes.Status200OK),
+  //   ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
+  // ]
+  // public async Task<ActionResult<AssetRes>> GetOne([FromRoute] string idOrName) {
+  //   var asset = await assetsService.GetOneAsync(idOrName);
+  //   var res = asset.MapToRes();
+  //   return Ok(res);
+  // }
 
   [HttpGet(ApiEndpoints.V1.Assets.GetOneFile)]
   [
@@ -61,14 +65,14 @@ public class AssetsController(IAssetsService assetsService) : ControllerBase {
     return File(fileStream, fileMimeType);
   }
 
-  [HttpDelete(ApiEndpoints.V1.Assets.Delete)]
-  [
-    EndpointSummary("Delete an asset."),
-    ProducesResponseType(typeof(void), StatusCodes.Status204NoContent),
-    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
-  ]
-  public async Task<IActionResult> Delete([FromRoute] string idOrName) {
-    await assetsService.DeleteAsync(idOrName);
-    return NoContent();
-  }
+  // [HttpDelete(ApiEndpoints.V1.Assets.Delete)]
+  // [
+  //   EndpointSummary("Delete an asset."),
+  //   ProducesResponseType(typeof(void), StatusCodes.Status204NoContent),
+  //   ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
+  // ]
+  // public async Task<IActionResult> Delete([FromRoute] string idOrName) {
+  //   await assetsService.DeleteAsync(idOrName);
+  //   return NoContent();
+  // }
 }

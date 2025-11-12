@@ -4,13 +4,13 @@ export const phonePage = tv({
   base: `
     flex flex-col mx:auto
     max-w:120x w:full h:100dvh
-    bg:grey-1
+    bg:grey-1 
   `,
 })
 
-export const list = tv({
+export const main = tv({
   base: `
-    p:4x flex-1
+    p:4x flex:1
     flex flex-col gap:4x
     overflow-y:auto
   `,
@@ -21,8 +21,8 @@ export const iconBtn = tv({
     flex flex-col items-center justify-center r:1.5x
     cursor:pointer cursor:not-allowed[disabled]
     fg:grey-60 fg:grey-90:hover fg:grey-60:hover[disabled]
-    bg:transparent bg:grey-20:hover bg:transparent:hover[disabled]
-    transform:scale(95):active transform:scale(100):active[disabled]
+    bg:transparent bg:grey-10:hover bg:transparent:hover[disabled]
+    transform:scale(.95):active transform:scale(1):active[disabled]
     opacity:0.5[disabled]
   `,
   variants: {
@@ -39,7 +39,7 @@ export const iconBtn = tv({
 export const linkBtn = tv({
   base: `
     text:underline 
-    font:grey-60 font:grey-90:hover font:grey-60:hover[disabled]
+    fg:grey-60 fg:grey-90:hover fg:grey-60:hover[disabled]
     cursor:pointer cursor:not-allowed[disabled]
   `,
 })
@@ -50,9 +50,9 @@ export const btn = tv({
     font:1.3em_svg
 
     opacity:0.5[disabled]
-    filter:grayscale(100)[disabled]
+    filter:greyscale(1)[disabled]
 
-    transform:scale(95):active transform:scale(100):active[disabled]
+    transform:scale(0.95):active transform:scale(1):active[disabled]
     cursor:pointer  cursor:not-allowed[disabled]
   `,
   variants: {
@@ -65,16 +65,16 @@ export const btn = tv({
         bg:indigo-70:hover
         bg:indigo-60:hover[disabled]
 
-        font:grey-5
+        fg:grey-0
       `,
       "light-neutral": `
-        bg:grey-20
-        bg:grey-30:hover
-        bg:grey-20:hover[disabled]
+        bg:grey-10
+        bg:grey-20:hover
+        bg:grey-10:hover[disabled]
 
-        font:grey-60
-        font:grey-90:hover
-        font:grey-60:hover[disabled]
+        fg:grey-60
+        fg:grey-90:hover
+        fg:grey-60:hover[disabled]
       `,
     },
   },

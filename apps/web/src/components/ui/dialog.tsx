@@ -8,8 +8,8 @@ const dialog = tv({
     overlay: "fixed top:0 left:0 right:0 bottom:0 z:50 bg:black/0.5",
     header: "flex flex-col gap:4x text:start",
     footer: "flex flex-col flex-row@sm justify-end@sm gap:2x",
-    title: "font:xl leading:1 font:bold font:grey-90",
-    description: "font:grey-60 font:md",
+    title: "font:xl leading:1 font:bold fg:grey-90",
+    description: "fg:grey-60 font:md",
     container: `
       -- ARRANGEMENT
       flex flex-col gap:4x 

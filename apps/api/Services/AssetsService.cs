@@ -18,6 +18,8 @@ public class AssetsService(DbCtx db) : IAssetsService {
   public async Task<Asset> UploadAsync(IFormFile file) {
     // Setup
     var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+    if (!Directory.Exists(uploadsFolder))
+      Directory.CreateDirectory(uploadsFolder);
 
     // Extract info out
     var extension = Path.GetExtension(file.FileName);

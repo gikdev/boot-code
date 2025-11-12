@@ -1,65 +1,60 @@
-import {
-  BookOpenTextIcon,
-  CaretRightIcon,
-  SquaresFourIcon,
-} from "@phosphor-icons/react"
-import { Link } from "@tanstack/react-router"
+import { BookOpenTextIcon } from "@phosphor-icons/react"
+import { tv } from "tailwind-variants/lite"
 import type { CourseRes } from "#/api/generated/client"
+import { Skeleton } from "./ui/skeleton"
 
-interface CourseCardProps {
-  id: number
-  title: string
-  description: string | null
-}
+const cardsContainer = tv({
+  base: `grid grid-cols:1 grid-cols:2@4xs gap:2x items-stretch`,
+})
 
 interface CourseCardsListProps {
   courses: CourseRes[]
 }
 
 export const CourseCard = {
-  Core: ({ title, id }: CourseCardProps) => (
-    <Link to="/courses/$id" params={{ id }}>
-      <div className="flex flex-col gap:2x p:4x bg:grey-10 b:1|solid|grey-30 r:2x cursor:pointer">
-        <div className="flex gap:2x items-start">
-          <SquaresFourIcon size={24} className="flex-shrink:0 flex-grow:0" />
-          <p className="flex-1">{title}</p>
-          <CaretRightIcon
-            size={24}
-            className="flex-shrink:0 flex-grow:0"
-            mirrored
-          />
-        </div>
+  Core: ({ title, thumbnail, description }: CourseRes) => (
+    <div className="flex flex-col h:full gap:0x p:0x bg:grey-0 b:1|solid|grey-10 r:2x">
+      <img
+        className="video rt:2x rb:0 obj:cover"
+        src={`/api/v1/assets/${thumbnail.id}/file`}
+        alt=""
+      />
+
+      <div className="p:2x flex flex-col gap:2x flex:1">
+        <p className="fg:grey-90">{title}</p>
+
+        {description && <p className="font:xs">{description}</p>}
       </div>
-    </Link>
+    </div>
   ),
 
   Skeleton: () => (
-    <div className="flex gap:2x items-start animate-pulse p-4 bg-gray-50 border border-gray-300 rounded-lg">
-      <div className="r:1.5x bg:grey-30 size:6x" />
-      <div className="r:1.5x bg:grey-30 h:6x w:24x mr:auto:dir(ltr) ml:auto:dir(rtl)" />
-      <div className="r:1.5x bg:grey-30 size:6x" />
+    <div className="flex flex-col h:full gap:0x p:0x b:1|solid|grey-10 r:2x">
+      <Skeleton className="video w:full rt:2x rb:0" />
+
+      <div className="p:2x flex flex-col gap:1x flex:1">
+        <Skeleton className="h:4x" />
+
+        <Skeleton className="h:8x" />
+      </div>
     </div>
   ),
 
   List: ({ courses }: CourseCardsListProps) => (
-    <>
+    <div className={cardsContainer()}>
       {courses.map(c => (
-        <CourseCard.Core
-          key={c.id}
-          id={c.id}
-          title={c.title}
-          description={c.description}
-        />
+        <CourseCard.Core key={c.id} {...c} />
       ))}
-    </>
+    </div>
   ),
 
   ListSkeleton: () => (
-    <>
+    <div className={cardsContainer()}>
       <CourseCard.Skeleton />
       <CourseCard.Skeleton />
       <CourseCard.Skeleton />
-    </>
+      <CourseCard.Skeleton />
+    </div>
   ),
 
   Empty: () => (

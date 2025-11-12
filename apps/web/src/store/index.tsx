@@ -1,10 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import type { PropsWithChildren } from "react"
 import { Provider, useDispatch, useSelector, useStore } from "react-redux"
-import { writingAreaSlice } from "#/routes/_app/lessons/$id/write/-writing-area/store"
+
+// import { writingAreaSlice } from "#/routes/_app/lessons/$id/write/-writing-area/store"
 
 const rootReducer = combineReducers({
-  writingArea: writingAreaSlice.reducer,
+  // writingArea: writingAreaSlice.reducer,
 })
 
 export const store = configureStore({

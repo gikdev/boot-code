@@ -21,7 +21,7 @@ export const LessonCard = {
       <div className="flex flex-col gap:2x p:4x bg:grey-10 b:1|solid|grey-30 r:2x cursor:pointer">
         <div className="flex gap:2x items-start">
           <SquaresFourIcon size={24} className="flex-shrink:0 flex-grow:0" />
-          <p className="flex-1">{title}</p>
+          <p className="flex:1">{title}</p>
           <CaretRightIcon
             size={24}
             className="flex-shrink:0 flex-grow:0"
@@ -33,7 +33,7 @@ export const LessonCard = {
   ),
 
   Skeleton: () => (
-    <div className="flex gap:2x items-start animate-pulse p:4x bg-gray-50 border border-gray-300 rounded-lg">
+    <div className="flex gap:2x items-start animate-pulse p:4x bg-grey-50 border border-grey-300 rounded-lg">
       <div className="r:1.5x bg:grey-30 size:6x" />
       <div className="r:1.5x bg:grey-30 h:6x w:24x mr:auto:dir(ltr) ml:auto:dir(rtl)" />
       <div className="r:1.5x bg:grey-30 size:6x" />

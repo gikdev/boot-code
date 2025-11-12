@@ -22,7 +22,7 @@ interface CoreProps {
 export function Core({ children }: CoreProps) {
   return (
     <div
-      className="flex flex-col group rounded-lg border border-gray-300/20 hover:border-gray-300 p-2 gap-2"
+      className="flex flex-col group rounded-lg border border-grey-300/20 hover:border-grey-300 p-2 gap-2"
       dir="auto"
     >
       {children}

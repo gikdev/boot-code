@@ -40,7 +40,8 @@ public static class ResMappings {
     Id = course.Id,
     Title = course.Title,
     Description = course.Description,
-    ThumbnailId = course.ThumbnailId,
+    Thumbnail = course.Thumbnail?.MapToRes()
+                ?? throw new InvalidOperationException("Course thumbnail can't be NULL!"),
     CreatedAtLocal = course.CreatedAt.ToLocalTimeFromUtc(),
   };
 
@@ -48,10 +49,10 @@ public static class ResMappings {
     Id = course.Id,
     Description = course.Description,
     Title = course.Title,
-    ThumbnailId = course.ThumbnailId,
     Thumbnail = course.Thumbnail?.MapToRes()
                 ?? throw new InvalidOperationException("Course thumbnail can't be NULL!"),
     CreatedAtLocal = course.CreatedAt.ToLocalTimeFromUtc(),
+    Modules = course.Modules.Select(m => m.MapToRes()),
   };
 
   public static CoursesRes MapToRes(this IEnumerable<Course> courses) => new() {

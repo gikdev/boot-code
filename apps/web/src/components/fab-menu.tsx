@@ -2,20 +2,19 @@ import { type Icon, ListIcon, XIcon } from "@phosphor-icons/react"
 import { cn, tv, type VariantProps } from "tailwind-variants/lite"
 
 const fabBtnItem = tv({
-  base: "cursor:pointer transform:scale(95):active",
+  base: "cursor:pointer transform:scale(.95):active",
   variants: {
     theme: {
       "secondary-brand":
-        "bg:indigo-20 bg:indigo-30:hover font:indigo-60 font:indigo-90:hover",
-      "secondary-danger":
-        "bg:red-20 bg:red-30:hover font:red-60 font:red-90:hover",
+        "bg:indigo-20 bg:indigo-30:hover fg:indigo-60 fg:indigo-90:hover",
+      "secondary-danger": "bg:red-20 bg:red-30:hover fg:red-60 fg:red-90:hover",
       "secondary-neutral":
-        "bg:gray-20 bg:gray-30:hover font:gray-60 font:gray-90:hover",
+        "bg:grey-20 bg:grey-30:hover fg:grey-60 fg:grey-90:hover",
       "secondary-success":
-        "bg:beryl-20 bg:beryl-30:hover font:beryl-60 font:beryl-90:hover",
+        "bg:beryl-20 bg:beryl-30:hover fg:beryl-60 fg:beryl-90:hover",
     },
     size: {
-      md: "px-6 py-1 gap-1 items-center flex min-h-14 [&_svg]:text-[1.3em] rounded-lg",
+      md: "px:6x py:1x gap:1x items-center flex min-h:14x font-1.3em_svg r:2x",
     },
   },
   defaultVariants: {
@@ -25,10 +24,10 @@ const fabBtnItem = tv({
 })
 
 const fabBtn = tv({
-  base: "cursor:pointer transform:scale(95):active",
+  base: "cursor:pointer transform:scale(.95):active",
   variants: {
     theme: {
-      "contained-brand": "r:2xl bg:indigo-60 font:grey-10 bg:indigo-70:hover",
+      "contained-brand": "r:2xl bg:indigo-60 fg:grey-10 bg:indigo-70:hover",
     },
     size: {
       md: "p:4x",

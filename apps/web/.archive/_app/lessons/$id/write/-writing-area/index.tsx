@@ -29,8 +29,8 @@ export function WritingArea({ initialPieces }: WritingAreaProps) {
   }, [])
 
   return (
-    <div className="flex flex-col gap-4 flex-1 overflow-y-auto relative">
-      <div className="flex flex-col gap-4 flex-1 overflow-y-auto">
+    <div className="flex flex-col gap-4 flex:1 overflow-y-auto relative">
+      <div className="flex flex-col gap-4 flex:1 overflow-y-auto">
         {/* {piecesToShow.map(p => (
           <PieceCard.Core key={p.id}>
             <PieceRenderer payload={p.payload} type={p.type} />

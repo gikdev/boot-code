@@ -14,13 +14,13 @@ export const AppBar = ({
   slotEnd,
   isLoading = false,
 }: AppBarCoreProps) => (
-  <div className="py:2x px:1x gap:1x h:16x b:1|solid|grey-30 justify-center items-center flex">
+  <div className="py:2x px:1x gap:1x h:16x bb:1|solid|grey-10 justify-center items-center flex bg:grey-0">
     <div className="size:12x">{slotStart}</div>
 
     {isLoading ? (
       <Skeleton className="h:6x w:24x mx:auto" />
     ) : (
-      <p className="mx:auto text:center font:grey-90">{title}</p>
+      <p className="mx:auto text:center fg:grey-90">{title}</p>
     )}
 
     <div className="size:12x">{slotEnd}</div>
