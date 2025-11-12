@@ -3,11 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "workspaces": [
-    "apps/web"
-  ],
+  "workspaces": ["apps/web"],
   "scripts": {
     "dev": "node ./scripts/dev.js",
-    "build": "powershell ./scripts/build.ps1"
+    "build": "powershell ./scripts/build.ps1",
+    "preview": "cd build/ && dotnet ./Api.dll",
+    "format": "biome format --write .",
+    "lint": "biome lint --write .",
+    "check": "biome check --write ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.3.5",
+    "concurrently": "^9.2.1"
   }
 }
