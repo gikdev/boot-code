@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(DbCtx))]
-    [Migration("20251110212856_Init")]
+    [Migration("20251113100420_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -202,7 +202,7 @@ namespace Api.Migrations
                     b.HasOne("Api.Entities.Asset", "Thumbnail")
                         .WithMany()
                         .HasForeignKey("ThumbnailId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Thumbnail");
@@ -213,7 +213,7 @@ namespace Api.Migrations
                     b.HasOne("Api.Entities.Module", "Module")
                         .WithMany("Lessons")
                         .HasForeignKey("ModuleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Module");
@@ -224,7 +224,7 @@ namespace Api.Migrations
                     b.HasOne("Api.Entities.Course", "Course")
                         .WithMany("Modules")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Course");
@@ -235,13 +235,13 @@ namespace Api.Migrations
                     b.HasOne("Api.Entities.Curriculum", "Curriculum")
                         .WithMany("Steps")
                         .HasForeignKey("CurriculumId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Api.Entities.Lesson", "Lesson")
                         .WithMany("Steps")
                         .HasForeignKey("LessonId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Curriculum");

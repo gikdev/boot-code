@@ -3,7 +3,7 @@ import { Bounce, ToastContainer } from "react-toastify"
 export const Toast = () => (
   <ToastContainer
     autoClose={5000}
-    className="font-main!"
+    className="font-family:main!"
     closeOnClick={false}
     draggable
     hideProgressBar={false}
@@ -13,7 +13,7 @@ export const Toast = () => (
     position="bottom-right"
     rtl
     theme="light"
-    toastClassName="font-main!"
+    toastClassName="font-family:main!"
     transition={Bounce}
   />
 )

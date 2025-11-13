@@ -1,6 +1,7 @@
 /** biome-ignore-all lint/a11y/noLabelWithoutControl: Fields are dynamically set. */
 import { useFieldContext } from ".."
 import { fieldContainer, input } from "../skins"
+import { FieldInfo } from "./field-info"
 
 interface SimpleTextFieldProps {
   label: string
@@ -29,6 +30,8 @@ export function SimpleTextField({
           onBlur={field.handleBlur}
           onChange={e => field.handleChange(e.target.value)}
         />
+
+        <FieldInfo field={field} />
       </label>
     </label>
   )

@@ -14,7 +14,7 @@ public static class ApiEndpoints {
       public const string GetOne = $"{Base}/{{idOrName}}";
       public const string GetOneFile = $"{Base}/{{idOrName}}/file";
       // public const string Update = $"{Base}/{{idOrName}}";
-      public const string Delete = $"{Base}/{{idOrName}}";
+      public const string Delete = $"{Base}/{{id:int}}";
     }
 
     public static class Curricula {

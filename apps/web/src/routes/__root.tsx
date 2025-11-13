@@ -1,6 +1,5 @@
 /** biome-ignore-all lint/a11y/useValidAriaRole: that [role] is a custom prop! */
 import { createRootRoute, Outlet } from "@tanstack/react-router"
-import { CanProvider } from "#/auth"
 import { Devtools } from "#/integrations/devtools"
 import { TanStackQueryProvider } from "#/integrations/tanstack-query"
 import { Toast } from "#/integrations/toast"
@@ -12,11 +11,9 @@ function RootLayout() {
   return (
     <AppStoreProvider>
       <TanStackQueryProvider>
-        <CanProvider role="admin">
-          <Outlet />
-          <Toast />
-          <Devtools />
-        </CanProvider>
+        <Outlet />
+        <Toast />
+        <Devtools />
       </TanStackQueryProvider>
     </AppStoreProvider>
   )

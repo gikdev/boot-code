@@ -1,20 +1,23 @@
-import { type Icon, ListIcon, XIcon } from "@phosphor-icons/react"
+import {
+  ArrowsLeftRightIcon,
+  type Icon,
+  ListIcon,
+  XIcon,
+} from "@phosphor-icons/react"
+import { useState } from "react"
 import { cn, tv, type VariantProps } from "tailwind-variants/lite"
 
 const fabBtnItem = tv({
   base: "cursor:pointer transform:scale(.95):active",
   variants: {
     theme: {
-      "secondary-brand":
-        "bg:indigo-20 bg:indigo-30:hover fg:indigo-60 fg:indigo-90:hover",
-      "secondary-danger": "bg:red-20 bg:red-30:hover fg:red-60 fg:red-90:hover",
-      "secondary-neutral":
-        "bg:grey-20 bg:grey-30:hover fg:grey-60 fg:grey-90:hover",
-      "secondary-success":
-        "bg:beryl-20 bg:beryl-30:hover fg:beryl-60 fg:beryl-90:hover",
+      "secondary-brand": "bg:indigo-10 bg:indigo-20:hover fg:indigo-90",
+      "secondary-danger": "bg:red-10 bg:red-20:hover fg:red-90",
+      "secondary-neutral": "bg:grey-10 bg:grey-20:hover fg:grey-90",
+      "secondary-success": "bg:beryl-10 bg:beryl-20:hover fg:beryl-90",
     },
     size: {
-      md: "px:6x py:1x gap:1x items-center flex min-h:14x font-1.3em_svg r:2x",
+      md: "px:6x py:1x gap:1x items-center flex min-h:14x font:1.3em_svg r:2x",
     },
   },
   defaultVariants: {
@@ -62,15 +65,26 @@ export function FabMenu({
   className,
   onClick,
 }: FabMenuProps) {
+  const [isPositionSwitched, setPositionSwitched] = useState(false)
+
   return (
     <div
       className={cn(
-        "abs bottom:4x left:4x flex flex-col gap:2x items-end",
+        "fixed bottom:4x flex flex-col gap:2x items-end z:10",
+        isPositionSwitched ? "right:4x items-start" : "left:4x items-end",
         className,
       )}
     >
       {isOpen && (
         <div className="flex flex-col gap:1x items-end">
+          <FabItem
+            key="switch"
+            label="تعویض جا"
+            icon={ArrowsLeftRightIcon}
+            closeAfterClick={false}
+            onClick={() => setPositionSwitched(p => !p)}
+          />
+
           {items.map(item => (
             <FabItem {...item} key={item.key} onClose={onClick} />
           ))}

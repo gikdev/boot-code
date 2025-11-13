@@ -5,23 +5,20 @@ import { iconBtn } from "#/lib/skins"
 
 const dialog = tv({
   slots: {
-    overlay: "fixed top:0 left:0 right:0 bottom:0 z:50 bg:black/0.5",
+    overlay:
+      "fixed top:0 left:0 right:0 bottom:0 w:full h:full z:50 bg:black/0.5",
     header: "flex flex-col gap:4x text:start",
-    footer: "flex flex-col flex-row@sm justify-end@sm gap:2x",
+    footer: "flex flex-col flex-row@4xs justify-end@4xs gap:2x",
     title: "font:xl leading:1 font:bold fg:grey-90",
     description: "fg:grey-60 font:md",
     container: `
-      -- ARRANGEMENT
       flex flex-col gap:4x 
 
-      -- SIZING
-      w:full max-w:calc(100%-2rem) max-w:lg@sm r:2x p:6x 
+      w:calc(100vw-4x) max-w:100x@4xs r:2x p:6x
 
-      -- SKIN
-      bg:grey-10 shadow-lg b:2x|solid|grey-30
+      bg:grey-0 shadow-lg b:2|solid|grey-10
 
-      -- PLACEMENT
-      z:50 fixed top:50% left:50% transform:translateX:50% transform:translateY:-50%
+      z:50 abs top:1/2 left:1/2 transform:translate(-50%,-50%)
     `,
   },
 })

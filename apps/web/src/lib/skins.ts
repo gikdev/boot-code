@@ -68,9 +68,9 @@ export const btn = tv({
         fg:grey-0
       `,
       "light-neutral": `
-        bg:grey-10
-        bg:grey-20:hover
-        bg:grey-10:hover[disabled]
+        bg:grey-5
+        bg:grey-10:hover
+        bg:grey-5:hover[disabled]
 
         fg:grey-60
         fg:grey-90:hover

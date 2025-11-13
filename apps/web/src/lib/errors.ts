@@ -1,3 +1,5 @@
+import { AxiosError } from "axios"
+
 interface ExtractErrorMessageParams {
   status?: number
   error?: unknown
@@ -7,9 +9,19 @@ export function extractErrorMessage({
   error,
   status,
 }: ExtractErrorMessageParams): string {
-  console.log("error", error)
-  console.log("typeof error", typeof error)
-  console.log("status", status)
+  console.warn(error)
+
+  if (typeof error === "string" && error.trim().length > 0) {
+    return error
+  }
+
+  if (Array.isArray(error)) return error.join(", ")
+
+  if (error instanceof AxiosError) {
+    return extractErrorMessage({
+      error: error.response?.data,
+    })
+  }
 
   if (typeof error === "object" && !!error) {
     if ("detail" in error && typeof error.detail === "string")
@@ -36,7 +48,7 @@ export function extractErrorMessage({
       case 402:
         return "پرداخت لازم است." // Payment Required
       case 403:
-        return "دسترسی به این منبع محدود شده است." // Forbidden
+        return "دسترسی به این فایل محدود شده است." // Forbidden
       case 500:
         return "خطای سرور داخلی. لطفاً بعداً دوباره تلاش کنید." // Internal Server Error
       case 501:

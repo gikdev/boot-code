@@ -1,4 +1,5 @@
 import { BookOpenTextIcon } from "@phosphor-icons/react"
+import { Link } from "@tanstack/react-router"
 import { tv } from "tailwind-variants/lite"
 import type { CourseRes } from "#/api/generated/client"
 import { Skeleton } from "./ui/skeleton"
@@ -12,8 +13,12 @@ interface CourseCardsListProps {
 }
 
 export const CourseCard = {
-  Core: ({ title, thumbnail, description }: CourseRes) => (
-    <div className="flex flex-col h:full gap:0x p:0x bg:grey-0 b:1|solid|grey-10 r:2x">
+  Core: ({ title, thumbnail, description, id }: CourseRes) => (
+    <Link
+      to="/courses/$id"
+      params={{ id }}
+      className="flex flex-col h:full gap:0x p:0x bg:grey-0 b:1|solid|grey-10 r:2x"
+    >
       <img
         className="video rt:2x rb:0 obj:cover"
         src={`/api/v1/assets/${thumbnail.id}/file`}
@@ -25,7 +30,7 @@ export const CourseCard = {
 
         {description && <p className="font:xs">{description}</p>}
       </div>
-    </div>
+    </Link>
   ),
 
   Skeleton: () => (

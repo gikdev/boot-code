@@ -6,16 +6,17 @@ using Microsoft.EntityFrameworkCore;
 namespace Api.Services;
 
 public interface IAssetsService {
-  Task<Asset> UploadAsync(IFormFile file);
+  Task<Asset> UploadAsync(IFormFile file, string? Description = null);
   Task<IEnumerable<Asset>> GetAllAsync();
   Task<Asset> GetOneAsync(string idOrName);
   Task<(FileStream fileStream, string fileName, string fileMimeType)> GetOneFileAsync(string idOrName);
-  Task DeleteAsync(string idOrName);
+  Task DeleteAsync(int id);
   Task<bool> ExistsAsync(string idOrName, bool alsoCheckForFile = true);
+  Task<bool> IsUsedAsync(int id);
 }
 
 public class AssetsService(DbCtx db) : IAssetsService {
-  public async Task<Asset> UploadAsync(IFormFile file) {
+  public async Task<Asset> UploadAsync(IFormFile file, string? Description = null) {
     // Setup
     var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
     if (!Directory.Exists(uploadsFolder))
@@ -35,6 +36,7 @@ public class AssetsService(DbCtx db) : IAssetsService {
     var newAsset = new Asset {
       MimeType = contentType,
       Name = fileGuid,
+      Description = Description,
     };
 
     db.Assets.Add(newAsset);
@@ -83,11 +85,12 @@ public class AssetsService(DbCtx db) : IAssetsService {
       _ => ".txt"
     };
 
-  public async Task DeleteAsync(string idOrName) {
-    var asset = (int.TryParse(idOrName, out var id)
-        ? await db.Assets.FirstOrDefaultAsync(a => a.Id == id)
-        : await db.Assets.FirstOrDefaultAsync(a => a.Name == idOrName))
-        ?? throw new NotFoundException();
+  public async Task DeleteAsync(int id) {
+    var asset = await db.Assets.FirstOrDefaultAsync(a => a.Id == id)
+                ?? throw new NotFoundException();
+
+    var isInUse = await IsUsedAsync(id);
+    if (isInUse) throw new EntityInUseException("فایل در دوره");
 
     var fileName = asset.Name + GetExtensionFromMimeType(asset.MimeType);
     var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", fileName);
@@ -114,5 +117,16 @@ public class AssetsService(DbCtx db) : IAssetsService {
     }
 
     return true;
+  }
+
+  public async Task<bool> IsUsedAsync(int id) {
+    var exists = await ExistsAsync(id.ToString());
+    if (!exists) throw new NotFoundException();
+
+    var isUsedInCourse = await db.Courses.AnyAsync(c => c.ThumbnailId == id);
+
+    var isInUse = isUsedInCourse;
+
+    return isInUse;
   }
 }

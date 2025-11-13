@@ -62,16 +62,16 @@ public class CoursesController(
   //   return NoContent();
   // }
 
-  // [HttpDelete(ApiEndpoints.V1.Courses.Delete)]
-  // [
-  //   EndpointSummary("Delete a course."),
-  //   ProducesResponseType(StatusCodes.Status204NoContent),
-  //   ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
-  // ]
-  // public async Task<IActionResult> Delete([FromRoute] int id) {
-  //   await coursesService.DeleteAsync(id);
-  //   return NoContent();
-  // }
+  [HttpDelete(ApiEndpoints.V1.Courses.Delete)]
+  [
+    EndpointSummary("Delete a course."),
+    ProducesResponseType(StatusCodes.Status204NoContent),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
+  ]
+  public async Task<IActionResult> Delete([FromRoute] int id) {
+    await coursesService.DeleteAsync(id);
+    return NoContent();
+  }
 
   // [HttpPost(ApiEndpoints.V1.Courses.CreateModule)]
   // [

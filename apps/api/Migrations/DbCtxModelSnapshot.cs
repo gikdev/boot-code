@@ -46,7 +46,7 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Assets", (string)null);
+                    b.ToTable("Assets");
                 });
 
             modelBuilder.Entity("Api.Entities.Course", b =>
@@ -74,7 +74,7 @@ namespace Api.Migrations
 
                     b.HasIndex("ThumbnailId");
 
-                    b.ToTable("Courses", (string)null);
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("Api.Entities.Curriculum", b =>
@@ -97,7 +97,7 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Curricula", (string)null);
+                    b.ToTable("Curricula");
                 });
 
             modelBuilder.Entity("Api.Entities.Lesson", b =>
@@ -131,7 +131,7 @@ namespace Api.Migrations
 
                     b.HasIndex("ModuleId");
 
-                    b.ToTable("Lessons", (string)null);
+                    b.ToTable("Lessons");
                 });
 
             modelBuilder.Entity("Api.Entities.Module", b =>
@@ -162,7 +162,7 @@ namespace Api.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Modules", (string)null);
+                    b.ToTable("Modules");
                 });
 
             modelBuilder.Entity("Api.Entities.Step", b =>
@@ -191,7 +191,7 @@ namespace Api.Migrations
 
                     b.HasIndex("LessonId");
 
-                    b.ToTable("Steps", (string)null);
+                    b.ToTable("Steps");
                 });
 
             modelBuilder.Entity("Api.Entities.Course", b =>
@@ -199,7 +199,7 @@ namespace Api.Migrations
                     b.HasOne("Api.Entities.Asset", "Thumbnail")
                         .WithMany()
                         .HasForeignKey("ThumbnailId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Thumbnail");
@@ -210,7 +210,7 @@ namespace Api.Migrations
                     b.HasOne("Api.Entities.Module", "Module")
                         .WithMany("Lessons")
                         .HasForeignKey("ModuleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Module");
@@ -221,7 +221,7 @@ namespace Api.Migrations
                     b.HasOne("Api.Entities.Course", "Course")
                         .WithMany("Modules")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Course");
@@ -232,13 +232,13 @@ namespace Api.Migrations
                     b.HasOne("Api.Entities.Curriculum", "Curriculum")
                         .WithMany("Steps")
                         .HasForeignKey("CurriculumId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Api.Entities.Lesson", "Lesson")
                         .WithMany("Steps")
                         .HasForeignKey("LessonId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Curriculum");
