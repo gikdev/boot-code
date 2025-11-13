@@ -54,6 +54,8 @@ function AssetsList() {
   const isFull = status === "success" && data.items.length !== 0
 
   const handleDeleteBtnClick = (id: AssetRes["id"]) => {
+    const shouldContinue = window.confirm("Sure?")
+    if (!shouldContinue) return
     const path = { id }
     deleteMut.mutate({ path })
   }

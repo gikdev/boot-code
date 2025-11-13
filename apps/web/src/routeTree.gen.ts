@@ -14,8 +14,9 @@ import { Route as DevTestRouteImport } from "./routes/dev.test"
 import { Route as AppCoursesIndexRouteImport } from "./routes/_app/courses.index"
 import { Route as AppAssetsIndexRouteImport } from "./routes/_app/assets.index"
 import { Route as AppCoursesNewRouteImport } from "./routes/_app/courses.new"
-import { Route as AppCoursesIdRouteImport } from "./routes/_app/courses.$id"
 import { Route as AppAssetsNewRouteImport } from "./routes/_app/assets.new"
+import { Route as AppCoursesIdIndexRouteImport } from "./routes/_app/courses.$id.index"
+import { Route as AppCoursesIdEditRouteImport } from "./routes/_app/courses.$id.edit"
 
 const AppIndexRoute = AppIndexRouteImport.update({
   id: "/_app/",
@@ -42,14 +43,19 @@ const AppCoursesNewRoute = AppCoursesNewRouteImport.update({
   path: "/courses/new",
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppCoursesIdRoute = AppCoursesIdRouteImport.update({
-  id: "/_app/courses/$id",
-  path: "/courses/$id",
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AppAssetsNewRoute = AppAssetsNewRouteImport.update({
   id: "/_app/assets/new",
   path: "/assets/new",
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppCoursesIdIndexRoute = AppCoursesIdIndexRouteImport.update({
+  id: "/_app/courses/$id/",
+  path: "/courses/$id/",
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppCoursesIdEditRoute = AppCoursesIdEditRouteImport.update({
+  id: "/_app/courses/$id/edit",
+  path: "/courses/$id/edit",
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -57,29 +63,32 @@ export interface FileRoutesByFullPath {
   "/dev/test": typeof DevTestRoute
   "/": typeof AppIndexRoute
   "/assets/new": typeof AppAssetsNewRoute
-  "/courses/$id": typeof AppCoursesIdRoute
   "/courses/new": typeof AppCoursesNewRoute
   "/assets": typeof AppAssetsIndexRoute
   "/courses": typeof AppCoursesIndexRoute
+  "/courses/$id/edit": typeof AppCoursesIdEditRoute
+  "/courses/$id": typeof AppCoursesIdIndexRoute
 }
 export interface FileRoutesByTo {
   "/dev/test": typeof DevTestRoute
   "/": typeof AppIndexRoute
   "/assets/new": typeof AppAssetsNewRoute
-  "/courses/$id": typeof AppCoursesIdRoute
   "/courses/new": typeof AppCoursesNewRoute
   "/assets": typeof AppAssetsIndexRoute
   "/courses": typeof AppCoursesIndexRoute
+  "/courses/$id/edit": typeof AppCoursesIdEditRoute
+  "/courses/$id": typeof AppCoursesIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   "/dev/test": typeof DevTestRoute
   "/_app/": typeof AppIndexRoute
   "/_app/assets/new": typeof AppAssetsNewRoute
-  "/_app/courses/$id": typeof AppCoursesIdRoute
   "/_app/courses/new": typeof AppCoursesNewRoute
   "/_app/assets/": typeof AppAssetsIndexRoute
   "/_app/courses/": typeof AppCoursesIndexRoute
+  "/_app/courses/$id/edit": typeof AppCoursesIdEditRoute
+  "/_app/courses/$id/": typeof AppCoursesIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -87,38 +96,42 @@ export interface FileRouteTypes {
     | "/dev/test"
     | "/"
     | "/assets/new"
-    | "/courses/$id"
     | "/courses/new"
     | "/assets"
     | "/courses"
+    | "/courses/$id/edit"
+    | "/courses/$id"
   fileRoutesByTo: FileRoutesByTo
   to:
     | "/dev/test"
     | "/"
     | "/assets/new"
-    | "/courses/$id"
     | "/courses/new"
     | "/assets"
     | "/courses"
+    | "/courses/$id/edit"
+    | "/courses/$id"
   id:
     | "__root__"
     | "/dev/test"
     | "/_app/"
     | "/_app/assets/new"
-    | "/_app/courses/$id"
     | "/_app/courses/new"
     | "/_app/assets/"
     | "/_app/courses/"
+    | "/_app/courses/$id/edit"
+    | "/_app/courses/$id/"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   DevTestRoute: typeof DevTestRoute
   AppIndexRoute: typeof AppIndexRoute
   AppAssetsNewRoute: typeof AppAssetsNewRoute
-  AppCoursesIdRoute: typeof AppCoursesIdRoute
   AppCoursesNewRoute: typeof AppCoursesNewRoute
   AppAssetsIndexRoute: typeof AppAssetsIndexRoute
   AppCoursesIndexRoute: typeof AppCoursesIndexRoute
+  AppCoursesIdEditRoute: typeof AppCoursesIdEditRoute
+  AppCoursesIdIndexRoute: typeof AppCoursesIdIndexRoute
 }
 
 declare module "@tanstack/react-router" {
@@ -158,18 +171,25 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AppCoursesNewRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/_app/courses/$id": {
-      id: "/_app/courses/$id"
-      path: "/courses/$id"
-      fullPath: "/courses/$id"
-      preLoaderRoute: typeof AppCoursesIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     "/_app/assets/new": {
       id: "/_app/assets/new"
       path: "/assets/new"
       fullPath: "/assets/new"
       preLoaderRoute: typeof AppAssetsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/_app/courses/$id/": {
+      id: "/_app/courses/$id/"
+      path: "/courses/$id"
+      fullPath: "/courses/$id"
+      preLoaderRoute: typeof AppCoursesIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/_app/courses/$id/edit": {
+      id: "/_app/courses/$id/edit"
+      path: "/courses/$id/edit"
+      fullPath: "/courses/$id/edit"
+      preLoaderRoute: typeof AppCoursesIdEditRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -179,10 +199,11 @@ const rootRouteChildren: RootRouteChildren = {
   DevTestRoute: DevTestRoute,
   AppIndexRoute: AppIndexRoute,
   AppAssetsNewRoute: AppAssetsNewRoute,
-  AppCoursesIdRoute: AppCoursesIdRoute,
   AppCoursesNewRoute: AppCoursesNewRoute,
   AppAssetsIndexRoute: AppAssetsIndexRoute,
   AppCoursesIndexRoute: AppCoursesIndexRoute,
+  AppCoursesIdEditRoute: AppCoursesIdEditRoute,
+  AppCoursesIdIndexRoute: AppCoursesIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

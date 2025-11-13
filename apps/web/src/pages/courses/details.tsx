@@ -1,4 +1,4 @@
-import { TrashIcon } from "@phosphor-icons/react"
+import { PencilSimpleIcon, TrashIcon } from "@phosphor-icons/react"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
 import { useMemo, useState } from "react"
@@ -111,8 +111,18 @@ function FabMenuWrapper({ id }: { id: number }) {
             deleteCourse({ path: { id } })
           },
         },
+        {
+          key: "edit-course",
+          label: "ویرایش دوره",
+          icon: PencilSimpleIcon,
+          closeAfterClick: true,
+          theme: "secondary-neutral",
+          onClick: () => {
+            navigate({ to: "/courses/$id/edit", params: { id } })
+          },
+        },
       ] satisfies FabItem[],
-    [deleteCourse, id],
+    [deleteCourse, id, navigate],
   )
 
   return (

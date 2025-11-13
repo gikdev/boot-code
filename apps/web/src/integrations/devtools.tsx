@@ -24,6 +24,7 @@ const config: TanStackDevtoolsReactInit["config"] = {
   defaultOpen: false,
   theme: "dark",
   hideUntilHover: true,
+  triggerHidden: true,
 }
 
 export const Devtools = () => (

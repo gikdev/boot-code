@@ -1,73 +1,102 @@
 import { PlusIcon } from "@phosphor-icons/react"
 import { useMutation, useQuery } from "@tanstack/react-query"
+import { useEffect, useEffectEvent } from "react"
 import { toast } from "react-toastify"
 import z from "zod"
 import {
   type CourseReq,
   getApiV1AssetsOptions,
+  getApiV1CoursesById,
   postApiV1CoursesMutation,
+  putApiV1CoursesByIdMutation,
 } from "#/api/generated/client"
-import { AppBar } from "#/components/app-bar"
-import { GoBackNavBtn } from "#/components/go-back-nav-btn"
 import { useAppForm } from "#/forms"
 import { extractErrorMessage } from "#/lib/errors"
-import { btn, main, phonePage } from "#/lib/skins"
+import { btn } from "#/lib/skins"
 
-export const CreateCoursePage = () => (
-  <div className={phonePage()}>
-    <AppBar
-      title="دوره جدید"
-      slotStart={<GoBackNavBtn onClick={nav => nav({ to: "/courses" })} />}
-    />
-
-    <div className={main()}>
-      <CreateCourseForm />
-    </div>
-  </div>
-)
-
-const CourseFormSchema = z.object({
+const courseFormSchema = z.object({
   title: z.string().min(1, "عنوان اجباری هست.").trim(),
   description: z.string(),
   thumbnailId: z
     .number({ message: "آی‌دی تامبنیل باید عدد مثبت باشد." })
     .positive("آی‌دی تامبنیل باید عدد مثبت باشد."),
 })
-type CourseFormValues = z.infer<typeof CourseFormSchema>
+type CourseFormValues = z.infer<typeof courseFormSchema>
 
-const defaultValues: CourseFormValues = {
+const emptyValues: CourseFormValues = {
   title: "",
   description: "",
   thumbnailId: 0,
 }
 
-function CreateCourseForm() {
-  const assetsRes = useQuery(getApiV1AssetsOptions())
+type CourseFormProps =
+  | {
+      mode: "create"
+      onSuccess?: () => void
+    }
+  | {
+      mode: "edit"
+      onSuccess?: () => void
+      id: number
+    }
 
-  const createMut = useMutation({
-    ...postApiV1CoursesMutation(),
-    onError: error => toast.error(extractErrorMessage({ error })),
-    onSuccess: () => {
-      toast.success("با موفقیت انجام شد.")
-      form.reset()
-    },
-  })
+const onError = (error: unknown) => toast.error(extractErrorMessage({ error }))
+
+export function CourseForm(props: CourseFormProps) {
+  const assetsRes = useQuery(getApiV1AssetsOptions())
+  const { mutate: createCourse } = useMutation(postApiV1CoursesMutation())
+  const { mutate: editCourse } = useMutation(putApiV1CoursesByIdMutation())
 
   const form = useAppForm({
-    defaultValues,
+    defaultValues: emptyValues,
     validators: {
-      onChange: CourseFormSchema,
+      onChange: courseFormSchema,
     },
     onSubmit({ value }) {
+      const onSuccess = () => {
+        props.onSuccess?.()
+        form.reset(emptyValues)
+        toast.success("با موفقیت انجام شد.")
+      }
+
       const body: CourseReq = {
         title: value.title,
         description: value.description.trim() || null,
         thumbnailId: value.thumbnailId,
       }
 
-      createMut.mutate({ body })
+      if (props.mode === "create") {
+        createCourse({ body }, { onSuccess, onError })
+      }
+
+      if (props.mode === "edit") {
+        const path = { id: props.id }
+        editCourse({ body, path }, { onSuccess, onError })
+      }
     },
   })
+
+  const getDefaultValues = useEffectEvent(() => {
+    if (props.mode !== "edit") return
+
+    getApiV1CoursesById({ path: { id: props.id } })
+      .then(res => {
+        if (!res.data) return
+
+        form.reset({
+          description: res.data.description || "",
+          thumbnailId: res.data.thumbnail.id,
+          title: res.data.title,
+        })
+      })
+      .catch(onError)
+  })
+
+  useEffect(() => {
+    if (props.mode !== "edit") return
+
+    getDefaultValues()
+  }, [props.mode])
 
   return (
     <div className="flex flex-col gap:4x">

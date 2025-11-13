@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { RequireRole } from "#/auth/require-role"
-import { CreateCoursePage } from "#/pages/create-course"
+import { CreateCoursePage } from "#/pages/courses/create"
 
 export const Route = createFileRoute("/_app/courses/new")({
   component: RouteComponent,

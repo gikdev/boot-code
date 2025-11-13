@@ -4,7 +4,7 @@ import { tv } from "tailwind-variants/lite"
 import type { CourseRes } from "#/api/generated/client"
 import { Skeleton } from "./ui/skeleton"
 
-const cardsContainer = tv({
+const container = tv({
   base: `grid grid-cols:1 grid-cols:2@4xs gap:2x items-stretch`,
 })
 
@@ -46,7 +46,7 @@ export const CourseCard = {
   ),
 
   List: ({ courses }: CourseCardsListProps) => (
-    <div className={cardsContainer()}>
+    <div className={container()}>
       {courses.map(c => (
         <CourseCard.Core key={c.id} {...c} />
       ))}
@@ -54,7 +54,7 @@ export const CourseCard = {
   ),
 
   ListSkeleton: () => (
-    <div className={cardsContainer()}>
+    <div className={container()}>
       <CourseCard.Skeleton />
       <CourseCard.Skeleton />
       <CourseCard.Skeleton />

@@ -11,7 +11,7 @@ import { ErrorParagraph } from "#/components/error-paragraph"
 import { type FabItem, FabMenu } from "#/components/fab-menu"
 import { main, phonePage } from "#/lib/skins"
 
-export const CoursesPage = () => (
+export const CoursesListPage = () => (
   <div className={phonePage()}>
     <AppBar title="دوره‌ها" />
 

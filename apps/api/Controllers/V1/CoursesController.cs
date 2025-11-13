@@ -49,18 +49,18 @@ public class CoursesController(
     return Ok(res);
   }
 
-  // [HttpPut(ApiEndpoints.V1.Courses.Update)]
-  // [
-  //   EndpointSummary("Update a course."),
-  //   ProducesResponseType(StatusCodes.Status204NoContent),
-  //   ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest),
-  //   ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
-  // ]
-  // public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CourseReq req) {
-  //   var course = req.MapToEntity();
-  //   await coursesService.UpdateAsync(id, course);
-  //   return NoContent();
-  // }
+  [HttpPut(ApiEndpoints.V1.Courses.Update)]
+  [
+    EndpointSummary("Update a course."),
+    ProducesResponseType(StatusCodes.Status204NoContent),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
+  ]
+  public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CourseReq req) {
+    var course = req.MapToEntity();
+    await coursesService.UpdateAsync(id, course);
+    return NoContent();
+  }
 
   [HttpDelete(ApiEndpoints.V1.Courses.Delete)]
   [

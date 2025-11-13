@@ -1,7 +1,8 @@
 import { createFileRoute, Navigate } from "@tanstack/react-router"
-import { CourseDetailsPage } from "#/pages/course-details"
+import { RequireRole } from "#/auth/require-role"
+import { EditCoursePage } from "#/pages/courses/edit"
 
-export const Route = createFileRoute("/_app/courses/$id")({
+export const Route = createFileRoute("/_app/courses/$id/edit")({
   component: RouteComponent,
   params: {
     parse: raw => {
@@ -19,5 +20,9 @@ function RouteComponent() {
 
   if (typeof id !== "number") return <Navigate to="/" />
 
-  return <CourseDetailsPage id={id} />
+  return (
+    <RequireRole roles={["admin"]}>
+      <EditCoursePage id={id} />
+    </RequireRole>
+  )
 }
