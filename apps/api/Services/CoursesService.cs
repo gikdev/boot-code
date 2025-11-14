@@ -33,6 +33,7 @@ public class CoursesService(
   public async Task<Course> GetOneAsync(int id) {
     var course = await db.Courses
       .Include(c => c.Thumbnail)
+      .Include(c => c.Modules)
       .SingleOrDefaultAsync(c => c.Id == id)
       ?? throw new NotFoundException("دوره");
 

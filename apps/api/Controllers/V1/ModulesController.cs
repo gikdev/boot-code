@@ -12,30 +12,30 @@ public class ModulesController(
   IModulesService modulesService,
   ILessonsService lessonsService
 ) : ControllerBase {
-  // [HttpGet(ApiEndpoints.V1.Modules.GetOne)]
-  // [
-  //   EndpointSummary("Get a module."),
-  //   ProducesResponseType(typeof(ModuleFullRes), StatusCodes.Status200OK),
-  //   ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
-  // ]
-  // public async Task<ActionResult<ModuleFullRes>> GetOne([FromRoute] int id) {
-  //   var fullModule = await modulesService.GetOneAsync(id);
-  //   var res = fullModule.MapToFullRes();
-  //   return Ok(res);
-  // }
+  [HttpGet(ApiEndpoints.V1.Modules.GetOne)]
+  [
+    EndpointSummary("Get a module."),
+    ProducesResponseType(typeof(ModuleFullRes), StatusCodes.Status200OK),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
+  ]
+  public async Task<ActionResult<ModuleFullRes>> GetOne([FromRoute] int id) {
+    var fullModule = await modulesService.GetOneAsync(id);
+    var res = fullModule.MapToFullRes();
+    return Ok(res);
+  }
 
-  // [HttpPut(ApiEndpoints.V1.Modules.Update)]
-  // [
-  //   EndpointSummary("Update a module."),
-  //   ProducesResponseType(StatusCodes.Status204NoContent),
-  //   ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest),
-  //   ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
-  // ]
-  // public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ModuleReq req) {
-  //   var module = req.MapToEntity();
-  //   await modulesService.UpdateAsync(id, module);
-  //   return NoContent();
-  // }
+  [HttpPut(ApiEndpoints.V1.Modules.Update)]
+  [
+    EndpointSummary("Update a module."),
+    ProducesResponseType(StatusCodes.Status204NoContent),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
+  ]
+  public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ModuleReq req) {
+    var module = req.MapToEntity();
+    await modulesService.UpdateAsync(id, module);
+    return NoContent();
+  }
 
   // [HttpDelete(ApiEndpoints.V1.Modules.Delete)]
   // [

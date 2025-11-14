@@ -3,59 +3,54 @@ import {
   CaretRightIcon,
   SquaresFourIcon,
 } from "@phosphor-icons/react"
+import type { ModuleRes } from "#/api/generated/client"
 
-interface LessonCardProps {
-  id: number
-  title: string
+interface ModuleCardsListProps {
+  modules: ModuleRes[]
 }
 
-interface LessonCardsListProps {
-  lessons: ModuleRes[]
-}
-
-export const LessonCard = {
-  Core: ({ title }: LessonCardProps) => (
-    <div className="flex flex-col gap:2x p:4x bg:grey-10 b:1|solid|grey-30 r:2x cursor:pointer">
+export const ModuleCard = {
+  Core: ({ title, description }: ModuleRes) => (
+    <div className="flex flex-col gap:2x p:4x bg:grey-0 b:1|solid|grey-10 r:2x cursor:pointer">
       <div className="flex gap:2x items-start">
         <SquaresFourIcon size={24} className="flex-shrink:0 flex-grow:0" />
+
         <p className="flex:1">{title}</p>
+
         <CaretRightIcon
           size={24}
           className="flex-shrink:0 flex-grow:0"
           mirrored
         />
       </div>
+
+      {description && <p>{description}</p>}
     </div>
   ),
 
   Skeleton: () => (
-    <div className="flex gap:2x items-start animate-pulse p:4x bg-grey-50 border border-grey-300 rounded-lg">
+    <div className="flex gap:2x items-start animate-pulse p:4x bg:grey-50 b:1|solid|grey-30 r:2x @fade|1s|infinite|alternate">
       <div className="r:1.5x bg:grey-30 size:6x" />
       <div className="r:1.5x bg:grey-30 h:6x w:24x mr:auto:dir(ltr) ml:auto:dir(rtl)" />
       <div className="r:1.5x bg:grey-30 size:6x" />
     </div>
   ),
 
-  List: ({ lessons }: LessonCardsListProps) => (
-    <>
-      {lessons.map(l => (
-        <LessonCard.Core key={l.id} id={l.id} title={l.title} />
-      ))}
-    </>
-  ),
+  List: ({ modules }: ModuleCardsListProps) =>
+    modules.map(m => <ModuleCard.Core key={m.id} {...m} />),
 
   ListSkeleton: () => (
     <>
-      <LessonCard.Skeleton />
-      <LessonCard.Skeleton />
-      <LessonCard.Skeleton />
+      <ModuleCard.Skeleton />
+      <ModuleCard.Skeleton />
+      <ModuleCard.Skeleton />
     </>
   ),
 
   Empty: () => (
     <div className="flex flex-col items-center justify-center p:4x gap:2x">
       <BookOpenTextIcon size={24} />
-      <p>فعلا درسی نداریم.</p>
+      <p>فعلا فصلی نداریم.</p>
     </div>
   ),
 }

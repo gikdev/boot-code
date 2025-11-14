@@ -73,17 +73,17 @@ public class CoursesController(
     return NoContent();
   }
 
-  // [HttpPost(ApiEndpoints.V1.Courses.CreateModule)]
-  // [
-  //   EndpointSummary("Create a module."),
-  //   ProducesResponseType(typeof(ModuleRes), StatusCodes.Status201Created),
-  //   ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest),
-  //   ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
-  // ]
-  // public async Task<ActionResult<ModuleRes>> CreateModule([FromRoute] int id, [FromBody] ModuleReq req) {
-  //   var newModule = req.MapToEntity();
-  //   await modulesService.CreateAsync(id, newModule);
-  //   var res = newModule.MapToRes();
-  //   return Ok(res);
-  // }
+  [HttpPost(ApiEndpoints.V1.Courses.CreateModule)]
+  [
+    EndpointSummary("Create a module."),
+    ProducesResponseType(typeof(ModuleRes), StatusCodes.Status201Created),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
+  ]
+  public async Task<ActionResult<ModuleRes>> CreateModule([FromRoute] int id, [FromBody] ModuleReq req) {
+    var newModule = req.MapToEntity();
+    await modulesService.CreateAsync(id, newModule);
+    var res = newModule.MapToRes();
+    return Ok(res);
+  }
 }

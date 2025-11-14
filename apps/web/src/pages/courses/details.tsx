@@ -1,4 +1,4 @@
-import { PencilSimpleIcon, TrashIcon } from "@phosphor-icons/react"
+import { PencilSimpleIcon, PlusIcon, TrashIcon } from "@phosphor-icons/react"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
 import { useMemo, useState } from "react"
@@ -15,6 +15,7 @@ import { AssetRenderer } from "#/components/asset-renderer"
 import { ErrorParagraph } from "#/components/error-paragraph"
 import { type FabItem, FabMenu } from "#/components/fab-menu"
 import { GoBackNavBtn } from "#/components/go-back-nav-btn"
+import { ModuleCard } from "#/components/module-card"
 import { Spinner } from "#/components/spinner"
 import { extractErrorMessage } from "#/lib/errors"
 import { main, phonePage } from "#/lib/skins"
@@ -68,7 +69,7 @@ function CourseDetails({
       <AssetRenderer
         idOrName={thumbnail.id}
         mimeType={thumbnail.mimeType}
-        className="r:2x"
+        className="r:2x video obj:cover"
       />
 
       <p className="font:bold font:3xl fg:grey-90">{title}</p>
@@ -76,6 +77,12 @@ function CourseDetails({
       {description ? <p>{description}</p> : <p>(بدون توضیحات)</p>}
 
       <p>تعداد فصل‌ها: {modules.length}</p>
+
+      {modules.length > 0 ? (
+        <ModuleCard.List modules={modules} />
+      ) : (
+        <ModuleCard.Empty />
+      )}
     </div>
   )
 }
@@ -119,6 +126,16 @@ function FabMenuWrapper({ id }: { id: number }) {
           theme: "secondary-neutral",
           onClick: () => {
             navigate({ to: "/courses/$id/edit", params: { id } })
+          },
+        },
+        {
+          key: "new-module",
+          label: "فصل جدید",
+          closeAfterClick: true,
+          icon: PlusIcon,
+          theme: "secondary-success",
+          onClick: () => {
+            navigate({ to: "/courses/$id/modules/new", params: { id } })
           },
         },
       ] satisfies FabItem[],

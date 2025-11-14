@@ -1,4 +1,4 @@
-import { PlusIcon } from "@phosphor-icons/react"
+import { FloppyDiskIcon } from "@phosphor-icons/react"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useEffect, useEffectEvent } from "react"
 import { toast } from "react-toastify"
@@ -143,8 +143,8 @@ export function CourseForm(props: CourseFormProps) {
             theme: "contained-primary",
           })}
         >
-          <PlusIcon />
-          <span>ایجاد</span>
+          <FloppyDiskIcon />
+          <span>ذخیره</span>
         </form.Btn>
       </form.AppForm>
     </div>
