@@ -37,16 +37,16 @@ public class ModulesController(
     return NoContent();
   }
 
-  // [HttpDelete(ApiEndpoints.V1.Modules.Delete)]
-  // [
-  //   EndpointSummary("Delete a module."),
-  //   ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status204NoContent),
-  //   ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
-  // ]
-  // public async Task<IActionResult> Delete([FromRoute] int id) {
-  //   await modulesService.DeleteAsync(id);
-  //   return NoContent();
-  // }
+  [HttpDelete(ApiEndpoints.V1.Modules.Delete)]
+  [
+    EndpointSummary("Delete a module."),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status204NoContent),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
+  ]
+  public async Task<IActionResult> Delete([FromRoute] int id) {
+    await modulesService.DeleteAsync(id);
+    return NoContent();
+  }
 
   // [HttpPost(ApiEndpoints.V1.Modules.CreateLesson)]
   // [

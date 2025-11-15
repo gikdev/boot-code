@@ -15,9 +15,11 @@ import { Route as AppCoursesIndexRouteImport } from "./routes/_app/courses/index
 import { Route as AppAssetsIndexRouteImport } from "./routes/_app/assets/index"
 import { Route as AppCoursesNewRouteImport } from "./routes/_app/courses/new"
 import { Route as AppAssetsNewRouteImport } from "./routes/_app/assets/new"
-import { Route as AppCoursesIdIndexRouteImport } from "./routes/_app/courses/$id/index"
-import { Route as AppCoursesIdEditRouteImport } from "./routes/_app/courses/$id/edit"
-import { Route as AppCoursesIdModulesNewRouteImport } from "./routes/_app/courses/$id/modules/new"
+import { Route as AppCoursesCourseIdIndexRouteImport } from "./routes/_app/courses/$courseId/index"
+import { Route as AppCoursesCourseIdEditRouteImport } from "./routes/_app/courses/$courseId/edit"
+import { Route as AppCoursesCourseIdModulesIndexRouteImport } from "./routes/_app/courses/$courseId/modules/index"
+import { Route as AppCoursesCourseIdModulesNewRouteImport } from "./routes/_app/courses/$courseId/modules/new"
+import { Route as AppCoursesCourseIdModulesModuleIdIndexRouteImport } from "./routes/_app/courses/$courseId/modules/$moduleId/index"
 
 const AppIndexRoute = AppIndexRouteImport.update({
   id: "/_app/",
@@ -49,21 +51,34 @@ const AppAssetsNewRoute = AppAssetsNewRouteImport.update({
   path: "/assets/new",
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppCoursesIdIndexRoute = AppCoursesIdIndexRouteImport.update({
-  id: "/_app/courses/$id/",
-  path: "/courses/$id/",
+const AppCoursesCourseIdIndexRoute = AppCoursesCourseIdIndexRouteImport.update({
+  id: "/_app/courses/$courseId/",
+  path: "/courses/$courseId/",
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppCoursesIdEditRoute = AppCoursesIdEditRouteImport.update({
-  id: "/_app/courses/$id/edit",
-  path: "/courses/$id/edit",
+const AppCoursesCourseIdEditRoute = AppCoursesCourseIdEditRouteImport.update({
+  id: "/_app/courses/$courseId/edit",
+  path: "/courses/$courseId/edit",
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppCoursesIdModulesNewRoute = AppCoursesIdModulesNewRouteImport.update({
-  id: "/_app/courses/$id/modules/new",
-  path: "/courses/$id/modules/new",
-  getParentRoute: () => rootRouteImport,
-} as any)
+const AppCoursesCourseIdModulesIndexRoute =
+  AppCoursesCourseIdModulesIndexRouteImport.update({
+    id: "/_app/courses/$courseId/modules/",
+    path: "/courses/$courseId/modules/",
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AppCoursesCourseIdModulesNewRoute =
+  AppCoursesCourseIdModulesNewRouteImport.update({
+    id: "/_app/courses/$courseId/modules/new",
+    path: "/courses/$courseId/modules/new",
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AppCoursesCourseIdModulesModuleIdIndexRoute =
+  AppCoursesCourseIdModulesModuleIdIndexRouteImport.update({
+    id: "/_app/courses/$courseId/modules/$moduleId/",
+    path: "/courses/$courseId/modules/$moduleId/",
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   "/dev/test": typeof DevTestRoute
@@ -72,9 +87,11 @@ export interface FileRoutesByFullPath {
   "/courses/new": typeof AppCoursesNewRoute
   "/assets": typeof AppAssetsIndexRoute
   "/courses": typeof AppCoursesIndexRoute
-  "/courses/$id/edit": typeof AppCoursesIdEditRoute
-  "/courses/$id": typeof AppCoursesIdIndexRoute
-  "/courses/$id/modules/new": typeof AppCoursesIdModulesNewRoute
+  "/courses/$courseId/edit": typeof AppCoursesCourseIdEditRoute
+  "/courses/$courseId": typeof AppCoursesCourseIdIndexRoute
+  "/courses/$courseId/modules/new": typeof AppCoursesCourseIdModulesNewRoute
+  "/courses/$courseId/modules": typeof AppCoursesCourseIdModulesIndexRoute
+  "/courses/$courseId/modules/$moduleId": typeof AppCoursesCourseIdModulesModuleIdIndexRoute
 }
 export interface FileRoutesByTo {
   "/dev/test": typeof DevTestRoute
@@ -83,9 +100,11 @@ export interface FileRoutesByTo {
   "/courses/new": typeof AppCoursesNewRoute
   "/assets": typeof AppAssetsIndexRoute
   "/courses": typeof AppCoursesIndexRoute
-  "/courses/$id/edit": typeof AppCoursesIdEditRoute
-  "/courses/$id": typeof AppCoursesIdIndexRoute
-  "/courses/$id/modules/new": typeof AppCoursesIdModulesNewRoute
+  "/courses/$courseId/edit": typeof AppCoursesCourseIdEditRoute
+  "/courses/$courseId": typeof AppCoursesCourseIdIndexRoute
+  "/courses/$courseId/modules/new": typeof AppCoursesCourseIdModulesNewRoute
+  "/courses/$courseId/modules": typeof AppCoursesCourseIdModulesIndexRoute
+  "/courses/$courseId/modules/$moduleId": typeof AppCoursesCourseIdModulesModuleIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -95,9 +114,11 @@ export interface FileRoutesById {
   "/_app/courses/new": typeof AppCoursesNewRoute
   "/_app/assets/": typeof AppAssetsIndexRoute
   "/_app/courses/": typeof AppCoursesIndexRoute
-  "/_app/courses/$id/edit": typeof AppCoursesIdEditRoute
-  "/_app/courses/$id/": typeof AppCoursesIdIndexRoute
-  "/_app/courses/$id/modules/new": typeof AppCoursesIdModulesNewRoute
+  "/_app/courses/$courseId/edit": typeof AppCoursesCourseIdEditRoute
+  "/_app/courses/$courseId/": typeof AppCoursesCourseIdIndexRoute
+  "/_app/courses/$courseId/modules/new": typeof AppCoursesCourseIdModulesNewRoute
+  "/_app/courses/$courseId/modules/": typeof AppCoursesCourseIdModulesIndexRoute
+  "/_app/courses/$courseId/modules/$moduleId/": typeof AppCoursesCourseIdModulesModuleIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -108,9 +129,11 @@ export interface FileRouteTypes {
     | "/courses/new"
     | "/assets"
     | "/courses"
-    | "/courses/$id/edit"
-    | "/courses/$id"
-    | "/courses/$id/modules/new"
+    | "/courses/$courseId/edit"
+    | "/courses/$courseId"
+    | "/courses/$courseId/modules/new"
+    | "/courses/$courseId/modules"
+    | "/courses/$courseId/modules/$moduleId"
   fileRoutesByTo: FileRoutesByTo
   to:
     | "/dev/test"
@@ -119,9 +142,11 @@ export interface FileRouteTypes {
     | "/courses/new"
     | "/assets"
     | "/courses"
-    | "/courses/$id/edit"
-    | "/courses/$id"
-    | "/courses/$id/modules/new"
+    | "/courses/$courseId/edit"
+    | "/courses/$courseId"
+    | "/courses/$courseId/modules/new"
+    | "/courses/$courseId/modules"
+    | "/courses/$courseId/modules/$moduleId"
   id:
     | "__root__"
     | "/dev/test"
@@ -130,9 +155,11 @@ export interface FileRouteTypes {
     | "/_app/courses/new"
     | "/_app/assets/"
     | "/_app/courses/"
-    | "/_app/courses/$id/edit"
-    | "/_app/courses/$id/"
-    | "/_app/courses/$id/modules/new"
+    | "/_app/courses/$courseId/edit"
+    | "/_app/courses/$courseId/"
+    | "/_app/courses/$courseId/modules/new"
+    | "/_app/courses/$courseId/modules/"
+    | "/_app/courses/$courseId/modules/$moduleId/"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -142,9 +169,11 @@ export interface RootRouteChildren {
   AppCoursesNewRoute: typeof AppCoursesNewRoute
   AppAssetsIndexRoute: typeof AppAssetsIndexRoute
   AppCoursesIndexRoute: typeof AppCoursesIndexRoute
-  AppCoursesIdEditRoute: typeof AppCoursesIdEditRoute
-  AppCoursesIdIndexRoute: typeof AppCoursesIdIndexRoute
-  AppCoursesIdModulesNewRoute: typeof AppCoursesIdModulesNewRoute
+  AppCoursesCourseIdEditRoute: typeof AppCoursesCourseIdEditRoute
+  AppCoursesCourseIdIndexRoute: typeof AppCoursesCourseIdIndexRoute
+  AppCoursesCourseIdModulesNewRoute: typeof AppCoursesCourseIdModulesNewRoute
+  AppCoursesCourseIdModulesIndexRoute: typeof AppCoursesCourseIdModulesIndexRoute
+  AppCoursesCourseIdModulesModuleIdIndexRoute: typeof AppCoursesCourseIdModulesModuleIdIndexRoute
 }
 
 declare module "@tanstack/react-router" {
@@ -191,25 +220,39 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AppAssetsNewRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/_app/courses/$id/": {
-      id: "/_app/courses/$id/"
-      path: "/courses/$id"
-      fullPath: "/courses/$id"
-      preLoaderRoute: typeof AppCoursesIdIndexRouteImport
+    "/_app/courses/$courseId/": {
+      id: "/_app/courses/$courseId/"
+      path: "/courses/$courseId"
+      fullPath: "/courses/$courseId"
+      preLoaderRoute: typeof AppCoursesCourseIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/_app/courses/$id/edit": {
-      id: "/_app/courses/$id/edit"
-      path: "/courses/$id/edit"
-      fullPath: "/courses/$id/edit"
-      preLoaderRoute: typeof AppCoursesIdEditRouteImport
+    "/_app/courses/$courseId/edit": {
+      id: "/_app/courses/$courseId/edit"
+      path: "/courses/$courseId/edit"
+      fullPath: "/courses/$courseId/edit"
+      preLoaderRoute: typeof AppCoursesCourseIdEditRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/_app/courses/$id/modules/new": {
-      id: "/_app/courses/$id/modules/new"
-      path: "/courses/$id/modules/new"
-      fullPath: "/courses/$id/modules/new"
-      preLoaderRoute: typeof AppCoursesIdModulesNewRouteImport
+    "/_app/courses/$courseId/modules/": {
+      id: "/_app/courses/$courseId/modules/"
+      path: "/courses/$courseId/modules"
+      fullPath: "/courses/$courseId/modules"
+      preLoaderRoute: typeof AppCoursesCourseIdModulesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/_app/courses/$courseId/modules/new": {
+      id: "/_app/courses/$courseId/modules/new"
+      path: "/courses/$courseId/modules/new"
+      fullPath: "/courses/$courseId/modules/new"
+      preLoaderRoute: typeof AppCoursesCourseIdModulesNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/_app/courses/$courseId/modules/$moduleId/": {
+      id: "/_app/courses/$courseId/modules/$moduleId/"
+      path: "/courses/$courseId/modules/$moduleId"
+      fullPath: "/courses/$courseId/modules/$moduleId"
+      preLoaderRoute: typeof AppCoursesCourseIdModulesModuleIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -222,9 +265,12 @@ const rootRouteChildren: RootRouteChildren = {
   AppCoursesNewRoute: AppCoursesNewRoute,
   AppAssetsIndexRoute: AppAssetsIndexRoute,
   AppCoursesIndexRoute: AppCoursesIndexRoute,
-  AppCoursesIdEditRoute: AppCoursesIdEditRoute,
-  AppCoursesIdIndexRoute: AppCoursesIdIndexRoute,
-  AppCoursesIdModulesNewRoute: AppCoursesIdModulesNewRoute,
+  AppCoursesCourseIdEditRoute: AppCoursesCourseIdEditRoute,
+  AppCoursesCourseIdIndexRoute: AppCoursesCourseIdIndexRoute,
+  AppCoursesCourseIdModulesNewRoute: AppCoursesCourseIdModulesNewRoute,
+  AppCoursesCourseIdModulesIndexRoute: AppCoursesCourseIdModulesIndexRoute,
+  AppCoursesCourseIdModulesModuleIdIndexRoute:
+    AppCoursesCourseIdModulesModuleIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

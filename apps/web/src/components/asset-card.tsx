@@ -30,7 +30,7 @@ export const AssetCard = {
     const [isPreviewOpen, setPreviewOpen] = useState(false)
 
     return (
-      <li key={asset.id} className="flex flex-col gap:1x p:2x r:1.5x">
+      <div className="flex flex-col gap:1x p:2x r:1.5x">
         <div className="flex items-center gap:1x fg:grey-90">
           <code>{`{${asset.id}}`}</code>
 
@@ -49,7 +49,7 @@ export const AssetCard = {
           <span className="">{asset.mimeType}</span>
         </div>
 
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-end gap:2x">
           <button
             type="button"
             className={iconBtn({ size: 8 })}
@@ -72,20 +72,25 @@ export const AssetCard = {
             <AssetRenderer idOrName={asset.id} mimeType={asset.mimeType} />
           </div>
         )}
-      </li>
+      </div>
     )
   },
 
   Skeleton: () => (
-    <div className="flex flex-col h:full gap:0x p:0x b:1|solid|grey-10 r:2x">
-      <Skeleton className="video w:full rt:2x rb:0" />
-
-      <div className="p:2x flex flex-col gap:1x flex:1">
-        <Skeleton className="h:4x" />
-
-        <Skeleton className="h:8x" />
+    <li className="flex flex-col gap:1x p:2x r:1.5x">
+      <div className="flex items-center gap:1x fg:grey-90">
+        <Skeleton className="h:4x w:full" />
       </div>
-    </div>
+
+      <div className="flex items-center justify-between gap:1x font:mono font:xs flex-wrap:wrap">
+        <Skeleton className="h:4x w:full" />
+      </div>
+
+      <div className="flex items-center justify-end gap:2x">
+        <Skeleton className="h:8x w:8x" />
+        <Skeleton className="h:8x w:8x" />
+      </div>
+    </li>
   ),
 
   List: ({ assets, onDeleteBtnClick, onNameClick }: AssetCardsListProps) => (

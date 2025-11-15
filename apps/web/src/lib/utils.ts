@@ -11,3 +11,11 @@ export function copyContentToClipboard(e: MouseEvent<HTMLElement>) {
     .then(() => toast.success("کپی شد."))
     .catch(error => toast.error(extractErrorMessage({ error })))
 }
+
+type PositionElements = Array<{ position: number }>
+
+export const sortByPosition = <T extends PositionElements>(items: T) =>
+  [...items].sort((a, b) => a.position - b.position)
+
+export const strToNullableNum = (str: string) =>
+  Number.isNaN(Number(str)) ? null : Number(str)

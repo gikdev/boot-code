@@ -8,6 +8,7 @@ import {
   deleteApiV1CoursesByIdMutation,
   getApiV1CoursesByIdOptions,
   getApiV1CoursesOptions,
+  type ModuleRes,
 } from "#/api/generated/client"
 import { RequireRole } from "#/auth/require-role"
 import { AppBar } from "#/components/app-bar"
@@ -16,9 +17,10 @@ import { ErrorParagraph } from "#/components/error-paragraph"
 import { type FabItem, FabMenu } from "#/components/fab-menu"
 import { GoBackNavBtn } from "#/components/go-back-nav-btn"
 import { ModuleCard } from "#/components/module-card"
-import { Spinner } from "#/components/spinner"
+import { Skeleton } from "#/components/ui/skeleton"
 import { extractErrorMessage } from "#/lib/errors"
 import { main, phonePage } from "#/lib/skins"
+import { sortByPosition } from "#/lib/utils"
 
 interface CourseDetailsPageProps {
   id: number
@@ -48,7 +50,7 @@ function CourseDetailsWrapper({ id }: { id: number }) {
 
   switch (status) {
     case "pending":
-      return <Spinner />
+      return <CourseDetailsSkeleton />
 
     case "error":
       return <ErrorParagraph onClick={() => void refetch()} />
@@ -56,6 +58,17 @@ function CourseDetailsWrapper({ id }: { id: number }) {
     case "success":
       return <CourseDetails {...data} />
   }
+}
+
+function CourseDetailsSkeleton() {
+  return (
+    <div className="flex flex-col gap:2x">
+      <Skeleton className="r:2x video obj:cover" />
+      <Skeleton className="h:8x" />
+      <Skeleton className="h:4x" />
+      <ModuleCard.ListSkeleton />
+    </div>
+  )
 }
 
 function CourseDetails({
@@ -78,12 +91,18 @@ function CourseDetails({
 
       <p>تعداد فصل‌ها: {modules.length}</p>
 
-      {modules.length > 0 ? (
-        <ModuleCard.List modules={modules} />
-      ) : (
-        <ModuleCard.Empty />
-      )}
+      <ModulesList modules={modules} />
     </div>
+  )
+}
+
+function ModulesList({ modules }: { modules: ModuleRes[] }) {
+  const sortedModules = sortByPosition(modules)
+
+  return sortedModules.length > 0 ? (
+    <ModuleCard.List modules={sortedModules} />
+  ) : (
+    <ModuleCard.Empty />
   )
 }
 
