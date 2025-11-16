@@ -15,8 +15,8 @@ export const CreateModulePage = ({ courseId }: CreateModulePageProps) => (
         <GoBackNavBtn
           onClick={nav =>
             nav({
-              to: "/courses/$id",
-              params: { id: courseId },
+              to: "/courses/$courseId",
+              params: { courseId },
             })
           }
         />

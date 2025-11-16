@@ -144,7 +144,10 @@ function FabMenuWrapper({ id }: { id: number }) {
           closeAfterClick: true,
           theme: "secondary-neutral",
           onClick: () => {
-            navigate({ to: "/courses/$id/edit", params: { id } })
+            navigate({
+              to: "/courses/$courseId/edit",
+              params: { courseId: id },
+            })
           },
         },
         {
@@ -154,7 +157,10 @@ function FabMenuWrapper({ id }: { id: number }) {
           icon: PlusIcon,
           theme: "secondary-success",
           onClick: () => {
-            navigate({ to: "/courses/$id/modules/new", params: { id } })
+            navigate({
+              to: "/courses/$courseId/modules/new",
+              params: { courseId: id },
+            })
           },
         },
       ] satisfies FabItem[],

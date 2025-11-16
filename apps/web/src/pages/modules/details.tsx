@@ -1,4 +1,4 @@
-import { TrashIcon } from "@phosphor-icons/react"
+import { PencilSimpleIcon, TrashIcon } from "@phosphor-icons/react"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
 import { useMemo, useState } from "react"
@@ -20,7 +20,15 @@ import { extractErrorMessage } from "#/lib/errors"
 import { main, phonePage } from "#/lib/skins"
 import { sortByPosition } from "#/lib/utils"
 
-export function ModuleDetailsPage({ id }: { id: number }) {
+interface ModuleDetailsPageProps {
+  courseId: number
+  moduleId: number
+}
+
+export function ModuleDetailsPage({
+  courseId,
+  moduleId,
+}: ModuleDetailsPageProps) {
   return (
     <div className={phonePage()}>
       <AppBar
@@ -29,9 +37,9 @@ export function ModuleDetailsPage({ id }: { id: number }) {
       />
 
       <div className={main()}>
-        <ModuleDetailsWrapper id={id} />
+        <ModuleDetailsWrapper id={moduleId} />
 
-        <FabMenuWrapper id={id} />
+        <FabMenuWrapper moduleId={moduleId} courseId={courseId} />
       </div>
     </div>
   )
@@ -91,7 +99,12 @@ function LessonsList({ lessons }: { lessons: LessonRes[] }) {
   )
 }
 
-function FabMenuWrapper({ id }: { id: number }) {
+interface FabMenuWrapperProps {
+  courseId: number
+  moduleId: number
+}
+
+function FabMenuWrapper({ courseId, moduleId }: FabMenuWrapperProps) {
   const navigate = useNavigate()
   const [isFabOpen, setFabOpen] = useState(false)
 
@@ -116,19 +129,22 @@ function FabMenuWrapper({ id }: { id: number }) {
           onClick: () => {
             const shouldContinue = window.confirm("Sure?")
             if (!shouldContinue) return
-            remove({ path: { id } })
+            remove({ path: { id: moduleId } })
           },
         },
-        // {
-        //   key: "edit-course",
-        //   label: "ویرایش دوره",
-        //   icon: PencilSimpleIcon,
-        //   closeAfterClick: true,
-        //   theme: "secondary-neutral",
-        //   onClick: () => {
-        //     navigate({ to: "/courses/$id/edit", params: { id } })
-        //   },
-        // },
+        {
+          key: "edit-module",
+          label: "ویرایش فصل",
+          icon: PencilSimpleIcon,
+          closeAfterClick: true,
+          theme: "secondary-neutral",
+          onClick: () => {
+            navigate({
+              to: "/courses/$courseId/modules/$moduleId/edit",
+              params: { courseId, moduleId },
+            })
+          },
+        },
         // {
         //   key: "new-module",
         //   label: "فصل جدید",
@@ -140,7 +156,7 @@ function FabMenuWrapper({ id }: { id: number }) {
         //   },
         // },
       ] satisfies FabItem[],
-    [remove, id],
+    [remove, courseId, moduleId, navigate],
   )
 
   return (

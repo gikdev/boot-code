@@ -12,8 +12,8 @@ export function EditModulePage({ id }: { id: number }) {
           <GoBackNavBtn
             onClick={nav =>
               nav({
-                to: "/courses/$id",
-                params: { id },
+                to: "/courses/$courseId",
+                params: { courseId: id },
               })
             }
           />

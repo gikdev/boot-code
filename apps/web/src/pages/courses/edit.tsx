@@ -10,7 +10,9 @@ export function EditCoursePage({ id }: { id: number }) {
         title="ویرایش دوره"
         slotStart={
           <GoBackNavBtn
-            onClick={nav => nav({ to: "/courses/$id", params: { id } })}
+            onClick={nav =>
+              nav({ to: "/courses/$courseId", params: { courseId: id } })
+            }
           />
         }
       />

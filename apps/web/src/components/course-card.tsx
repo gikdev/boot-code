@@ -15,8 +15,8 @@ interface CourseCardsListProps {
 export const CourseCard = {
   Core: ({ title, thumbnail, description, id }: CourseRes) => (
     <Link
-      to="/courses/$id"
-      params={{ id }}
+      to="/courses/$courseId"
+      params={{ courseId: id }}
       className="flex flex-col h:full gap:0x p:0x bg:grey-0 b:1|solid|grey-10 r:2x"
     >
       <img

@@ -1,9 +1,10 @@
-import { createFileRoute, Navigate } from "@tanstack/react-router"
+import { RequireRole } from "#/auth/require-role"
 import { strToNullableNum } from "#/lib/utils"
-import { ModuleDetailsPage } from "#/pages/modules/details"
+import { EditModulePage } from "#/pages/modules/edit"
+import { createFileRoute, Navigate } from "@tanstack/react-router"
 
 export const Route = createFileRoute(
-  "/_app/courses/$courseId/modules/$moduleId/",
+  "/_app/courses/$courseId/modules/$moduleId/edit",
 )({
   component: RouteComponent,
   params: {
@@ -20,5 +21,9 @@ function RouteComponent() {
   if (typeof courseId !== "number") return <Navigate to="/" />
   if (typeof moduleId !== "number") return <Navigate to="/" />
 
-  return <ModuleDetailsPage courseId={courseId} moduleId={moduleId} />
+  return (
+    <RequireRole roles={["admin"]}>
+      <EditModulePage id={moduleId} />
+    </RequireRole>
+  )
 }

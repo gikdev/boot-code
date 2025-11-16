@@ -30,7 +30,7 @@ export const ModuleCard = {
         />
       </div>
 
-      {description && <p>{description}</p>}
+      {description && <p className="font:xs">{description}</p>}
     </Link>
   ),
 

@@ -4,6 +4,7 @@ import {
   SquaresFourIcon,
 } from "@phosphor-icons/react"
 import type { LessonRes } from "#/api/generated/client"
+import { Skeleton } from "./ui/skeleton"
 
 interface LessonCardsListProps {
   lessons: LessonRes[]
@@ -24,15 +25,15 @@ export const LessonCard = {
         />
       </div>
 
-      {description && <p>{description}</p>}
+      {description && <p className="font:xs">{description}</p>}
     </div>
   ),
 
   Skeleton: () => (
-    <div className="flex gap:2x items-start animate-pulse p:4x bg:grey-50 b:1|solid|grey-30 r:2x @fade|1s|infinite|alternate">
-      <div className="r:1.5x bg:grey-30 size:6x" />
-      <div className="r:1.5x bg:grey-30 h:6x w:24x mr:auto:dir(ltr) ml:auto:dir(rtl)" />
-      <div className="r:1.5x bg:grey-30 size:6x" />
+    <div className="flex gap:2x items-start animate-pulse p:4x b:1|solid|grey-10 r:2x @fade|1s|infinite|alternate">
+      <Skeleton className="r:1.5x size:6x" />
+      <Skeleton className="r:1.5x h:6x w:24x ml:auto" />
+      <Skeleton className="r:1.5x size:6x" />
     </div>
   ),
 
