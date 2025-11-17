@@ -15,12 +15,16 @@ import { Route as AppCoursesIndexRouteImport } from "./routes/_app/courses/index
 import { Route as AppAssetsIndexRouteImport } from "./routes/_app/assets/index"
 import { Route as AppCoursesNewRouteImport } from "./routes/_app/courses/new"
 import { Route as AppAssetsNewRouteImport } from "./routes/_app/assets/new"
+import { Route as AppLessonsLessonIdIndexRouteImport } from "./routes/_app/lessons/$lessonId/index"
 import { Route as AppCoursesCourseIdIndexRouteImport } from "./routes/_app/courses/$courseId/index"
+import { Route as AppLessonsLessonIdWriteRouteImport } from "./routes/_app/lessons/$lessonId/write"
+import { Route as AppLessonsLessonIdEditRouteImport } from "./routes/_app/lessons/$lessonId/edit"
 import { Route as AppCoursesCourseIdEditRouteImport } from "./routes/_app/courses/$courseId/edit"
 import { Route as AppCoursesCourseIdModulesIndexRouteImport } from "./routes/_app/courses/$courseId/modules/index"
 import { Route as AppCoursesCourseIdModulesNewRouteImport } from "./routes/_app/courses/$courseId/modules/new"
 import { Route as AppCoursesCourseIdModulesModuleIdIndexRouteImport } from "./routes/_app/courses/$courseId/modules/$moduleId/index"
 import { Route as AppCoursesCourseIdModulesModuleIdEditRouteImport } from "./routes/_app/courses/$courseId/modules/$moduleId/edit"
+import { Route as AppCoursesCourseIdModulesModuleIdLessonsNewRouteImport } from "./routes/_app/courses/$courseId/modules/$moduleId/lessons.new"
 
 const AppIndexRoute = AppIndexRouteImport.update({
   id: "/_app/",
@@ -52,9 +56,24 @@ const AppAssetsNewRoute = AppAssetsNewRouteImport.update({
   path: "/assets/new",
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppLessonsLessonIdIndexRoute = AppLessonsLessonIdIndexRouteImport.update({
+  id: "/_app/lessons/$lessonId/",
+  path: "/lessons/$lessonId/",
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppCoursesCourseIdIndexRoute = AppCoursesCourseIdIndexRouteImport.update({
   id: "/_app/courses/$courseId/",
   path: "/courses/$courseId/",
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppLessonsLessonIdWriteRoute = AppLessonsLessonIdWriteRouteImport.update({
+  id: "/_app/lessons/$lessonId/write",
+  path: "/lessons/$lessonId/write",
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppLessonsLessonIdEditRoute = AppLessonsLessonIdEditRouteImport.update({
+  id: "/_app/lessons/$lessonId/edit",
+  path: "/lessons/$lessonId/edit",
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppCoursesCourseIdEditRoute = AppCoursesCourseIdEditRouteImport.update({
@@ -86,6 +105,12 @@ const AppCoursesCourseIdModulesModuleIdEditRoute =
     path: "/courses/$courseId/modules/$moduleId/edit",
     getParentRoute: () => rootRouteImport,
   } as any)
+const AppCoursesCourseIdModulesModuleIdLessonsNewRoute =
+  AppCoursesCourseIdModulesModuleIdLessonsNewRouteImport.update({
+    id: "/_app/courses/$courseId/modules/$moduleId/lessons/new",
+    path: "/courses/$courseId/modules/$moduleId/lessons/new",
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   "/dev/test": typeof DevTestRoute
@@ -95,11 +120,15 @@ export interface FileRoutesByFullPath {
   "/assets": typeof AppAssetsIndexRoute
   "/courses": typeof AppCoursesIndexRoute
   "/courses/$courseId/edit": typeof AppCoursesCourseIdEditRoute
+  "/lessons/$lessonId/edit": typeof AppLessonsLessonIdEditRoute
+  "/lessons/$lessonId/write": typeof AppLessonsLessonIdWriteRoute
   "/courses/$courseId": typeof AppCoursesCourseIdIndexRoute
+  "/lessons/$lessonId": typeof AppLessonsLessonIdIndexRoute
   "/courses/$courseId/modules/new": typeof AppCoursesCourseIdModulesNewRoute
   "/courses/$courseId/modules": typeof AppCoursesCourseIdModulesIndexRoute
   "/courses/$courseId/modules/$moduleId/edit": typeof AppCoursesCourseIdModulesModuleIdEditRoute
   "/courses/$courseId/modules/$moduleId": typeof AppCoursesCourseIdModulesModuleIdIndexRoute
+  "/courses/$courseId/modules/$moduleId/lessons/new": typeof AppCoursesCourseIdModulesModuleIdLessonsNewRoute
 }
 export interface FileRoutesByTo {
   "/dev/test": typeof DevTestRoute
@@ -109,11 +138,15 @@ export interface FileRoutesByTo {
   "/assets": typeof AppAssetsIndexRoute
   "/courses": typeof AppCoursesIndexRoute
   "/courses/$courseId/edit": typeof AppCoursesCourseIdEditRoute
+  "/lessons/$lessonId/edit": typeof AppLessonsLessonIdEditRoute
+  "/lessons/$lessonId/write": typeof AppLessonsLessonIdWriteRoute
   "/courses/$courseId": typeof AppCoursesCourseIdIndexRoute
+  "/lessons/$lessonId": typeof AppLessonsLessonIdIndexRoute
   "/courses/$courseId/modules/new": typeof AppCoursesCourseIdModulesNewRoute
   "/courses/$courseId/modules": typeof AppCoursesCourseIdModulesIndexRoute
   "/courses/$courseId/modules/$moduleId/edit": typeof AppCoursesCourseIdModulesModuleIdEditRoute
   "/courses/$courseId/modules/$moduleId": typeof AppCoursesCourseIdModulesModuleIdIndexRoute
+  "/courses/$courseId/modules/$moduleId/lessons/new": typeof AppCoursesCourseIdModulesModuleIdLessonsNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -124,11 +157,15 @@ export interface FileRoutesById {
   "/_app/assets/": typeof AppAssetsIndexRoute
   "/_app/courses/": typeof AppCoursesIndexRoute
   "/_app/courses/$courseId/edit": typeof AppCoursesCourseIdEditRoute
+  "/_app/lessons/$lessonId/edit": typeof AppLessonsLessonIdEditRoute
+  "/_app/lessons/$lessonId/write": typeof AppLessonsLessonIdWriteRoute
   "/_app/courses/$courseId/": typeof AppCoursesCourseIdIndexRoute
+  "/_app/lessons/$lessonId/": typeof AppLessonsLessonIdIndexRoute
   "/_app/courses/$courseId/modules/new": typeof AppCoursesCourseIdModulesNewRoute
   "/_app/courses/$courseId/modules/": typeof AppCoursesCourseIdModulesIndexRoute
   "/_app/courses/$courseId/modules/$moduleId/edit": typeof AppCoursesCourseIdModulesModuleIdEditRoute
   "/_app/courses/$courseId/modules/$moduleId/": typeof AppCoursesCourseIdModulesModuleIdIndexRoute
+  "/_app/courses/$courseId/modules/$moduleId/lessons/new": typeof AppCoursesCourseIdModulesModuleIdLessonsNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -140,11 +177,15 @@ export interface FileRouteTypes {
     | "/assets"
     | "/courses"
     | "/courses/$courseId/edit"
+    | "/lessons/$lessonId/edit"
+    | "/lessons/$lessonId/write"
     | "/courses/$courseId"
+    | "/lessons/$lessonId"
     | "/courses/$courseId/modules/new"
     | "/courses/$courseId/modules"
     | "/courses/$courseId/modules/$moduleId/edit"
     | "/courses/$courseId/modules/$moduleId"
+    | "/courses/$courseId/modules/$moduleId/lessons/new"
   fileRoutesByTo: FileRoutesByTo
   to:
     | "/dev/test"
@@ -154,11 +195,15 @@ export interface FileRouteTypes {
     | "/assets"
     | "/courses"
     | "/courses/$courseId/edit"
+    | "/lessons/$lessonId/edit"
+    | "/lessons/$lessonId/write"
     | "/courses/$courseId"
+    | "/lessons/$lessonId"
     | "/courses/$courseId/modules/new"
     | "/courses/$courseId/modules"
     | "/courses/$courseId/modules/$moduleId/edit"
     | "/courses/$courseId/modules/$moduleId"
+    | "/courses/$courseId/modules/$moduleId/lessons/new"
   id:
     | "__root__"
     | "/dev/test"
@@ -168,11 +213,15 @@ export interface FileRouteTypes {
     | "/_app/assets/"
     | "/_app/courses/"
     | "/_app/courses/$courseId/edit"
+    | "/_app/lessons/$lessonId/edit"
+    | "/_app/lessons/$lessonId/write"
     | "/_app/courses/$courseId/"
+    | "/_app/lessons/$lessonId/"
     | "/_app/courses/$courseId/modules/new"
     | "/_app/courses/$courseId/modules/"
     | "/_app/courses/$courseId/modules/$moduleId/edit"
     | "/_app/courses/$courseId/modules/$moduleId/"
+    | "/_app/courses/$courseId/modules/$moduleId/lessons/new"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -183,11 +232,15 @@ export interface RootRouteChildren {
   AppAssetsIndexRoute: typeof AppAssetsIndexRoute
   AppCoursesIndexRoute: typeof AppCoursesIndexRoute
   AppCoursesCourseIdEditRoute: typeof AppCoursesCourseIdEditRoute
+  AppLessonsLessonIdEditRoute: typeof AppLessonsLessonIdEditRoute
+  AppLessonsLessonIdWriteRoute: typeof AppLessonsLessonIdWriteRoute
   AppCoursesCourseIdIndexRoute: typeof AppCoursesCourseIdIndexRoute
+  AppLessonsLessonIdIndexRoute: typeof AppLessonsLessonIdIndexRoute
   AppCoursesCourseIdModulesNewRoute: typeof AppCoursesCourseIdModulesNewRoute
   AppCoursesCourseIdModulesIndexRoute: typeof AppCoursesCourseIdModulesIndexRoute
   AppCoursesCourseIdModulesModuleIdEditRoute: typeof AppCoursesCourseIdModulesModuleIdEditRoute
   AppCoursesCourseIdModulesModuleIdIndexRoute: typeof AppCoursesCourseIdModulesModuleIdIndexRoute
+  AppCoursesCourseIdModulesModuleIdLessonsNewRoute: typeof AppCoursesCourseIdModulesModuleIdLessonsNewRoute
 }
 
 declare module "@tanstack/react-router" {
@@ -234,11 +287,32 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AppAssetsNewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    "/_app/lessons/$lessonId/": {
+      id: "/_app/lessons/$lessonId/"
+      path: "/lessons/$lessonId"
+      fullPath: "/lessons/$lessonId"
+      preLoaderRoute: typeof AppLessonsLessonIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     "/_app/courses/$courseId/": {
       id: "/_app/courses/$courseId/"
       path: "/courses/$courseId"
       fullPath: "/courses/$courseId"
       preLoaderRoute: typeof AppCoursesCourseIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/_app/lessons/$lessonId/write": {
+      id: "/_app/lessons/$lessonId/write"
+      path: "/lessons/$lessonId/write"
+      fullPath: "/lessons/$lessonId/write"
+      preLoaderRoute: typeof AppLessonsLessonIdWriteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/_app/lessons/$lessonId/edit": {
+      id: "/_app/lessons/$lessonId/edit"
+      path: "/lessons/$lessonId/edit"
+      fullPath: "/lessons/$lessonId/edit"
+      preLoaderRoute: typeof AppLessonsLessonIdEditRouteImport
       parentRoute: typeof rootRouteImport
     }
     "/_app/courses/$courseId/edit": {
@@ -276,6 +350,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AppCoursesCourseIdModulesModuleIdEditRouteImport
       parentRoute: typeof rootRouteImport
     }
+    "/_app/courses/$courseId/modules/$moduleId/lessons/new": {
+      id: "/_app/courses/$courseId/modules/$moduleId/lessons/new"
+      path: "/courses/$courseId/modules/$moduleId/lessons/new"
+      fullPath: "/courses/$courseId/modules/$moduleId/lessons/new"
+      preLoaderRoute: typeof AppCoursesCourseIdModulesModuleIdLessonsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -287,13 +368,18 @@ const rootRouteChildren: RootRouteChildren = {
   AppAssetsIndexRoute: AppAssetsIndexRoute,
   AppCoursesIndexRoute: AppCoursesIndexRoute,
   AppCoursesCourseIdEditRoute: AppCoursesCourseIdEditRoute,
+  AppLessonsLessonIdEditRoute: AppLessonsLessonIdEditRoute,
+  AppLessonsLessonIdWriteRoute: AppLessonsLessonIdWriteRoute,
   AppCoursesCourseIdIndexRoute: AppCoursesCourseIdIndexRoute,
+  AppLessonsLessonIdIndexRoute: AppLessonsLessonIdIndexRoute,
   AppCoursesCourseIdModulesNewRoute: AppCoursesCourseIdModulesNewRoute,
   AppCoursesCourseIdModulesIndexRoute: AppCoursesCourseIdModulesIndexRoute,
   AppCoursesCourseIdModulesModuleIdEditRoute:
     AppCoursesCourseIdModulesModuleIdEditRoute,
   AppCoursesCourseIdModulesModuleIdIndexRoute:
     AppCoursesCourseIdModulesModuleIdIndexRoute,
+  AppCoursesCourseIdModulesModuleIdLessonsNewRoute:
+    AppCoursesCourseIdModulesModuleIdLessonsNewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,65 +1,62 @@
-import { PencilSimpleIcon, PlusIcon, TrashIcon } from "@phosphor-icons/react"
+import { PencilSimpleIcon, TrashIcon } from "@phosphor-icons/react"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
 import { useMemo, useState } from "react"
 import { toast } from "react-toastify"
 import {
-  deleteApiV1ModulesByIdMutation,
-  getApiV1ModulesByIdOptions,
-  type LessonRes,
-  type ModuleFullRes,
+  deleteApiV1LessonsByIdMutation,
+  getApiV1LessonsByIdOptions,
+  type LessonFullRes,
 } from "#/api/generated/client"
 import { RequireRole } from "#/auth/require-role"
 import { AppBar } from "#/components/app-bar"
 import { ErrorParagraph } from "#/components/error-paragraph"
 import { type FabItem, FabMenu } from "#/components/fab-menu"
-import { GoBackNavBtn } from "#/components/go-back-nav-btn"
 import { LessonCard } from "#/components/lesson-card"
 import { Skeleton } from "#/components/ui/skeleton"
 import { extractErrorMessage } from "#/lib/errors"
 import { main, phonePage } from "#/lib/skins"
-import { sortByPosition } from "#/lib/utils"
+import { GoBackNavBtn } from "#/components/go-back-nav-btn"
 
 interface PageProps {
-  courseId: number
-  moduleId: number
+  lessonId: number
 }
 
-export function ModuleDetailsPage({ courseId, moduleId }: PageProps) {
+export function LessonDetailsPage({ lessonId }: PageProps) {
   return (
     <div className={phonePage()}>
       <AppBar
-        title="فصل"
-        slotStart={<GoBackNavBtn onClick={nav => nav({ to: ".." })} />}
+        title="درس"
+        slotStart={<GoBackNavBtn onClick={nav => nav({ to: "/" })} />}
       />
 
       <div className={main()}>
-        <ModuleDetailsWrapper id={moduleId} />
+        <LessonDetailsWrapper id={lessonId} />
 
-        <FabMenuWrapper moduleId={moduleId} courseId={courseId} />
+        <FabMenuWrapper lessonId={lessonId} />
       </div>
     </div>
   )
 }
 
-function ModuleDetailsWrapper({ id }: { id: number }) {
+function LessonDetailsWrapper({ id }: { id: number }) {
   const { data, status, refetch } = useQuery(
-    getApiV1ModulesByIdOptions({ path: { id } }),
+    getApiV1LessonsByIdOptions({ path: { id } }),
   )
 
   switch (status) {
     case "pending":
-      return <ModuleDetailsSkeleton />
+      return <LessonDetailsSkeleton />
 
     case "error":
       return <ErrorParagraph onClick={() => void refetch()} />
 
     case "success":
-      return <ModuleDetails {...data} />
+      return <LessonDetails {...data} />
   }
 }
 
-function ModuleDetailsSkeleton() {
+function LessonDetailsSkeleton() {
   return (
     <div className="flex flex-col gap:2x">
       <Skeleton className="h:8x" />
@@ -69,39 +66,22 @@ function ModuleDetailsSkeleton() {
   )
 }
 
-function ModuleDetails({ title, description, lessons }: ModuleFullRes) {
+function LessonDetails({ title, description }: LessonFullRes) {
   return (
     <div className="flex flex-col gap:2x">
       <p className="font:bold font:3xl fg:grey-90">{title}</p>
 
       {description ? <p>{description}</p> : <p>(بدون توضیحات)</p>}
-
-      <p>
-        <span>تعداد دروس: </span>
-        <span>{lessons.length}</span>
-      </p>
-
-      <LessonsList lessons={lessons} />
     </div>
   )
 }
 
-function LessonsList({ lessons }: { lessons: LessonRes[] }) {
-  const sortedLessons = sortByPosition(lessons)
-
-  return sortedLessons.length > 0 ? (
-    <LessonCard.List lessons={sortedLessons} />
-  ) : (
-    <LessonCard.Empty />
-  )
-}
-
-function FabMenuWrapper({ courseId, moduleId }: PageProps) {
+function FabMenuWrapper({ lessonId }: PageProps) {
   const navigate = useNavigate()
   const [isFabOpen, setFabOpen] = useState(false)
 
   const { mutate: remove } = useMutation({
-    ...deleteApiV1ModulesByIdMutation(),
+    ...deleteApiV1LessonsByIdMutation(),
     onError: error => toast.error(extractErrorMessage({ error })),
     onSuccess() {
       toast.success("پاک شد.")
@@ -113,45 +93,45 @@ function FabMenuWrapper({ courseId, moduleId }: PageProps) {
     () =>
       [
         {
-          key: "delete-module",
-          label: "حذف فصل",
+          key: "delete-lesson",
+          label: "حذف درس",
           icon: TrashIcon,
           closeAfterClick: true,
           theme: "secondary-danger",
           onClick: () => {
             const shouldContinue = window.confirm("Sure?")
             if (!shouldContinue) return
-            remove({ path: { id: moduleId } })
+            remove({ path: { id: lessonId } })
           },
         },
         {
-          key: "edit-module",
-          label: "ویرایش فصل",
+          key: "edit-lesson",
+          label: "ویرایش درس",
           icon: PencilSimpleIcon,
           closeAfterClick: true,
           theme: "secondary-neutral",
           onClick: () => {
             navigate({
-              to: "/courses/$courseId/modules/$moduleId/edit",
-              params: { courseId, moduleId },
+              to: "/lessons/$lessonId/edit",
+              params: { lessonId },
             })
           },
         },
         {
-          key: "new-lesson",
-          label: "درس جدید",
+          key: "write",
+          label: "نوشتن",
           closeAfterClick: true,
-          icon: PlusIcon,
-          theme: "secondary-success",
+          icon: PencilSimpleIcon,
+          theme: "secondary-neutral",
           onClick: () => {
             navigate({
-              to: "/courses/$courseId/modules/$moduleId/lessons/new",
-              params: { courseId, moduleId },
+              to: "/lessons/$lessonId/write",
+              params: { lessonId },
             })
           },
         },
       ] satisfies FabItem[],
-    [remove, courseId, moduleId, navigate],
+    [remove, lessonId, navigate],
   )
 
   return (

@@ -18,7 +18,7 @@ function RouteComponent() {
   if (typeof courseId !== "number") return <Navigate to="/" />
 
   return (
-    <RequireRole roles={["admin"]}>
+    <RequireRole roles={["admin"]} fallback={<p>شما دسترسی ندارید.</p>}>
       <EditCoursePage id={courseId} />
     </RequireRole>
   )

@@ -1,25 +1,22 @@
 import { createFileRoute, Navigate } from "@tanstack/react-router"
 import { RequireRole } from "#/auth/require-role"
 import { strToNullableNum } from "#/lib/utils"
-import { CreateModulePage } from "#/pages/modules/create"
 
-export const Route = createFileRoute("/_app/courses/$courseId/modules/new")({
+export const Route = createFileRoute("/_app/lessons/$lessonId/write")({
   component: RouteComponent,
   params: {
     parse: raw => ({
-      courseId: strToNullableNum(raw.courseId),
+      lessonId: strToNullableNum(raw.lessonId),
     }),
   },
 })
 
 function RouteComponent() {
-  const { courseId } = Route.useParams()
+  const { lessonId } = Route.useParams()
 
-  if (typeof courseId !== "number") return <Navigate to="/" />
+  if (typeof lessonId !== "number") return <Navigate to="/" />
 
   return (
     <RequireRole roles={["admin"]} fallback={<p>شما دسترسی ندارید.</p>}>
-      <CreateModulePage courseId={courseId} />
-    </RequireRole>
-  )
+    Write content...</RequireRole>)
 }
