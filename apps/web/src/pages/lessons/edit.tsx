@@ -5,23 +5,15 @@ import { LessonForm } from "./form"
 
 interface PageProps {
   lessonId: number
+  goBackHref: string
 }
 
-export function EditLessonPage({ lessonId }: PageProps) {
+export function EditLessonPage({ goBackHref, lessonId }: PageProps) {
   return (
     <div className={phonePage()}>
       <AppBar
         title="ویرایش درس"
-        slotStart={
-          <GoBackNavBtn
-            onClick={nav =>
-              nav({
-                to: "/lessons/$lessonId",
-                params: { lessonId },
-              })
-            }
-          />
-        }
+        slotStart={<GoBackNavBtn onClick={nav => nav({ to: goBackHref })} />}
       />
 
       <div className={main()}>

@@ -7,15 +7,19 @@ import { Link } from "@tanstack/react-router"
 import type { LessonRes } from "#/api/generated/client"
 import { Skeleton } from "./ui/skeleton"
 
+interface LessonCardProps extends LessonRes {
+  detailsPageLinkOptions: { to: string }
+}
+
 interface LessonCardsListProps {
-  lessons: LessonRes[]
+  lessons: LessonCardProps[]
+  courseId?: number
 }
 
 export const LessonCard = {
-  Core: ({ title, description, id }: LessonRes) => (
+  Core: ({ title, description, detailsPageLinkOptions }: LessonCardProps) => (
     <Link
-      to="/lessons/$lessonId"
-      params={{ lessonId: id }}
+      {...detailsPageLinkOptions}
       className="flex flex-col gap:2x p:4x bg:grey-0 b:1|solid|grey-10 r:2x cursor:pointer"
     >
       <div className="flex gap:2x items-center">

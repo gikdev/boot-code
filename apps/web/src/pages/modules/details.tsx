@@ -1,6 +1,6 @@
 import { PencilSimpleIcon, PlusIcon, TrashIcon } from "@phosphor-icons/react"
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { useNavigate } from "@tanstack/react-router"
+import { linkOptions, useNavigate } from "@tanstack/react-router"
 import { useMemo, useState } from "react"
 import { toast } from "react-toastify"
 import {
@@ -69,7 +69,12 @@ function ModuleDetailsSkeleton() {
   )
 }
 
-function ModuleDetails({ title, description, lessons }: ModuleFullRes) {
+function ModuleDetails({
+  title,
+  description,
+  lessons,
+  courseId,
+}: ModuleFullRes) {
   return (
     <div className="flex flex-col gap:2x">
       <p className="font:bold font:3xl fg:grey-90">{title}</p>
@@ -81,16 +86,27 @@ function ModuleDetails({ title, description, lessons }: ModuleFullRes) {
         <span>{lessons.length}</span>
       </p>
 
-      <LessonsList lessons={lessons} />
+      <LessonsList courseId={courseId} lessons={lessons} />
     </div>
   )
 }
 
-function LessonsList({ lessons }: { lessons: LessonRes[] }) {
-  const sortedLessons = sortByPosition(lessons)
+interface LessonListProps {
+  lessons: LessonRes[]
+  courseId: number
+}
 
-  return sortedLessons.length > 0 ? (
-    <LessonCard.List lessons={sortedLessons} />
+function LessonsList({ lessons, courseId }: LessonListProps) {
+  const readyLessons = sortByPosition(lessons).map(l => ({
+    ...l,
+    detailsPageLinkOptions: linkOptions({
+      to: "/courses/$courseId/modules/$moduleId/lessons/$lessonId",
+      params: { courseId, lessonId: l.id, moduleId: l.moduleId },
+    }),
+  }))
+
+  return readyLessons.length > 0 ? (
+    <LessonCard.List courseId={courseId} lessons={readyLessons} />
   ) : (
     <LessonCard.Empty />
   )

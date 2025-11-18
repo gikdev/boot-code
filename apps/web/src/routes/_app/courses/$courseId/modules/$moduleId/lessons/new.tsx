@@ -1,4 +1,4 @@
-import { createFileRoute, Navigate } from "@tanstack/react-router"
+import { createFileRoute, linkOptions, Navigate } from "@tanstack/react-router"
 import { RequireRole } from "#/auth/require-role"
 import { strToNullableNum } from "#/lib/utils"
 import { CreateLessonPage } from "#/pages/lessons/create"
@@ -23,7 +23,15 @@ function RouteComponent() {
 
   return (
     <RequireRole roles={["admin"]} fallback={<p>شما دسترسی ندارید.</p>}>
-      <CreateLessonPage courseId={courseId} moduleId={moduleId} />
+      <CreateLessonPage
+        moduleId={moduleId}
+        goBackHref={
+          linkOptions({
+            to: "/courses/$courseId/modules/$moduleId",
+            params: { courseId, moduleId },
+          }).to
+        }
+      />
     </RequireRole>
   )
 }

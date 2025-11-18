@@ -4,24 +4,15 @@ import { main, phonePage } from "#/lib/skins"
 import { LessonForm } from "./form"
 
 interface PageProps {
-  courseId: number
   moduleId: number
+  goBackHref: string
 }
 
-export const CreateLessonPage = ({ courseId, moduleId }: PageProps) => (
+export const CreateLessonPage = ({ moduleId, goBackHref }: PageProps) => (
   <div className={phonePage()}>
     <AppBar
       title="درس جدید"
-      slotStart={
-        <GoBackNavBtn
-          onClick={nav =>
-            nav({
-              to: "/courses/$courseId/modules/$moduleId",
-              params: { courseId, moduleId },
-            })
-          }
-        />
-      }
+      slotStart={<GoBackNavBtn onClick={nav => nav({ to: goBackHref })} />}
     />
 
     <div className={main()}>

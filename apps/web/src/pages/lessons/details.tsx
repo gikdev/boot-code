@@ -20,20 +20,22 @@ import { main, phonePage } from "#/lib/skins"
 
 interface PageProps {
   lessonId: number
+  editPageHref: string
+  writePageHref: string
 }
 
-export function LessonDetailsPage({ lessonId }: PageProps) {
+export function LessonDetailsPage(p: PageProps) {
   return (
     <div className={phonePage()}>
       <AppBar
         title="درس"
-        slotStart={<GoBackNavBtn onClick={nav => nav({ to: "/" })} />}
+        slotStart={<GoBackNavBtn onClick={nav => nav({ to: ".." })} />}
       />
 
       <div className={main()}>
-        <LessonDetailsWrapper id={lessonId} />
+        <LessonDetailsWrapper id={p.lessonId} />
 
-        <FabMenuWrapper lessonId={lessonId} />
+        <FabMenuWrapper {...p} />
       </div>
     </div>
   )
@@ -76,7 +78,7 @@ function LessonDetails({ title, description }: LessonFullRes) {
   )
 }
 
-function FabMenuWrapper({ lessonId }: PageProps) {
+function FabMenuWrapper({ lessonId, editPageHref, writePageHref }: PageProps) {
   const navigate = useNavigate()
   const [isFabOpen, setFabOpen] = useState(false)
 
@@ -110,12 +112,7 @@ function FabMenuWrapper({ lessonId }: PageProps) {
           icon: PencilSimpleIcon,
           closeAfterClick: true,
           theme: "secondary-neutral",
-          onClick: () => {
-            navigate({
-              to: "/lessons/$lessonId/edit",
-              params: { lessonId },
-            })
-          },
+          onClick: () => navigate({ to: editPageHref }),
         },
         {
           key: "write",
@@ -123,15 +120,10 @@ function FabMenuWrapper({ lessonId }: PageProps) {
           closeAfterClick: true,
           icon: PencilSimpleIcon,
           theme: "secondary-neutral",
-          onClick: () => {
-            navigate({
-              to: "/lessons/$lessonId/write",
-              params: { lessonId },
-            })
-          },
+          onClick: () => navigate({ to: writePageHref }),
         },
       ] satisfies FabItem[],
-    [remove, lessonId, navigate],
+    [remove, navigate, lessonId, writePageHref, editPageHref],
   )
 
   return (
