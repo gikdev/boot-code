@@ -18,5 +18,7 @@ function RouteComponent() {
 
   return (
     <RequireRole roles={["admin"]} fallback={<p>شما دسترسی ندارید.</p>}>
-    Write content...</RequireRole>)
+      Write content...
+    </RequireRole>
+  )
 }

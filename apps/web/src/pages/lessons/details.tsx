@@ -12,11 +12,11 @@ import { RequireRole } from "#/auth/require-role"
 import { AppBar } from "#/components/app-bar"
 import { ErrorParagraph } from "#/components/error-paragraph"
 import { type FabItem, FabMenu } from "#/components/fab-menu"
+import { GoBackNavBtn } from "#/components/go-back-nav-btn"
 import { LessonCard } from "#/components/lesson-card"
 import { Skeleton } from "#/components/ui/skeleton"
 import { extractErrorMessage } from "#/lib/errors"
 import { main, phonePage } from "#/lib/skins"
-import { GoBackNavBtn } from "#/components/go-back-nav-btn"
 
 interface PageProps {
   lessonId: number
