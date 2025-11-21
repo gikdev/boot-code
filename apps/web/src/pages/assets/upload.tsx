@@ -56,11 +56,7 @@ function UploadAssetForm() {
 
       assetMut.mutate({
         body: {
-          // I'm the developer. OpenAPI has problem with infering the correct
-          // type of the DTO I've given it...
-          // FIXME: after you fixed the back-end side.
-          Description:
-            (value.description.trim() as unknown as number) || undefined,
+          Description: value.description.trim() || undefined,
           File: value.file,
         },
       })

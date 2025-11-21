@@ -6,6 +6,8 @@ import {
 } from "@phosphor-icons/react"
 import { useState } from "react"
 import { cn, tv, type VariantProps } from "tailwind-variants/lite"
+import { useAppDispatch, useAppSelector } from "#/store"
+import { uiSlice } from "#/store/slices/ui"
 
 const fabBtnItem = tv({
   base: "cursor:pointer transform:scale(.95):active",
@@ -54,18 +56,16 @@ export interface FabItem {
 
 interface FabMenuProps {
   items: FabItem[]
-  isOpen?: boolean
   className?: string
-  onClick?: () => void
 }
 
-export function FabMenu({
-  items,
-  isOpen = false,
-  className,
-  onClick,
-}: FabMenuProps) {
+const { changeFab } = uiSlice.actions
+
+export function FabMenu({ items, className }: FabMenuProps) {
+  const dispatch = useAppDispatch()
+  const isOpen = useAppSelector(s => s.ui.fab === "opened")
   const [isPositionSwitched, setPositionSwitched] = useState(false)
+  const onClick = () => dispatch(changeFab(isOpen ? "closed" : "opened"))
 
   return (
     <div

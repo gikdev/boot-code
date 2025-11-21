@@ -46,6 +46,7 @@ public static class ApiEndpoints {
     public static class Modules {
       private const string Base = $"{VersionBase}/modules";
 
+      public const string UpdatePositions = $"{Base}";
       public const string GetOne = $"{Base}/{{id:int}}";
       public const string Update = $"{Base}/{{id:int}}";
       public const string Delete = $"{Base}/{{id:int}}";

@@ -1,7 +1,7 @@
 import { PlusIcon } from "@phosphor-icons/react"
 import { useQuery } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import { getApiV1CoursesOptions } from "#/api/generated/client"
 import { RequireRole } from "#/auth/require-role"
 import { AppBar } from "#/components/app-bar"
@@ -48,7 +48,6 @@ function CoursesList() {
 
 function FabMenuWrapper() {
   const navigate = useNavigate()
-  const [isFabOpen, setFabOpen] = useState(false)
   const items = useMemo(
     () =>
       [
@@ -66,11 +65,7 @@ function FabMenuWrapper() {
 
   return (
     <RequireRole roles={["admin"]}>
-      <FabMenu
-        items={items}
-        isOpen={isFabOpen}
-        onClick={() => setFabOpen(p => !p)}
-      />
+      <FabMenu items={items} />
     </RequireRole>
   )
 }

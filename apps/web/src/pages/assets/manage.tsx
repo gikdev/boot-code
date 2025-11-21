@@ -1,7 +1,7 @@
 import { FilePlusIcon } from "@phosphor-icons/react"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import { toast } from "react-toastify"
 import {
   type AssetRes,
@@ -94,7 +94,6 @@ const deleteAssetFromClient =
 
 function FabMenuWrapper() {
   const navigate = useNavigate()
-  const [isFabOpen, setFabOpen] = useState(false)
   const items = useMemo(
     () =>
       [
@@ -110,11 +109,5 @@ function FabMenuWrapper() {
     [navigate],
   )
 
-  return (
-    <FabMenu
-      items={items}
-      isOpen={isFabOpen}
-      onClick={() => setFabOpen(p => !p)}
-    />
-  )
+  return <FabMenu items={items} />
 }

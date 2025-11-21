@@ -1,7 +1,12 @@
-import { PencilSimpleIcon, PlusIcon, TrashIcon } from "@phosphor-icons/react"
+import {
+  ArrowsLeftRightIcon,
+  PencilSimpleIcon,
+  PlusIcon,
+  TrashIcon,
+} from "@phosphor-icons/react"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import { toast } from "react-toastify"
 import {
   type CourseFullRes,
@@ -109,8 +114,6 @@ function ModulesList({ modules }: { modules: ModuleRes[] }) {
 function FabMenuWrapper({ id }: { id: number }) {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
-  const [isFabOpen, setFabOpen] = useState(false)
-
   const { mutate: deleteCourse } = useMutation({
     ...deleteApiV1CoursesByIdMutation(),
     onError: error => toast.error(extractErrorMessage({ error })),
@@ -151,6 +154,19 @@ function FabMenuWrapper({ id }: { id: number }) {
           },
         },
         {
+          key: "reorder-modules",
+          label: "مرتب‌کردن فصل‌ها",
+          closeAfterClick: true,
+          icon: ArrowsLeftRightIcon,
+          theme: "secondary-neutral",
+          onClick: () => {
+            navigate({
+              to: "/courses/$courseId/reorder",
+              params: { courseId: id },
+            })
+          },
+        },
+        {
           key: "new-module",
           label: "فصل جدید",
           closeAfterClick: true,
@@ -169,11 +185,7 @@ function FabMenuWrapper({ id }: { id: number }) {
 
   return (
     <RequireRole roles={["admin"]}>
-      <FabMenu
-        items={items}
-        isOpen={isFabOpen}
-        onClick={() => setFabOpen(p => !p)}
-      />
+      <FabMenu items={items} />
     </RequireRole>
   )
 }

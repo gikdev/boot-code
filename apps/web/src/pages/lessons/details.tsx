@@ -1,7 +1,7 @@
 import { PencilSimpleIcon, TrashIcon } from "@phosphor-icons/react"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import { toast } from "react-toastify"
 import {
   deleteApiV1LessonsByIdMutation,
@@ -80,8 +80,6 @@ function LessonDetails({ title, description }: LessonFullRes) {
 
 function FabMenuWrapper({ lessonId, editPageHref, writePageHref }: PageProps) {
   const navigate = useNavigate()
-  const [isFabOpen, setFabOpen] = useState(false)
-
   const { mutate: remove } = useMutation({
     ...deleteApiV1LessonsByIdMutation(),
     onError: error => toast.error(extractErrorMessage({ error })),
@@ -128,11 +126,7 @@ function FabMenuWrapper({ lessonId, editPageHref, writePageHref }: PageProps) {
 
   return (
     <RequireRole roles={["admin"]}>
-      <FabMenu
-        items={items}
-        isOpen={isFabOpen}
-        onClick={() => setFabOpen(p => !p)}
-      />
+      <FabMenu items={items} />
     </RequireRole>
   )
 }

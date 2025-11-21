@@ -39,4 +39,13 @@ public static class FromReqMappings {
     LessonId = req.LessonId,
     CurriculumId = req.CurriculumId,
   };
+
+  public static PositionDto MapToDto(this PositionReq req) => new() {
+    Id = req.Id,
+    Position = req.Position,
+  };
+
+  public static IEnumerable<PositionDto> MapToDtos(this PositionsReq req) => [
+    ..req.Positions.Select(p => p.MapToDto()),
+  ];
 }

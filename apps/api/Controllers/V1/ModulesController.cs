@@ -37,6 +37,21 @@ public class ModulesController(
     return NoContent();
   }
 
+  [HttpPatch(ApiEndpoints.V1.Modules.UpdatePositions)]
+  [
+    EndpointSummary("Update positions of modules."),
+    ProducesResponseType(StatusCodes.Status204NoContent),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
+  ]
+  public async Task<IActionResult> UpdatePositions([FromBody] PositionsReq req) {
+    var dtos = req.MapToDtos();
+
+    await modulesService.UpdatePositionsAsync(dtos);
+
+    return NoContent();
+  }
+
   [HttpDelete(ApiEndpoints.V1.Modules.Delete)]
   [
     EndpointSummary("Delete a module."),

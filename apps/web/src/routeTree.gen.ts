@@ -16,6 +16,7 @@ import { Route as AppAssetsIndexRouteImport } from "./routes/_app/assets/index"
 import { Route as AppCoursesNewRouteImport } from "./routes/_app/courses/new"
 import { Route as AppAssetsNewRouteImport } from "./routes/_app/assets/new"
 import { Route as AppCoursesCourseIdIndexRouteImport } from "./routes/_app/courses/$courseId/index"
+import { Route as AppCoursesCourseIdReorderRouteImport } from "./routes/_app/courses/$courseId/reorder"
 import { Route as AppCoursesCourseIdEditRouteImport } from "./routes/_app/courses/$courseId/edit"
 import { Route as AppCoursesCourseIdModulesIndexRouteImport } from "./routes/_app/courses/$courseId/modules/index"
 import { Route as AppCoursesCourseIdModulesNewRouteImport } from "./routes/_app/courses/$courseId/modules/new"
@@ -62,6 +63,12 @@ const AppCoursesCourseIdIndexRoute = AppCoursesCourseIdIndexRouteImport.update({
   path: "/courses/$courseId/",
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppCoursesCourseIdReorderRoute =
+  AppCoursesCourseIdReorderRouteImport.update({
+    id: "/_app/courses/$courseId/reorder",
+    path: "/courses/$courseId/reorder",
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AppCoursesCourseIdEditRoute = AppCoursesCourseIdEditRouteImport.update({
   id: "/_app/courses/$courseId/edit",
   path: "/courses/$courseId/edit",
@@ -130,6 +137,7 @@ export interface FileRoutesByFullPath {
   "/assets": typeof AppAssetsIndexRoute
   "/courses": typeof AppCoursesIndexRoute
   "/courses/$courseId/edit": typeof AppCoursesCourseIdEditRoute
+  "/courses/$courseId/reorder": typeof AppCoursesCourseIdReorderRoute
   "/courses/$courseId": typeof AppCoursesCourseIdIndexRoute
   "/courses/$courseId/modules/new": typeof AppCoursesCourseIdModulesNewRoute
   "/courses/$courseId/modules": typeof AppCoursesCourseIdModulesIndexRoute
@@ -149,6 +157,7 @@ export interface FileRoutesByTo {
   "/assets": typeof AppAssetsIndexRoute
   "/courses": typeof AppCoursesIndexRoute
   "/courses/$courseId/edit": typeof AppCoursesCourseIdEditRoute
+  "/courses/$courseId/reorder": typeof AppCoursesCourseIdReorderRoute
   "/courses/$courseId": typeof AppCoursesCourseIdIndexRoute
   "/courses/$courseId/modules/new": typeof AppCoursesCourseIdModulesNewRoute
   "/courses/$courseId/modules": typeof AppCoursesCourseIdModulesIndexRoute
@@ -169,6 +178,7 @@ export interface FileRoutesById {
   "/_app/assets/": typeof AppAssetsIndexRoute
   "/_app/courses/": typeof AppCoursesIndexRoute
   "/_app/courses/$courseId/edit": typeof AppCoursesCourseIdEditRoute
+  "/_app/courses/$courseId/reorder": typeof AppCoursesCourseIdReorderRoute
   "/_app/courses/$courseId/": typeof AppCoursesCourseIdIndexRoute
   "/_app/courses/$courseId/modules/new": typeof AppCoursesCourseIdModulesNewRoute
   "/_app/courses/$courseId/modules/": typeof AppCoursesCourseIdModulesIndexRoute
@@ -190,6 +200,7 @@ export interface FileRouteTypes {
     | "/assets"
     | "/courses"
     | "/courses/$courseId/edit"
+    | "/courses/$courseId/reorder"
     | "/courses/$courseId"
     | "/courses/$courseId/modules/new"
     | "/courses/$courseId/modules"
@@ -209,6 +220,7 @@ export interface FileRouteTypes {
     | "/assets"
     | "/courses"
     | "/courses/$courseId/edit"
+    | "/courses/$courseId/reorder"
     | "/courses/$courseId"
     | "/courses/$courseId/modules/new"
     | "/courses/$courseId/modules"
@@ -228,6 +240,7 @@ export interface FileRouteTypes {
     | "/_app/assets/"
     | "/_app/courses/"
     | "/_app/courses/$courseId/edit"
+    | "/_app/courses/$courseId/reorder"
     | "/_app/courses/$courseId/"
     | "/_app/courses/$courseId/modules/new"
     | "/_app/courses/$courseId/modules/"
@@ -248,6 +261,7 @@ export interface RootRouteChildren {
   AppAssetsIndexRoute: typeof AppAssetsIndexRoute
   AppCoursesIndexRoute: typeof AppCoursesIndexRoute
   AppCoursesCourseIdEditRoute: typeof AppCoursesCourseIdEditRoute
+  AppCoursesCourseIdReorderRoute: typeof AppCoursesCourseIdReorderRoute
   AppCoursesCourseIdIndexRoute: typeof AppCoursesCourseIdIndexRoute
   AppCoursesCourseIdModulesNewRoute: typeof AppCoursesCourseIdModulesNewRoute
   AppCoursesCourseIdModulesIndexRoute: typeof AppCoursesCourseIdModulesIndexRoute
@@ -309,6 +323,13 @@ declare module "@tanstack/react-router" {
       path: "/courses/$courseId"
       fullPath: "/courses/$courseId"
       preLoaderRoute: typeof AppCoursesCourseIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/_app/courses/$courseId/reorder": {
+      id: "/_app/courses/$courseId/reorder"
+      path: "/courses/$courseId/reorder"
+      fullPath: "/courses/$courseId/reorder"
+      preLoaderRoute: typeof AppCoursesCourseIdReorderRouteImport
       parentRoute: typeof rootRouteImport
     }
     "/_app/courses/$courseId/edit": {
@@ -392,6 +413,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppAssetsIndexRoute: AppAssetsIndexRoute,
   AppCoursesIndexRoute: AppCoursesIndexRoute,
   AppCoursesCourseIdEditRoute: AppCoursesCourseIdEditRoute,
+  AppCoursesCourseIdReorderRoute: AppCoursesCourseIdReorderRoute,
   AppCoursesCourseIdIndexRoute: AppCoursesCourseIdIndexRoute,
   AppCoursesCourseIdModulesNewRoute: AppCoursesCourseIdModulesNewRoute,
   AppCoursesCourseIdModulesIndexRoute: AppCoursesCourseIdModulesIndexRoute,

@@ -19,3 +19,6 @@ export const sortByPosition = <T extends PositionElements>(items: T) =>
 
 export const strToNullableNum = (str: string) =>
   Number.isNaN(Number(str)) ? null : Number(str)
+
+export const onError = (error: unknown) =>
+  toast.error(extractErrorMessage({ error }))
