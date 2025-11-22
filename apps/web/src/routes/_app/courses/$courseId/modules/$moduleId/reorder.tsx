@@ -1,8 +1,8 @@
 import { createFileRoute, Navigate } from "@tanstack/react-router"
 import {
   getApiV1ModulesById,
-  patchApiV1Lessons,
   type PositionReq,
+  patchApiV1Lessons,
 } from "#/api/generated/client"
 import { RequireRole } from "#/auth/require-role"
 import { useNavigateTo } from "#/lib/hooks"
