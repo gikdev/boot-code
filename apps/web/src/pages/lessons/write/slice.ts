@@ -2,13 +2,13 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 import { v4 as uuid } from "uuid"
 import z from "zod"
 import { store } from "#/store"
-import { type Block, type BlockInput, BlockSchema } from "./blocks/schemas"
+import { type Block, type BlockInput, BlockSchema } from "./blocks"
 
 const WriteLessonStateV1Schema = z.object({
   blocks: z.array(BlockSchema),
   version: z.literal(1),
 })
-const WriteLessonStateSchema = z.discriminatedUnion("version", [
+export const WriteLessonStateSchema = z.discriminatedUnion("version", [
   WriteLessonStateV1Schema,
 ])
 type WriteLessonState = z.infer<typeof WriteLessonStateSchema>
