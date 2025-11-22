@@ -18,41 +18,11 @@ export const reorderItemsSlice = createSlice({
   initialState,
   reducers: {
     moveUp: (state, action: PayloadAction<number>) => {
-      const id = action.payload
-
-      const itemToMove = state.items.find(i => i.id === id)
-      if (!itemToMove) return
-
-      const newPosition = itemToMove.position - 1
-
-      const otherItems = state.items.filter(i => i.position === newPosition)
-
-      for (const item of otherItems) {
-        item.position = itemToMove.position
-      }
-
-      itemToMove.position = newPosition
-
-      state.items.sort((a, b) => a.position - b.position)
+      moveBlock(state, action.payload, -1)
     },
 
     moveDown: (state, action: PayloadAction<number>) => {
-      const id = action.payload
-
-      const itemToMove = state.items.find(i => i.id === id)
-      if (!itemToMove) return
-
-      const newPosition = itemToMove.position + 1
-
-      const otherItems = state.items.filter(i => i.position === newPosition)
-
-      for (const item of otherItems) {
-        item.position = itemToMove.position
-      }
-
-      itemToMove.position = newPosition
-
-      state.items.sort((a, b) => a.position - b.position)
+      moveBlock(state, action.payload, 1)
     },
 
     setItems: (state, action: PayloadAction<PositionItem[]>) => {
@@ -64,3 +34,15 @@ export const reorderItemsSlice = createSlice({
     },
   },
 })
+
+function moveBlock(state: ReorderItemsState, id: number, delta: 1 | -1) {
+  const block = state.items.find(i => i.id === id)
+  if (!block) return
+
+  const newPosition = block.position + delta
+  const other = state.items.find(i => i.position === newPosition)
+  if (other) other.position = block.position
+  block.position = newPosition
+
+  state.items.sort((a, b) => a.position - b.position)
+}

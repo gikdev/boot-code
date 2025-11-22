@@ -46,7 +46,7 @@ public static class ApiEndpoints {
     public static class Modules {
       private const string Base = $"{VersionBase}/modules";
 
-      public const string UpdatePositions = $"{Base}";
+      public const string UpdatePositions = $"{Base}/positions";
       public const string GetOne = $"{Base}/{{id:int}}";
       public const string Update = $"{Base}/{{id:int}}";
       public const string Delete = $"{Base}/{{id:int}}";
@@ -58,7 +58,7 @@ public static class ApiEndpoints {
     public static class Lessons {
       private const string Base = $"{VersionBase}/lessons";
 
-      public const string UpdatePositions = $"{Base}";
+      public const string UpdatePositions = $"{Base}/positions";
       public const string GetOne = $"{Base}/{{id:int}}";
       public const string UpdateContent = $"{Base}/{{id:int}}";
       public const string Update = $"{Base}/{{id:int}}";

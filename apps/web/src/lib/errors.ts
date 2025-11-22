@@ -1,4 +1,5 @@
 import { AxiosError } from "axios"
+import { toast } from "react-toastify"
 
 interface ExtractErrorMessageParams {
   status?: number
@@ -60,3 +61,6 @@ export function extractErrorMessage({
 
   return "خطایی رخ داده است."
 }
+
+export const onError = (error: unknown) =>
+  toast.error(extractErrorMessage({ error }))

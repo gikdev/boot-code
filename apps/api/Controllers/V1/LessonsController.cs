@@ -21,18 +21,18 @@ public class LessonsController(ILessonsService lessonsService) : ControllerBase 
     return Ok(res);
   }
 
-  // [HttpPatch(ApiEndpoints.V1.Lessons.UpdateContent)]
-  // [
-  //   EndpointSummary("Update a lesson's content (write content)."),
-  //   ProducesResponseType(typeof(void), StatusCodes.Status204NoContent),
-  //   ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest),
-  //   ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
-  // ]
-  // public async Task<IActionResult> UpdateContent([FromRoute] int id, [FromBody] LessonContentReq req) {
-  //   var dto = req.MapToDto();
-  //   await lessonsService.UpdateContentAsync(id, dto);
-  //   return NoContent();
-  // }
+  [HttpPatch(ApiEndpoints.V1.Lessons.UpdateContent)]
+  [
+    EndpointSummary("Update a lesson's content (write content)."),
+    ProducesResponseType(typeof(void), StatusCodes.Status204NoContent),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
+  ]
+  public async Task<IActionResult> UpdateContent([FromRoute] int id, [FromBody] LessonContentReq req) {
+    var dto = req.MapToDto();
+    await lessonsService.UpdateContentAsync(id, dto);
+    return NoContent();
+  }
 
   [HttpPut(ApiEndpoints.V1.Lessons.Update)]
   [

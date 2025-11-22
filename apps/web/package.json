@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "openapi-ts": "openapi-ts",
+    "type-check": "tsc -b",
     "dev": "vite --host",
     "build": "tsc -b && vite build",
     "preview": "vite preview"
@@ -28,6 +29,7 @@
     "react-redux": "^9.2.0",
     "react-toastify": "^11.0.5",
     "tailwind-variants": "^3.1.1",
+    "uuid": "^13.0.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {

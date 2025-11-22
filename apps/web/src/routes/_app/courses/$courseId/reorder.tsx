@@ -2,7 +2,7 @@ import { createFileRoute, Navigate } from "@tanstack/react-router"
 import {
   getApiV1CoursesById,
   type PositionReq,
-  patchApiV1Modules,
+  patchApiV1ModulesPositions,
 } from "#/api/generated/client"
 import { RequireRole } from "#/auth/require-role"
 import { useNavigateTo } from "#/lib/hooks"
@@ -53,4 +53,4 @@ const getItemsFetcher = (id: number) => async () =>
   )
 
 const onApplyChanges = async (positions: PositionReq[]) =>
-  patchApiV1Modules({ body: { positions } })
+  patchApiV1ModulesPositions({ body: { positions } })

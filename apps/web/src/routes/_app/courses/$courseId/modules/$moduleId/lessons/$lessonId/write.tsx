@@ -1,7 +1,8 @@
 import { createFileRoute, Navigate } from "@tanstack/react-router"
 import { RequireRole } from "#/auth/require-role"
+import { useNavigateTo } from "#/lib/hooks"
 import { strToNullableNum } from "#/lib/utils"
-import { WriteLessonPage } from "#/pages/lessons/write"
+import { WriteLessonPage } from "#/pages/lessons/write/page"
 
 export const Route = createFileRoute(
   "/_app/courses/$courseId/modules/$moduleId/lessons/$lessonId/write",
@@ -18,6 +19,12 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
   const { lessonId, courseId, moduleId } = Route.useParams()
+  const goBack = useNavigateTo(nav =>
+    nav({
+      to: "/courses/$courseId/modules/$moduleId/lessons/$lessonId",
+      params: { courseId, lessonId, moduleId },
+    }),
+  )
 
   if (typeof courseId !== "number") return <Navigate to="/" />
   if (typeof moduleId !== "number") return <Navigate to="/" />
@@ -25,7 +32,7 @@ function RouteComponent() {
 
   return (
     <RequireRole roles={["admin"]} fallback={<p>شما دسترسی ندارید.</p>}>
-      <WriteLessonPage />
+      <WriteLessonPage lessonId={lessonId} goBack={goBack} />
     </RequireRole>
   )
 }
