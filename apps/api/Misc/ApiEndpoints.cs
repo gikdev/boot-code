@@ -58,6 +58,7 @@ public static class ApiEndpoints {
     public static class Lessons {
       private const string Base = $"{VersionBase}/lessons";
 
+      public const string UpdatePositions = $"{Base}";
       public const string GetOne = $"{Base}/{{id:int}}";
       public const string UpdateContent = $"{Base}/{{id:int}}";
       public const string Update = $"{Base}/{{id:int}}";

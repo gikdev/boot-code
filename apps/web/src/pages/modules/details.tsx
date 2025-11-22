@@ -1,4 +1,9 @@
-import { PencilSimpleIcon, PlusIcon, TrashIcon } from "@phosphor-icons/react"
+import {
+  ArrowsLeftRightIcon,
+  PencilSimpleIcon,
+  PlusIcon,
+  TrashIcon,
+} from "@phosphor-icons/react"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { linkOptions, useNavigate } from "@tanstack/react-router"
 import { useMemo } from "react"
@@ -147,6 +152,19 @@ function FabMenuWrapper({ courseId, moduleId }: PageProps) {
           onClick: () => {
             navigate({
               to: "/courses/$courseId/modules/$moduleId/edit",
+              params: { courseId, moduleId },
+            })
+          },
+        },
+        {
+          key: "reorder-lessons",
+          label: "مرتب‌کردن درس‌ها",
+          closeAfterClick: true,
+          icon: ArrowsLeftRightIcon,
+          theme: "secondary-neutral",
+          onClick: () => {
+            navigate({
+              to: "/courses/$courseId/modules/$moduleId/reorder",
               params: { courseId, moduleId },
             })
           },

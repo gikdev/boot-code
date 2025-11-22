@@ -10,7 +10,7 @@ public interface IModulesService {
   Task<Module> CreateAsync(int courseId, Module module);
   Task<IEnumerable<Module>> GetAllAsync(int courseId);
   Task<Module> GetOneAsync(int id);
-  Task UpdatePositionsAsync(IEnumerable<PositionDto> dto);
+  Task UpdatePositionsAsync(IEnumerable<PositionDto> dtos);
   Task UpdateAsync(int id, Module module);
   Task DeleteAsync(int id);
 }

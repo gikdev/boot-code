@@ -9,8 +9,6 @@ export function extractErrorMessage({
   error,
   status,
 }: ExtractErrorMessageParams): string {
-  console.warn(error)
-
   if (typeof error === "string" && error.trim().length > 0) {
     return error
   }

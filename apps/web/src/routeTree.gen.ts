@@ -21,6 +21,7 @@ import { Route as AppCoursesCourseIdEditRouteImport } from "./routes/_app/course
 import { Route as AppCoursesCourseIdModulesIndexRouteImport } from "./routes/_app/courses/$courseId/modules/index"
 import { Route as AppCoursesCourseIdModulesNewRouteImport } from "./routes/_app/courses/$courseId/modules/new"
 import { Route as AppCoursesCourseIdModulesModuleIdIndexRouteImport } from "./routes/_app/courses/$courseId/modules/$moduleId/index"
+import { Route as AppCoursesCourseIdModulesModuleIdReorderRouteImport } from "./routes/_app/courses/$courseId/modules/$moduleId/reorder"
 import { Route as AppCoursesCourseIdModulesModuleIdEditRouteImport } from "./routes/_app/courses/$courseId/modules/$moduleId/edit"
 import { Route as AppCoursesCourseIdModulesModuleIdLessonsIndexRouteImport } from "./routes/_app/courses/$courseId/modules/$moduleId/lessons/index"
 import { Route as AppCoursesCourseIdModulesModuleIdLessonsNewRouteImport } from "./routes/_app/courses/$courseId/modules/$moduleId/lessons/new"
@@ -92,6 +93,12 @@ const AppCoursesCourseIdModulesModuleIdIndexRoute =
     path: "/courses/$courseId/modules/$moduleId/",
     getParentRoute: () => rootRouteImport,
   } as any)
+const AppCoursesCourseIdModulesModuleIdReorderRoute =
+  AppCoursesCourseIdModulesModuleIdReorderRouteImport.update({
+    id: "/_app/courses/$courseId/modules/$moduleId/reorder",
+    path: "/courses/$courseId/modules/$moduleId/reorder",
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AppCoursesCourseIdModulesModuleIdEditRoute =
   AppCoursesCourseIdModulesModuleIdEditRouteImport.update({
     id: "/_app/courses/$courseId/modules/$moduleId/edit",
@@ -142,6 +149,7 @@ export interface FileRoutesByFullPath {
   "/courses/$courseId/modules/new": typeof AppCoursesCourseIdModulesNewRoute
   "/courses/$courseId/modules": typeof AppCoursesCourseIdModulesIndexRoute
   "/courses/$courseId/modules/$moduleId/edit": typeof AppCoursesCourseIdModulesModuleIdEditRoute
+  "/courses/$courseId/modules/$moduleId/reorder": typeof AppCoursesCourseIdModulesModuleIdReorderRoute
   "/courses/$courseId/modules/$moduleId": typeof AppCoursesCourseIdModulesModuleIdIndexRoute
   "/courses/$courseId/modules/$moduleId/lessons/new": typeof AppCoursesCourseIdModulesModuleIdLessonsNewRoute
   "/courses/$courseId/modules/$moduleId/lessons": typeof AppCoursesCourseIdModulesModuleIdLessonsIndexRoute
@@ -162,6 +170,7 @@ export interface FileRoutesByTo {
   "/courses/$courseId/modules/new": typeof AppCoursesCourseIdModulesNewRoute
   "/courses/$courseId/modules": typeof AppCoursesCourseIdModulesIndexRoute
   "/courses/$courseId/modules/$moduleId/edit": typeof AppCoursesCourseIdModulesModuleIdEditRoute
+  "/courses/$courseId/modules/$moduleId/reorder": typeof AppCoursesCourseIdModulesModuleIdReorderRoute
   "/courses/$courseId/modules/$moduleId": typeof AppCoursesCourseIdModulesModuleIdIndexRoute
   "/courses/$courseId/modules/$moduleId/lessons/new": typeof AppCoursesCourseIdModulesModuleIdLessonsNewRoute
   "/courses/$courseId/modules/$moduleId/lessons": typeof AppCoursesCourseIdModulesModuleIdLessonsIndexRoute
@@ -183,6 +192,7 @@ export interface FileRoutesById {
   "/_app/courses/$courseId/modules/new": typeof AppCoursesCourseIdModulesNewRoute
   "/_app/courses/$courseId/modules/": typeof AppCoursesCourseIdModulesIndexRoute
   "/_app/courses/$courseId/modules/$moduleId/edit": typeof AppCoursesCourseIdModulesModuleIdEditRoute
+  "/_app/courses/$courseId/modules/$moduleId/reorder": typeof AppCoursesCourseIdModulesModuleIdReorderRoute
   "/_app/courses/$courseId/modules/$moduleId/": typeof AppCoursesCourseIdModulesModuleIdIndexRoute
   "/_app/courses/$courseId/modules/$moduleId/lessons/new": typeof AppCoursesCourseIdModulesModuleIdLessonsNewRoute
   "/_app/courses/$courseId/modules/$moduleId/lessons/": typeof AppCoursesCourseIdModulesModuleIdLessonsIndexRoute
@@ -205,6 +215,7 @@ export interface FileRouteTypes {
     | "/courses/$courseId/modules/new"
     | "/courses/$courseId/modules"
     | "/courses/$courseId/modules/$moduleId/edit"
+    | "/courses/$courseId/modules/$moduleId/reorder"
     | "/courses/$courseId/modules/$moduleId"
     | "/courses/$courseId/modules/$moduleId/lessons/new"
     | "/courses/$courseId/modules/$moduleId/lessons"
@@ -225,6 +236,7 @@ export interface FileRouteTypes {
     | "/courses/$courseId/modules/new"
     | "/courses/$courseId/modules"
     | "/courses/$courseId/modules/$moduleId/edit"
+    | "/courses/$courseId/modules/$moduleId/reorder"
     | "/courses/$courseId/modules/$moduleId"
     | "/courses/$courseId/modules/$moduleId/lessons/new"
     | "/courses/$courseId/modules/$moduleId/lessons"
@@ -245,6 +257,7 @@ export interface FileRouteTypes {
     | "/_app/courses/$courseId/modules/new"
     | "/_app/courses/$courseId/modules/"
     | "/_app/courses/$courseId/modules/$moduleId/edit"
+    | "/_app/courses/$courseId/modules/$moduleId/reorder"
     | "/_app/courses/$courseId/modules/$moduleId/"
     | "/_app/courses/$courseId/modules/$moduleId/lessons/new"
     | "/_app/courses/$courseId/modules/$moduleId/lessons/"
@@ -266,6 +279,7 @@ export interface RootRouteChildren {
   AppCoursesCourseIdModulesNewRoute: typeof AppCoursesCourseIdModulesNewRoute
   AppCoursesCourseIdModulesIndexRoute: typeof AppCoursesCourseIdModulesIndexRoute
   AppCoursesCourseIdModulesModuleIdEditRoute: typeof AppCoursesCourseIdModulesModuleIdEditRoute
+  AppCoursesCourseIdModulesModuleIdReorderRoute: typeof AppCoursesCourseIdModulesModuleIdReorderRoute
   AppCoursesCourseIdModulesModuleIdIndexRoute: typeof AppCoursesCourseIdModulesModuleIdIndexRoute
   AppCoursesCourseIdModulesModuleIdLessonsNewRoute: typeof AppCoursesCourseIdModulesModuleIdLessonsNewRoute
   AppCoursesCourseIdModulesModuleIdLessonsIndexRoute: typeof AppCoursesCourseIdModulesModuleIdLessonsIndexRoute
@@ -360,6 +374,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AppCoursesCourseIdModulesModuleIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    "/_app/courses/$courseId/modules/$moduleId/reorder": {
+      id: "/_app/courses/$courseId/modules/$moduleId/reorder"
+      path: "/courses/$courseId/modules/$moduleId/reorder"
+      fullPath: "/courses/$courseId/modules/$moduleId/reorder"
+      preLoaderRoute: typeof AppCoursesCourseIdModulesModuleIdReorderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     "/_app/courses/$courseId/modules/$moduleId/edit": {
       id: "/_app/courses/$courseId/modules/$moduleId/edit"
       path: "/courses/$courseId/modules/$moduleId/edit"
@@ -419,6 +440,8 @@ const rootRouteChildren: RootRouteChildren = {
   AppCoursesCourseIdModulesIndexRoute: AppCoursesCourseIdModulesIndexRoute,
   AppCoursesCourseIdModulesModuleIdEditRoute:
     AppCoursesCourseIdModulesModuleIdEditRoute,
+  AppCoursesCourseIdModulesModuleIdReorderRoute:
+    AppCoursesCourseIdModulesModuleIdReorderRoute,
   AppCoursesCourseIdModulesModuleIdIndexRoute:
     AppCoursesCourseIdModulesModuleIdIndexRoute,
   AppCoursesCourseIdModulesModuleIdLessonsNewRoute:

@@ -11,6 +11,7 @@ public interface ILessonsService {
   Task<IEnumerable<Lesson>> GetAllAsync(int moduleId);
   Task<Lesson> GetOneAsync(int id);
   Task UpdateAsync(int id, Lesson lesson);
+  Task UpdatePositionsAsync(IEnumerable<PositionDto> dtos);
   Task UpdateContentAsync(int id, LessonContentDto dto);
   Task DeleteAsync(int id);
 }
@@ -41,6 +42,22 @@ public class LessonsService(DbCtx db) : ILessonsService {
     existingLesson.Description = lesson.Description;
     existingLesson.ModuleId = lesson.ModuleId;
     existingLesson.Position = lesson.Position;
+
+    await db.SaveChangesAsync();
+  }
+
+  public async Task UpdatePositionsAsync(IEnumerable<PositionDto> dtos) {
+    // ReSharper disable once PossibleMultipleEnumeration
+    var ids = dtos.Select(d => d.Id);
+    var lessons = await db.Lessons.Where(m => ids.Contains(m.Id)).ToListAsync();
+
+    foreach (var lesson in lessons) {
+      // ReSharper disable once PossibleMultipleEnumeration
+      var newPosition = dtos.FirstOrDefault(d => d.Id == lesson.Id)?.Position
+                        ?? throw new NotFoundException();
+
+      lesson.Position = newPosition;
+    }
 
     await db.SaveChangesAsync();
   }

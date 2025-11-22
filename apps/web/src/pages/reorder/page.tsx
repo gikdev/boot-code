@@ -3,7 +3,7 @@ import { createSelector } from "@reduxjs/toolkit"
 import { ErrorComponent } from "@tanstack/react-router"
 import { useEffect, useMemo } from "react"
 import { toast } from "react-toastify"
-import { patchApiV1Modules } from "#/api/generated/client"
+import type { PositionReq } from "#/api/generated/client"
 import { AppBar } from "#/components/app-bar"
 import { type FabItem, FabMenu } from "#/components/fab-menu"
 import { GoBackBtn } from "#/components/go-back-btn"
@@ -33,9 +33,14 @@ const { changeState, moveDown, moveUp, setItems } = reorderItemsSlice.actions
 interface PageProps {
   fetchItems: () => Promise<PositionItem[]>
   navBack: () => void
+  onApplyChanges: (positions: PositionReq[]) => Promise<unknown>
 }
 
-export function ReorderItemsPage({ fetchItems, navBack }: PageProps) {
+export function ReorderItemsPage({
+  fetchItems,
+  navBack,
+  onApplyChanges,
+}: PageProps) {
   const dispatch = useAppDispatch()
   const items = useAppSelector(s => s.reorderItems.items)
   const state = useAppSelector(s => s.reorderItems.state)
@@ -56,7 +61,7 @@ export function ReorderItemsPage({ fetchItems, navBack }: PageProps) {
             const shouldContinue = window.confirm("Sure?")
             if (!shouldContinue) return
 
-            patchApiV1Modules({ body: { positions } })
+            onApplyChanges(positions)
               .then(() => {
                 toast.success("انجام شد.")
                 navBack()
@@ -65,7 +70,7 @@ export function ReorderItemsPage({ fetchItems, navBack }: PageProps) {
           },
         },
       ] satisfies FabItem[],
-    [navBack, positions],
+    [navBack, positions, onApplyChanges],
   )
 
   return (

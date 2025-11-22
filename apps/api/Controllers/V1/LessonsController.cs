@@ -47,6 +47,19 @@ public class LessonsController(ILessonsService lessonsService) : ControllerBase 
     return NoContent();
   }
 
+  [HttpPatch(ApiEndpoints.V1.Lessons.UpdatePositions)]
+  [
+    EndpointSummary("Update positions of lessons."),
+    ProducesResponseType(StatusCodes.Status204NoContent),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest),
+    ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound),
+  ]
+  public async Task<IActionResult> UpdatePositions([FromBody] PositionsReq req) {
+    var dtos = req.MapToDtos();
+    await lessonsService.UpdatePositionsAsync(dtos);
+    return NoContent();
+  }
+
   [HttpDelete(ApiEndpoints.V1.Lessons.Delete)]
   [
     EndpointSummary("Delete a lesson."),
