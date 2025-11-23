@@ -6,7 +6,6 @@ import {
   FileDashedIcon,
   LinkSimpleIcon,
   TextHFourIcon,
-  TextHOneIcon,
   TextHThreeIcon,
   TextHTwoIcon,
   TranslateIcon,
@@ -50,8 +49,6 @@ interface ControlsProps {
   onClose: () => void
 }
 
-const { moveDown, moveUp, removeBlock } = writeLessonSlice.actions
-
 function Controls({ block, onClose }: ControlsProps) {
   return (
     <div className="flex flex-col gap:2x items-center">
@@ -61,6 +58,8 @@ function Controls({ block, onClose }: ControlsProps) {
     </div>
   )
 }
+
+const { moveDown, moveUp, removeBlock } = writeLessonSlice.actions
 
 function MainControlLayer({ block, onClose }: ControlsProps) {
   const dispatch = useAppDispatch()
@@ -94,7 +93,11 @@ function MainControlLayer({ block, onClose }: ControlsProps) {
   )
 }
 
+const { updateBlock } = writeLessonSlice.actions
+
 function TypeSpecificControlLayer({ block }: ControlsProps) {
+  const dispatch = useAppDispatch()
+
   switch (block.type) {
     case BlockTypes.Text:
       return (
@@ -178,19 +181,24 @@ function TypeSpecificControlLayer({ block }: ControlsProps) {
             <CursorTextIcon />
           </IconBtn>
 
-          <IconBtn size="icon-xs">
-            <TextHOneIcon />
-          </IconBtn>
-
-          <IconBtn size="icon-xs">
+          <IconBtn
+            size="icon-xs"
+            onClick={() => dispatch(updateBlock({ ...block, level: "2" }))}
+          >
             <TextHTwoIcon />
           </IconBtn>
 
-          <IconBtn size="icon-xs">
+          <IconBtn
+            size="icon-xs"
+            onClick={() => dispatch(updateBlock({ ...block, level: "3" }))}
+          >
             <TextHThreeIcon />
           </IconBtn>
 
-          <IconBtn size="icon-xs">
+          <IconBtn
+            size="icon-xs"
+            onClick={() => dispatch(updateBlock({ ...block, level: "4" }))}
+          >
             <TextHFourIcon />
           </IconBtn>
         </ControlLayerContainer>

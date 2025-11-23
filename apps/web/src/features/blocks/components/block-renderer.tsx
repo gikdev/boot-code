@@ -59,9 +59,21 @@ export function BlockRenderer({ block }: BlockRendererProps) {
       )
 
     case BlockTypes.Heading:
-      return <p className={`font:${block.level}xl`}>{block.content}</p>
+      return (
+        <p
+          className={`font:${headingLevelMap[block.level]} font:bold fg:grey-90`}
+        >
+          {block.content}
+        </p>
+      )
 
     default:
       return null
   }
+}
+
+const headingLevelMap = {
+  "2": "2xl",
+  "3": "xl",
+  "4": "lg",
 }

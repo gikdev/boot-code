@@ -109,7 +109,7 @@ export type BlockQuoteV1Input = Pick<
 
 export const BlockHeadingV1Schema = BlockBaseV1Schema.extend({
   type: z.literal(BlockTypes.Heading),
-  level: z.enum(["1", "2", "3", "4"]),
+  level: z.enum(["2", "3", "4"]),
   content: z.string(),
   version: z.literal(1),
 })
