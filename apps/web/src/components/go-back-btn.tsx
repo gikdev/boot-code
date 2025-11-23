@@ -1,5 +1,5 @@
 import { CaretLeftIcon } from "@phosphor-icons/react"
-import { iconBtn } from "#/lib/skins"
+import { IconBtn } from "./ui/button"
 
 interface GoBackBtnProps {
   onClick?: () => void
@@ -8,8 +8,8 @@ interface GoBackBtnProps {
 
 export function GoBackBtn({ onClick, className }: GoBackBtnProps) {
   return (
-    <button type="button" onClick={onClick} className={iconBtn({ className })}>
+    <IconBtn onClick={onClick} className={className}>
       <CaretLeftIcon mirrored />
-    </button>
+    </IconBtn>
   )
 }

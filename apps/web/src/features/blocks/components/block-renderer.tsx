@@ -4,7 +4,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
 import { AssetRenderer } from "#/components/asset-renderer"
 import { btn } from "#/lib/skins"
-import { type Block, BlockTypes } from "./blocks"
+import { type Block, BlockTypes } from "../types"
 
 interface BlockRendererProps {
   block: Block
@@ -27,44 +27,6 @@ export function BlockRenderer({ block }: BlockRendererProps) {
     case BlockTypes.Separator:
       return <hr />
 
-    case BlockTypes.Checklist:
-      return (
-        <div>
-          {block.items.map((item, i) => (
-            <label key={i}>
-              <input type="checkbox" checked={item.checked} />
-              <Markdown>{item.label}</Markdown>
-            </label>
-          ))}
-        </div>
-      )
-
-    case BlockTypes.SimpleTable: {
-      const [headers = [], ...bodyRows] = block.rows
-
-      return (
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h, i) => (
-                <th key={i}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-
-          <tbody>
-            {bodyRows.map((row, i) => (
-              <tr key={i}>
-                {row.map((cell, i) => (
-                  <td key={i}>{cell}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )
-    }
-
     case BlockTypes.LinkButton: {
       const theme =
         block.variant === "primary" ? "contained-primary" : "light-neutral"
@@ -78,7 +40,11 @@ export function BlockRenderer({ block }: BlockRendererProps) {
 
     case BlockTypes.Code:
       return (
-        <SyntaxHighlighter language={block.language} style={vscDarkPlus}>
+        <SyntaxHighlighter
+          style={vscDarkPlus}
+          language={block.language}
+          customStyle={{ borderRadius: 8 }}
+        >
           {block.content}
         </SyntaxHighlighter>
       )
@@ -90,17 +56,6 @@ export function BlockRenderer({ block }: BlockRendererProps) {
 
           <footer className="">— {block.source}</footer>
         </blockquote>
-      )
-
-    case BlockTypes.SimpleList:
-      return (
-        <ul>
-          {block.items.map((item, i) => (
-            <li key={i}>
-              <Markdown>{item}</Markdown>
-            </li>
-          ))}
-        </ul>
       )
 
     case BlockTypes.Heading:

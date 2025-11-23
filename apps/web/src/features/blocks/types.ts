@@ -6,12 +6,9 @@ export const BlockTypes = {
   Audio: "AUDIO",
   Video: "VIDEO",
   Separator: "SEPARATOR",
-  Checklist: "CHECKLIST",
-  SimpleTable: "SIMPLE_TABLE",
   LinkButton: "LINK_BUTTON",
   Code: "CODE",
   Quote: "QUOTE",
-  SimpleList: "SIMPLE_LIST",
   Heading: "HEADING",
 } as const
 export const BlockTypeSchema = z.enum([
@@ -20,12 +17,9 @@ export const BlockTypeSchema = z.enum([
   BlockTypes.Audio,
   BlockTypes.Video,
   BlockTypes.Separator,
-  BlockTypes.Checklist,
-  BlockTypes.SimpleTable,
   BlockTypes.LinkButton,
   BlockTypes.Code,
   BlockTypes.Quote,
-  BlockTypes.SimpleList,
   BlockTypes.Heading,
 ])
 export type BlockType = z.infer<typeof BlockTypeSchema>
@@ -76,22 +70,6 @@ export const BlockSeparatorV1Schema = BlockBaseV1Schema.extend({
 export type BlockSeparatorV1 = z.infer<typeof BlockSeparatorV1Schema>
 export type BlockSeparatorV1Input = Pick<BlockSeparatorV1, "type">
 
-export const BlockChecklistV1Schema = BlockBaseV1Schema.extend({
-  type: z.literal(BlockTypes.Checklist),
-  items: z.array(z.object({ label: z.string(), checked: z.boolean() })),
-  version: z.literal(1),
-})
-export type BlockChecklistV1 = z.infer<typeof BlockChecklistV1Schema>
-export type BlockChecklistV1Input = Pick<BlockChecklistV1, "type" | "items">
-
-export const BlockSimpleTableV1Schema = BlockBaseV1Schema.extend({
-  type: z.literal(BlockTypes.SimpleTable),
-  rows: z.array(z.array(z.string())),
-  version: z.literal(1),
-})
-export type BlockSimpleTableV1 = z.infer<typeof BlockSimpleTableV1Schema>
-export type BlockSimpleTableV1Input = Pick<BlockSimpleTableV1, "type" | "rows">
-
 export const BlockLinkButtonV1Schema = BlockBaseV1Schema.extend({
   type: z.literal(BlockTypes.LinkButton),
   href: z.string().url(),
@@ -129,14 +107,6 @@ export type BlockQuoteV1Input = Pick<
   "type" | "content" | "source"
 >
 
-export const BlockSimpleListV1Schema = BlockBaseV1Schema.extend({
-  type: z.literal(BlockTypes.SimpleList),
-  items: z.array(z.string()),
-  version: z.literal(1),
-})
-export type BlockSimpleListV1 = z.infer<typeof BlockSimpleListV1Schema>
-export type BlockSimpleListV1Input = Pick<BlockSimpleListV1, "type" | "items">
-
 export const BlockHeadingV1Schema = BlockBaseV1Schema.extend({
   type: z.literal(BlockTypes.Heading),
   level: z.enum(["1", "2", "3", "4"]),
@@ -155,26 +125,20 @@ export const BlockSchema = z.discriminatedUnion("type", [
   BlockAudioV1Schema,
   BlockVideoV1Schema,
   BlockSeparatorV1Schema,
-  BlockChecklistV1Schema,
-  BlockSimpleTableV1Schema,
   BlockLinkButtonV1Schema,
   BlockCodeV1Schema,
   BlockQuoteV1Schema,
-  BlockSimpleListV1Schema,
   BlockHeadingV1Schema,
 ])
 export type Block = z.infer<typeof BlockSchema>
 
 export type BlockInput =
   | BlockAudioV1Input
-  | BlockChecklistV1Input
   | BlockCodeV1Input
   | BlockHeadingV1Input
   | BlockImageV1Input
   | BlockLinkButtonV1Input
   | BlockQuoteV1Input
   | BlockSeparatorV1Input
-  | BlockSimpleListV1Input
-  | BlockSimpleTableV1Input
   | BlockTextV1Input
   | BlockVideoV1Input

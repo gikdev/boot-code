@@ -2,7 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 import { v4 as uuid } from "uuid"
 import z from "zod"
 import { store } from "#/store"
-import { type Block, type BlockInput, BlockSchema } from "./blocks"
+import { type Block, type BlockInput, BlockSchema } from "./types"
 
 const WriteLessonStateV1Schema = z.object({
   blocks: z.array(BlockSchema),

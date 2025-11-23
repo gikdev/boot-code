@@ -1,6 +1,6 @@
 import { CaretLeftIcon } from "@phosphor-icons/react"
 import { useNavigate } from "@tanstack/react-router"
-import { iconBtn } from "#/lib/skins"
+import { IconBtn } from "./ui/button"
 
 interface GoBackNavBtnProps {
   onClick?: (nav: ReturnType<typeof useNavigate>) => void
@@ -19,12 +19,8 @@ export function GoBackNavBtn({ onClick, className }: GoBackNavBtnProps) {
   }
 
   return (
-    <button
-      type="button"
-      onClick={handleClick}
-      className={iconBtn({ className })}
-    >
+    <IconBtn onClick={handleClick} className={className}>
       <CaretLeftIcon mirrored />
-    </button>
+    </IconBtn>
   )
 }

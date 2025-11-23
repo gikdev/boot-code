@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import type { PropsWithChildren } from "react"
 import { Provider, useDispatch, useSelector, useStore } from "react-redux"
 import { authSlice } from "#/auth/slice"
-import { writeLessonSlice } from "#/pages/lessons/write/slice"
+import { writeLessonSlice } from "#/features/blocks/slice"
 import { reorderItemsSlice } from "#/pages/reorder/slice"
 import { uiSlice } from "./slices/ui"
 
