@@ -29,7 +29,7 @@ export function BlockControl({ block }: BlockControlProps) {
   const [isOpen, setOpen] = useState(false)
 
   return (
-    <div className="flex flex-col gap:2x rel">
+    <div className="flex flex-col gap:2x rel min-h:12x">
       <BlockRenderer block={block} />
 
       {isOpen ? (
