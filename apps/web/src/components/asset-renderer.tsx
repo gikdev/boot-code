@@ -24,7 +24,7 @@ export function AssetRenderer({
   if (mimeType.startsWith("video/")) {
     return (
       <video controls className={className}>
-        <source src={src} type={mimeType} />
+        <source src={src} />
         <span>مرورگر شما از ویدیو پشیتبانی نمی‌کنه.</span>
       </video>
     )

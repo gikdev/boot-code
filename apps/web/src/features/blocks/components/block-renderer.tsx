@@ -25,7 +25,7 @@ export function BlockRenderer({ block }: BlockRendererProps) {
       return <AssetRenderer idOrName={block.fileGuid} mimeType="video/*" />
 
     case BlockTypes.Separator:
-      return <hr />
+      return <hr className="b:none h:0.5x w:full bg:grey-50 my:8x" />
 
     case BlockTypes.LinkButton: {
       const theme =

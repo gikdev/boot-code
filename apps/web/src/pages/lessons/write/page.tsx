@@ -15,6 +15,9 @@ import {
 import { FabMenuWrapper } from "./fab"
 import { LessonContent } from "./lesson-content"
 import type { WriteLessonPageProps } from "./types"
+import { buttonVariants } from "#/components/ui/button"
+import { FilesIcon } from "@phosphor-icons/react"
+import { linkOptions } from "@tanstack/react-router"
 
 const { decode } = writeLessonSlice.actions
 
@@ -40,7 +43,19 @@ export function WriteLessonPage({ lessonId, goBack }: WriteLessonPageProps) {
 
   return (
     <div className={phonePage()}>
-      <AppBar title="نوشتن" slotStart={<GoBackBtn onClick={goBack} />} />
+      <AppBar
+        title="نوشتن"
+        slotStart={<GoBackBtn onClick={goBack} />}
+        slotEnd={
+          <a
+            target="_blank"
+            href={linkOptions({ to: "/assets" }).to}
+            className={buttonVariants({ size: "icon-md", variant: "ghost" })}
+          >
+            <FilesIcon />
+          </a>
+        }
+      />
 
       <div className={main()}>
         {status === "error" && <ErrorParagraph onClick={refetch} />}

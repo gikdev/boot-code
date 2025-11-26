@@ -111,7 +111,16 @@ function TypeSpecificControlLayer({ block }: ControlsProps) {
     case BlockTypes.Image:
       return (
         <ControlLayerContainer>
-          <IconBtn size="icon-xs">
+          <IconBtn
+            size="icon-xs"
+            onClick={() => {
+              const clone = structuredClone(block)
+              const newGuid = window.prompt("Paste the image GUID:", block.fileGuid)
+              if (!newGuid) return
+              clone.fileGuid = newGuid
+              dispatch(updateBlock(clone))
+            }}
+          >
             <FileDashedIcon />
           </IconBtn>
         </ControlLayerContainer>
@@ -120,7 +129,16 @@ function TypeSpecificControlLayer({ block }: ControlsProps) {
     case BlockTypes.Audio:
       return (
         <ControlLayerContainer>
-          <IconBtn size="icon-xs">
+          <IconBtn
+            size="icon-xs"
+            onClick={() => {
+              const clone = structuredClone(block)
+              const newGuid = window.prompt("Paste the audio GUID:", block.fileGuid)
+              if (!newGuid) return
+              clone.fileGuid = newGuid
+              dispatch(updateBlock(clone))
+            }}
+          >
             <FileDashedIcon />
           </IconBtn>
         </ControlLayerContainer>
@@ -129,7 +147,16 @@ function TypeSpecificControlLayer({ block }: ControlsProps) {
     case BlockTypes.Video:
       return (
         <ControlLayerContainer>
-          <IconBtn size="icon-xs">
+          <IconBtn
+            size="icon-xs"
+            onClick={() => {
+              const clone = structuredClone(block)
+              const newGuid = window.prompt("Paste the video GUID:", block.fileGuid)
+              if (!newGuid) return
+              clone.fileGuid = newGuid
+              dispatch(updateBlock(clone))
+            }}
+          >
             <FileDashedIcon />
           </IconBtn>
         </ControlLayerContainer>
