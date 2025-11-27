@@ -1,7 +1,7 @@
 import type { LessonFullRes } from "#/api/generated/client"
+import { BlockRenderer } from "#/features/blocks/components/block-renderer"
+import { NewBlock } from "#/features/blocks/components/new-block"
 import { useAppSelector } from "#/store"
-import { BlockControl } from "../../../features/blocks/components/block-control"
-import { NewBlock } from "../../../features/blocks/components/new-block"
 
 export function LessonContent({ title }: LessonFullRes) {
   const blocks = useAppSelector(s => s.writeLesson.blocks)
@@ -11,7 +11,7 @@ export function LessonContent({ title }: LessonFullRes) {
       <p className="font:bold font:3xl fg:grey-90 text:center">{title}</p>
 
       {blocks.map(block => (
-        <BlockControl key={block.id} block={block} />
+        <BlockRenderer key={block.id} block={block} isEditMode />
       ))}
 
       <NewBlock />

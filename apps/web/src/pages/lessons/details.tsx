@@ -15,6 +15,8 @@ import { type FabItem, FabMenu } from "#/components/fab-menu"
 import { GoBackNavBtn } from "#/components/go-back-nav-btn"
 import { LessonCard } from "#/components/lesson-card"
 import { Skeleton } from "#/components/ui/skeleton"
+import { BlockRenderer } from "#/features/blocks/components/block-renderer"
+import { WriteLessonStateSchema } from "#/features/blocks/slice"
 import { extractErrorMessage } from "#/lib/errors"
 import { main, phonePage } from "#/lib/skins"
 
@@ -68,14 +70,25 @@ function LessonDetailsSkeleton() {
   )
 }
 
-function LessonDetails({ title, description }: LessonFullRes) {
-  return (
-    <div className="flex flex-col gap:2x">
-      <p className="font:bold font:3xl fg:grey-90">{title}</p>
+function LessonDetails({ title, contentJson }: LessonFullRes) {
+  try {
+    const content = WriteLessonStateSchema.parse(
+      JSON.parse(contentJson ?? "{}"),
+    )
 
-      {description ? <p>{description}</p> : <p>(بدون توضیحات)</p>}
-    </div>
-  )
+    return (
+      <div className="flex flex-col gap:2x">
+        <p className="font:bold font:3xl fg:grey-90 text:center">{title}</p>
+
+        {content.blocks.map(block => (
+          <BlockRenderer key={block.id} block={block} />
+        ))}
+      </div>
+    )
+  } catch {
+    console.warn("Parsing contentJSON wasn't successful.")
+    return <ErrorParagraph onClick={() => {}} />
+  }
 }
 
 function FabMenuWrapper({ lessonId, editPageHref, writePageHref }: PageProps) {

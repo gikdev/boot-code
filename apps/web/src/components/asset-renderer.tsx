@@ -33,7 +33,7 @@ export function AssetRenderer({
   if (mimeType.startsWith("audio/")) {
     return (
       <audio controls className={className}>
-        <source src={src} type={mimeType} />
+        <source src={src} />
         <span>مرورگر شما از صوت پشیتبانی نمی‌کنه.</span>
       </audio>
     )

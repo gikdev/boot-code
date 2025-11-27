@@ -3,6 +3,7 @@ import { useMemo } from "react"
 import { toast } from "react-toastify"
 import { patchApiV1LessonsById } from "#/api/generated/client"
 import { type FabItem, FabMenu } from "#/components/fab-menu"
+import { getEncodedLessonContent } from "#/features/blocks/slice"
 import { onError } from "#/lib/errors"
 import type { WriteLessonPageProps } from "./types"
 
@@ -22,10 +23,10 @@ export function FabMenuWrapper({ lessonId, goBack }: WriteLessonPageProps) {
 
             patchApiV1LessonsById({
               path: { id: lessonId },
-              body: { contentJson: "" },
+              body: { contentJson: getEncodedLessonContent() },
             })
               .then(() => {
-                toast.success("پاک شد.")
+                toast.success("انجام شد.")
                 goBack()
               })
               .catch(onError)

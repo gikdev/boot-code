@@ -10,6 +10,7 @@ export const BlockTypes = {
   Code: "CODE",
   Quote: "QUOTE",
   Heading: "HEADING",
+  FileDownload: "FILE_DOWNLOAD",
 } as const
 export const BlockTypeSchema = z.enum([
   BlockTypes.Text,
@@ -21,6 +22,7 @@ export const BlockTypeSchema = z.enum([
   BlockTypes.Code,
   BlockTypes.Quote,
   BlockTypes.Heading,
+  BlockTypes.FileDownload,
 ])
 export type BlockType = z.infer<typeof BlockTypeSchema>
 
@@ -75,12 +77,13 @@ export const BlockLinkButtonV1Schema = BlockBaseV1Schema.extend({
   href: z.string().url(),
   label: z.string(),
   variant: z.enum(["primary", "secondary"]).optional(),
+  newTab: z.boolean(),
   version: z.literal(1),
 })
 export type BlockLinkButtonV1 = z.infer<typeof BlockLinkButtonV1Schema>
 export type BlockLinkButtonV1Input = Pick<
   BlockLinkButtonV1,
-  "type" | "href" | "label" | "variant"
+  "type" | "href" | "label" | "variant" | "newTab"
 >
 
 export const BlockCodeV1Schema = BlockBaseV1Schema.extend({
@@ -119,6 +122,18 @@ export type BlockHeadingV1Input = Pick<
   "type" | "content" | "level"
 >
 
+export const BlockFileDownloadV1Schema = BlockBaseV1Schema.extend({
+  type: z.literal(BlockTypes.FileDownload),
+  label: z.string(),
+  fileGuid: z.string(),
+  version: z.literal(1),
+})
+export type BlockFileDownloadV1 = z.infer<typeof BlockFileDownloadV1Schema>
+export type BlockFileDownloadV1Input = Pick<
+  BlockFileDownloadV1,
+  "fileGuid" | "type" | "label"
+>
+
 export const BlockSchema = z.discriminatedUnion("type", [
   BlockTextV1Schema,
   BlockImageV1Schema,
@@ -129,6 +144,7 @@ export const BlockSchema = z.discriminatedUnion("type", [
   BlockCodeV1Schema,
   BlockQuoteV1Schema,
   BlockHeadingV1Schema,
+  BlockFileDownloadV1Schema,
 ])
 export type Block = z.infer<typeof BlockSchema>
 
@@ -142,3 +158,4 @@ export type BlockInput =
   | BlockSeparatorV1Input
   | BlockTextV1Input
   | BlockVideoV1Input
+  | BlockFileDownloadV1Input

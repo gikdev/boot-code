@@ -74,14 +74,67 @@ public class AssetsService(DbCtx db) : IAssetsService {
 
   private static string GetExtensionFromMimeType(string mimeType)
     => mimeType switch {
+      // Images
       "image/png" => ".png",
       "image/jpeg" => ".jpg",
+      "image/jpg" => ".jpg",
       "image/gif" => ".gif",
       "image/webp" => ".webp",
+      "image/bmp" => ".bmp",
+      "image/tiff" => ".tiff",
+      "image/svg+xml" => ".svg",
+      "image/x-icon" => ".ico",
+
+      // Audio
       "audio/mpeg" => ".mp3",
       "audio/wav" => ".wav",
+      "audio/ogg" => ".ogg",
+      "audio/flac" => ".flac",
+      "audio/aac" => ".aac",
+      "audio/webm" => ".webm",
+
+      // Video
       "video/mp4" => ".mp4",
+      "video/webm" => ".webm",
+      "video/x-msvideo" => ".avi",
+      "video/quicktime" => ".mov",
+      "video/x-matroska" => ".mkv",
+
+      // Documents & Text
       "application/pdf" => ".pdf",
+      "text/plain" => ".txt",
+      "text/csv" => ".csv",
+      "application/json" => ".json",
+      "application/xml" => ".xml",
+      "text/html" => ".html",
+      "text/css" => ".css",
+      "text/javascript" => ".js",
+
+      // MS Office
+      "application/msword" => ".doc",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => ".docx",
+      "application/vnd.ms-excel" => ".xls",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" => ".xlsx",
+      "application/vnd.ms-powerpoint" => ".ppt",
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation" => ".pptx",
+
+      // Archives
+      "application/zip" => ".zip",
+      "application/x-7z-compressed" => ".7z",
+      "application/x-rar-compressed" => ".rar",
+      "application/gzip" => ".gz",
+      "application/x-tar" => ".tar",
+
+      // Code & Dev
+      "application/x-sh" => ".sh",
+      "application/x-httpd-php" => ".php",
+      "application/java-archive" => ".jar",
+      "text/x-python" => ".py",
+      "text/x-csharp" => ".cs",
+      "text/x-java-source" => ".java",
+      "text/x-typescript" => ".ts",
+
+      // Fallback
       _ => ".txt"
     };
 

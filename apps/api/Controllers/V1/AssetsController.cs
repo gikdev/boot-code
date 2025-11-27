@@ -64,7 +64,7 @@ public class AssetsController(IAssetsService assetsService) : ControllerBase {
     var contentDisposition = download ? "attachment" : "inline";
     Response.Headers.Append("Content-Disposition", $"{contentDisposition}; filename=\"{fileName}\"");
 
-    return File(fileStream, fileMimeType);
+    return File(fileStream, fileMimeType, enableRangeProcessing: true);
   }
 
   [HttpDelete(ApiEndpoints.V1.Assets.Delete)]
