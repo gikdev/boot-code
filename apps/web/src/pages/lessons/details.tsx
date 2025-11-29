@@ -71,20 +71,26 @@ function LessonDetailsSkeleton() {
 }
 
 function LessonDetails({ title, contentJson }: LessonFullRes) {
+  return (
+    <div className="flex flex-col gap:2x">
+      <p className="font:bold font:3xl fg:grey-90 text:center">{title}</p>
+
+      <LessonContent contentJson={contentJson} />
+    </div>
+  )
+}
+
+function LessonContent({ contentJson }: { contentJson: string | null }) {
+  if (!contentJson) return <p className="text:center">این درس محتوا ندارد.</p>
+
   try {
     const content = WriteLessonStateSchema.parse(
-      JSON.parse(contentJson ?? "{}"),
+      JSON.parse(contentJson),
     )
 
-    return (
-      <div className="flex flex-col gap:2x">
-        <p className="font:bold font:3xl fg:grey-90 text:center">{title}</p>
-
-        {content.blocks.map(block => (
-          <BlockRenderer key={block.id} block={block} />
-        ))}
-      </div>
-    )
+    return content.blocks.map(block => (
+      <BlockRenderer key={block.id} block={block} />
+    ))
   } catch {
     console.warn("Parsing contentJSON wasn't successful.")
     return <ErrorParagraph onClick={() => {}} />
