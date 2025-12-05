@@ -1,0 +1,11 @@
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  dev-frontend: cd frontend && task
+  dev-backend: cd backend && task
+  dev:
+    aliases: [default]
+    deps: [dev-frontend, dev-backend]
+  build: powershell ./scripts/build.ps1
+  preview: cd build/ && dotnet ./Api.dll

@@ -1,0 +1,8 @@
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  run: dotnet run
+  dev:
+    aliases: [default]
+    cmds: dotnet watch run

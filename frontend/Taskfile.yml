@@ -1,0 +1,7 @@
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  dev:
+    aliases: [default]
+    cmds: npm run dev
