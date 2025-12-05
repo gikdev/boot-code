@@ -6,19 +6,21 @@ Remove-Item -Recurse -Force .\build -ErrorAction SilentlyContinue
 New-Item -ItemType Directory .\build | Out-Null
 
 Write-Host "=== Building API ==="
-Set-Location .\apps\api
+Set-Location .\backend
 Remove-Item -Recurse -Force .\publish -ErrorAction SilentlyContinue
-dotnet publish Api.csproj -c Release -o .\publish
-Copy-Item .\publish\* ..\..\build -Recurse -Force
+task publish
+Copy-Item .\publish\* ..\build -Recurse -Force
+
+Set-Location ..\
 
 Write-Host "=== Building Web Client ==="
-Set-Location ..\web
+Set-Location .\frontend
 Remove-Item -Recurse -Force .\dist -ErrorAction SilentlyContinue
-npm run build
-New-Item -ItemType Directory ..\..\build\wwwroot -Force | Out-Null
-Copy-Item .\dist\* ..\..\build\wwwroot -Recurse -Force
+task build
+New-Item -ItemType Directory ..\build\wwwroot -Force | Out-Null
+Copy-Item .\dist\* ..\build\wwwroot -Recurse -Force
 
-Set-Location ..\..\
+Set-Location ..\
 Write-Host "Build completed. Output in .\build"
 
 # ---- ZIP the build folder ----
@@ -40,4 +42,4 @@ if (Test-Path $zipFile) {
 Write-Host "Zipping build directory..."
 Compress-Archive -Path .\build\* -DestinationPath $zipFile
 
-Write-Host "ZIP complete: build.zip"
+Write-Host "ZIP complete: $zipFile"

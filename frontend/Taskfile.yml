@@ -5,3 +5,4 @@ tasks:
   dev:
     aliases: [default]
     cmds: npm run dev
+  build: npm run build

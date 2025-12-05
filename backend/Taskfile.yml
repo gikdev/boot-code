@@ -6,3 +6,4 @@ tasks:
   dev:
     aliases: [default]
     cmds: dotnet watch run
+  publish: dotnet publish api.csproj -c release -o .\publish
