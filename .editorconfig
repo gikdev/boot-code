@@ -7,10 +7,10 @@ insert_final_newline = true
 indent_style = space
 indent_size = 2
 trim_trailing_whitespace = true
+max_line_length = 120
 
 [*.{js,jsx,ts,tsx}]
 quote_type = double
-max_line_length = 120
 
 [*.cs]
 # Use K&R brace style (instead of Allman)
@@ -18,6 +18,7 @@ max_line_length = 120
 csharp_new_line_before_open_brace = none
 resharper_csharp_place_attribute_on_same_line = never
 resharper_csharp_indent_raw_literal_string = do_not_change
+indent_size = 4
 
 [*.md]
 trim_trailing_whitespace = false

@@ -6,7 +6,7 @@ export const buttonVariants = tv({
     flex items-center justify-center
     shrink-0 flex-shrink:0_svg
 
-    opacity:0.5[disabled] 
+    opacity:0.5[disabled]
     filter:greyscale(1)[disabled]
 
     font:1.4em_svg
@@ -51,7 +51,7 @@ type ButtonProps = ComponentProps<"button"> &
 export const Button = ({ className, variant, size, ...props }: ButtonProps) => (
   <button
     type="button"
-    className={cn(buttonVariants({ variant, size, className }))}
+    className={cn(buttonVariants({ variant, size, className }))()}
     {...props}
   />
 )
@@ -64,7 +64,7 @@ export const IconBtn = ({
 }: ButtonProps) => (
   <button
     type="button"
-    className={cn(buttonVariants({ variant, size, className }))}
+    className={cn(buttonVariants({ variant, size, className }))()}
     {...props}
   />
 )

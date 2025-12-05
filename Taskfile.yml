@@ -1,0 +1,35 @@
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  dev-frontend:
+    desc: Start development of `frontend`.
+    cmds:
+      - cd frontend && task
+
+  dev-backend:
+    desc: Start development of `backend`.
+    cmds:
+      - cd backend && task
+
+  dev:
+    desc: Start development of `backend` & `frontend`.
+    aliases: [default]
+    deps: [dev-frontend, dev-backend]
+
+  build:
+    desc: Build the whole project.
+    cmds:
+      - powershell ./scripts/build.ps1
+
+  preview:
+    desc: Preview the project built.
+    cmds:
+      - cd build/ && dotnet ./Api.dll
+
+  install-dependencies:
+    desc: Install dependencies (mostly used after cloning/pulling).
+    aliases: [install]
+    cmds:
+      - cd frontend && npm i
+      - cd backend && dotnet restore

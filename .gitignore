@@ -1,116 +1,18 @@
-############################
-# Node / Vite / Frontend
-############################
-
-# dependencies
-node_modules/
-
-# build output
-dist/
+# Custom
 build/
-.vite/
+build*.zip
 
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# Editor / tooling
-.eslintcache
-.stylelintcache
-
-# Environment variables
-.env
-.env.*
-!.env.example
-
-# Vite local debug
-*.local
-
-############################
-# TypeScript
-############################
-*.tsbuildinfo
-
-############################
-# Dotnet / Backend
-############################
-
-# Build output
-bin/
-obj/
-[Bb]in/
-[Oo]bj/
-[Dd]ebug*/
-[Rr]elease*/
-artifacts/
-[Pp]ublish/
-
-# User-specific
-*.user
-*.userosscache
-*.suo
-*.sln.docstates
-
-# EF / Codegen
-*Migrations/obj/
-
-# NuGet
-*.nupkg
-*.snupkg
-.project
-
-# Logs
-[Ll]og/
-[Ll]ogs/
-*.binlog
-
-# Test results
-[Tt]est[Rr]esult*/
-[Bb]uild[Ll]og.*
-*.VisualState.xml
-TestResult.xml
-nunit-*.xml
-CodeCoverage/
-
-############################
-# Scaffolding
-############################
-ScaffoldingReadMe.txt
-
-############################
-# IDEs / Editors
-############################
-
-# VS Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/extensions.json
-!.vscode/launch.json
-!.vscode/tasks.json
-
-# JetBrains (Rider / WebStorm)
+# IDEs
 .idea/
 *.iml
-
-# Visual Studio
 .vs/
 
-############################
-# OS Files
-############################
-
-# macOS
+# OS
 .DS_Store
-
-# Windows
 Thumbs.db
 desktop.ini
 
-############################
 # Misc
-############################
 *.log
 *.cache
 .temp/
@@ -118,12 +20,3 @@ tmp/
 coverage/
 ~$*
 *~
-generated/
-build/
-build*.zip
-Uploads/
-!Uploads/.gitkeep
-appsettings*.json
-!appsettings.json
-!appsettings.Sample.json
-

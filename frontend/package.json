@@ -4,11 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "openapi-ts": "openapi-ts",
-    "type-check": "tsc -b",
-    "dev": "vite --host",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "biome": "biome",
+    "tsc": "tsc",
+    "vite": "vite",
+    "openapi-ts": "openapi-ts"
   },
   "dependencies": {
     "@master/css": "^2.0.0-rc.69",
@@ -34,11 +33,13 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.5",
     "@hey-api/openapi-ts": "^0.87.2",
     "@tanstack/router-plugin": "^1.135.2",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "@types/react-syntax-highlighter": "^15.5.13",
     "@vitejs/plugin-react": "^5.1.0",
     "globals": "^16.5.0",
     "typescript": "~5.9.3",
