@@ -2,8 +2,19 @@
 version: '3'
 
 tasks:
-  run: dotnet run
+  run:
+    desc: Run the project.
+    cmds:
+      - dotnet run
+
   dev:
+    desc: Start development.
     aliases: [default]
-    cmds: dotnet watch run
-  publish: dotnet publish api.csproj -c release -o .\publish
+    cmds:
+      - dotnet watch run
+
+  build:
+    desc: Build/Publish the project.
+    aliases: [publish]
+    cmds:
+      - dotnet publish api.csproj -c release -o .\publish

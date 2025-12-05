@@ -3,6 +3,26 @@ version: '3'
 
 tasks:
   dev:
+    desc: Start development.
     aliases: [default]
-    cmds: npm run dev
-  build: npm run build
+    cmds:
+      - npm run vite -- --host
+
+  type-check:
+    desc: Type check the project for errors.
+    aliases: [type]
+    cmds:
+      - npm run tsc -- -b
+
+  build:
+    desc: Build the project.
+    cmds:
+      - task: type-check
+      - npm run vite -- build
+
+  generate-api-client:
+    desc: Generate the API client, then check for errors.
+    aliases: [api]
+    cmds:
+      - npm run openapi-ts
+      - task: type-check
