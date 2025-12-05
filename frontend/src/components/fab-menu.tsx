@@ -73,7 +73,7 @@ export function FabMenu({ items, className }: FabMenuProps) {
         "fixed bottom:4x flex flex-col gap:2x items-end z:10",
         isPositionSwitched ? "right:4x items-start" : "left:4x items-end",
         className,
-      )}
+      )()}
     >
       {isOpen && (
         <div className="flex flex-col gap:1x items-end">

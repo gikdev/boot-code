@@ -84,9 +84,7 @@ function LessonContent({ contentJson }: { contentJson: string | null }) {
   if (!contentJson) return <p className="text:center">این درس محتوا ندارد.</p>
 
   try {
-    const content = WriteLessonStateSchema.parse(
-      JSON.parse(contentJson),
-    )
+    const content = WriteLessonStateSchema.parse(JSON.parse(contentJson))
 
     return content.blocks.map(block => (
       <BlockRenderer key={block.id} block={block} />
