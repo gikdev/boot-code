@@ -10,12 +10,13 @@ tasks:
 
   type-check:
     desc: Type check the project for errors.
-    aliases: [type]
+    aliases: [type, t]
     cmds:
       - npm run tsc -- -b
 
   build:
     desc: Build the project.
+    aliases: [b]
     cmds:
       - task: type-check
       - npm run vite -- build
@@ -26,3 +27,21 @@ tasks:
     cmds:
       - npm run openapi-ts
       - task: type-check
+
+  biome-check:
+    desc: biome check the whole project.
+    aliases: [check, c]
+    cmds:
+      - npm run biome -- check --write .
+
+  biome-lint:
+    desc: biome lint the whole project.
+    aliases: [lint]
+    cmds:
+      - npm run biome -- lint --write .
+
+  biome-format:
+    desc: biome format the whole project.
+    aliases: [format]
+    cmds:
+      - npm run biome -- format --write .

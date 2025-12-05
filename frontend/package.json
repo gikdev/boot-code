@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "biome": "biome",
     "tsc": "tsc",
     "vite": "vite",
     "openapi-ts": "openapi-ts"
@@ -32,6 +33,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.5",
     "@hey-api/openapi-ts": "^0.87.2",
     "@tanstack/router-plugin": "^1.135.2",
     "@types/node": "^24.10.1",
