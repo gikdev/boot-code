@@ -18,6 +18,7 @@ max_line_length = 120
 csharp_new_line_before_open_brace = none
 resharper_csharp_place_attribute_on_same_line = never
 resharper_csharp_indent_raw_literal_string = do_not_change
+indent_size = 4
 
 [*.md]
 trim_trailing_whitespace = false
